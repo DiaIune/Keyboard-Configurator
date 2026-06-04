@@ -1,0 +1,1438 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Keyboard Configurator</title>
+  <style>
+    :root {
+      --cream: #f7efe1;
+      --paper: #fffaf0;
+      --oat: #eadcc6;
+      --sand: #dcc6a5;
+      --ink: #2e261f;
+      --muted: #786a5d;
+      --label: #59493c;
+      --link: #2f6075;
+      --chip-text: #5b4a3c;
+      --line: rgba(91, 71, 49, .22);
+      --surface: rgba(255, 250, 240, .82);
+      --surface-soft: rgba(255, 253, 247, .72);
+      --surface-card: rgba(255, 253, 247, .68);
+      --surface-warm: rgba(247, 239, 225, .7);
+      --surface-chip: rgba(247, 239, 225, .74);
+      --image-frame: #1f1e1c;
+      --layout-frame: #343434;
+      --control-bg: #fffdf7;
+      --control-ink: #2e261f;
+      --control-border: rgba(91, 71, 49, .28);
+      --select-arrow: #6e5c4e;
+      --wash-1: rgba(218,111,95,.14);
+      --wash-2: rgba(101,167,200,.18);
+      --motif-1: linear-gradient(90deg, transparent 0 100%);
+      --motif-2: linear-gradient(90deg, transparent 0 100%);
+      --motif-size-1: auto;
+      --motif-size-2: auto;
+      --red: #da6f5f;
+      --yellow: #e8bd57;
+      --green: #7fb678;
+      --blue: #65a7c8;
+      --violet: #a187c8;
+      --shadow: 0 22px 60px rgba(86, 57, 27, .13);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        var(--motif-1),
+        var(--motif-2),
+        linear-gradient(115deg, var(--wash-1), transparent 24%),
+        linear-gradient(245deg, var(--wash-2), transparent 28%),
+        var(--cream);
+      background-size: var(--motif-size-1), var(--motif-size-2), auto, auto, auto;
+      background-attachment: fixed;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    a { color: inherit; }
+
+    .page {
+      width: min(1440px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 22px 0 48px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 0 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 820;
+      font-size: 18px;
+    }
+
+    .brand a {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 820;
+      text-decoration: none;
+      text-transform: uppercase;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 7px 9px;
+      background: var(--surface-soft);
+    }
+
+    .brand a:hover {
+      color: var(--link);
+      background: var(--surface-warm);
+    }
+
+    .mark {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+      padding: 6px;
+      box-shadow: 0 8px 20px rgba(88, 60, 30, .12);
+    }
+
+    .mark i { display: block; border-radius: 4px; }
+    .mark i:nth-child(1) { background: var(--red); }
+    .mark i:nth-child(2) { background: var(--yellow); }
+    .mark i:nth-child(3) { background: var(--green); }
+    .mark i:nth-child(4) { background: var(--blue); }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .theme-picker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 820;
+      text-transform: uppercase;
+    }
+
+    .theme-picker select {
+      width: 260px;
+      min-height: 36px;
+      padding: 9px 32px 9px 10px;
+      font-size: 12px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 760;
+      color: var(--muted);
+      padding: 9px 11px;
+      border: 1px solid transparent;
+    }
+
+    .nav a:hover { border-color: var(--line); background: var(--surface-soft); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(310px, 405px) minmax(0, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel, .visual-stage, .band {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      position: sticky;
+      top: 12px;
+      padding: 16px;
+      height: 100%;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(26px, 3.1vw, 40px);
+      line-height: 1.05;
+      max-width: 720px;
+      font-weight: 900;
+    }
+
+    .lede {
+      margin: 0 0 12px;
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.42;
+    }
+
+    .controls {
+      display: grid;
+      gap: 11px;
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      color: var(--label);
+      font-size: 12px;
+      font-weight: 820;
+      text-transform: uppercase;
+    }
+
+    select {
+      width: 100%;
+      appearance: none;
+      border: 1px solid var(--control-border);
+      border-radius: 6px;
+      background:
+        linear-gradient(45deg, transparent 50%, var(--select-arrow) 50%) calc(100% - 18px) 50% / 7px 7px no-repeat,
+        linear-gradient(135deg, var(--select-arrow) 50%, transparent 50%) calc(100% - 13px) 50% / 7px 7px no-repeat,
+        var(--control-bg);
+      color: var(--control-ink);
+      padding: 10px 34px 10px 12px;
+      min-height: 40px;
+      font: 720 14px/1.2 inherit;
+    }
+
+    .swatch-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(14px, 1fr));
+      gap: 7px;
+      margin-top: 6px;
+    }
+
+    .swatch-row.compact {
+      gap: 4px;
+      margin-top: 8px;
+    }
+
+    .swatch {
+      height: 28px;
+      border: 1px solid rgba(61, 43, 25, .28);
+      border-radius: 5px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.25);
+    }
+
+    .swatch.light-solid {
+      background-image:
+        linear-gradient(45deg, rgba(45, 38, 31, .08) 25%, transparent 25% 75%, rgba(45, 38, 31, .08) 75%),
+        linear-gradient(45deg, rgba(45, 38, 31, .08) 25%, transparent 25% 75%, rgba(45, 38, 31, .08) 75%);
+      background-position: 0 0, 6px 6px;
+      background-size: 12px 12px;
+    }
+
+    .compact .swatch {
+      height: 14px;
+      border-radius: 4px;
+    }
+
+    .visual-stage {
+      overflow: hidden;
+      min-height: 585px;
+    }
+
+    .rainbow-rule {
+      height: 8px;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr 1fr .7fr .9fr;
+    }
+
+    .rainbow-rule span:nth-child(1) { background: var(--red); }
+    .rainbow-rule span:nth-child(2) { background: var(--yellow); }
+    .rainbow-rule span:nth-child(3) { background: var(--green); }
+    .rainbow-rule span:nth-child(4) { background: var(--blue); }
+    .rainbow-rule span:nth-child(5) { background: var(--violet); }
+
+    .stage-grid {
+      display: grid;
+      grid-template-columns: 1.28fr .72fr;
+      grid-template-areas:
+        "intro readout"
+        "preview readout";
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .intro {
+      grid-area: intro;
+      padding: 0 10px 0;
+    }
+
+    .preview-wrap, .readout, .rec-column, .source-box {
+      border: 1px solid rgba(91, 71, 49, .18);
+      background: var(--surface-soft);
+      border-radius: var(--radius);
+    }
+
+    .preview-wrap {
+      grid-area: preview;
+      padding: 12px;
+      min-height: 0;
+      display: grid;
+      align-content: start;
+      gap: 9px;
+    }
+
+    .keyboard {
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      min-height: 185px;
+      border-radius: 7px;
+      padding: 14px;
+      background: var(--layout-frame);
+      box-shadow: none;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .keyboard.layout-wide {
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      min-height: 185px;
+      margin: 0 auto;
+    }
+
+    .keyboard.layout-tkl {
+      width: min(760px, 96%);
+      aspect-ratio: 4.6 / 1;
+      min-height: 170px;
+      margin: 0 auto;
+    }
+
+    .keyboard.layout-75 {
+      width: min(650px, 90%);
+      aspect-ratio: 3.4 / 1;
+      min-height: 165px;
+      margin: 0 auto;
+    }
+
+    .keyboard.layout-60 {
+      width: min(520px, 82%);
+      aspect-ratio: 3.2 / 1;
+      min-height: 150px;
+      margin: 0 auto;
+    }
+
+    .keyboard.layout-hhkb {
+      width: min(520px, 82%);
+      aspect-ratio: 2.9 / 1;
+      min-height: 178px;
+      padding: 12px;
+      margin: 0 auto;
+    }
+
+    .keyboard.layout-40 {
+      width: min(440px, 74%);
+      aspect-ratio: 3 / 1;
+      min-height: 135px;
+      margin: 0 auto;
+    }
+
+    .keyboard.layout-alice {
+      width: min(680px, 92%);
+      aspect-ratio: 3.2 / 1;
+      min-height: 188px;
+      padding: 10px 12px 28px;
+      margin: 0 auto;
+    }
+
+    .keyboard img {
+      width: auto;
+      height: auto;
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 5px;
+      filter: saturate(.92) contrast(1.04);
+    }
+
+    .keyboard.layout-numpad {
+      width: min(255px, 62%);
+      aspect-ratio: 239 / 284;
+      min-height: 304px;
+      padding: 8px;
+      margin: 0 auto;
+    }
+
+    .keyboard.layout-hhkb img {
+      width: 96%;
+      height: 96%;
+      object-fit: contain;
+    }
+
+    .keyboard.layout-alice img {
+      width: 94%;
+      height: 90%;
+      object-fit: contain;
+    }
+
+    .keyboard.layout-65 {
+      width: min(430px, 78%);
+      aspect-ratio: 301 / 170;
+      min-height: 205px;
+      margin: 0 auto;
+    }
+
+    .preview-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .metric {
+      padding: 8px;
+      background: var(--surface-warm);
+      border: 1px solid rgba(91,71,49,.14);
+      border-radius: 6px;
+    }
+
+    .metric small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .metric strong { font-size: 14px; line-height: 1.2; }
+
+    .metric.case-metric {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(118px, 34%);
+      grid-template-rows: auto auto;
+      align-items: stretch;
+      column-gap: 10px;
+    }
+
+    .case-metric small,
+    .case-metric strong {
+      grid-column: 1;
+    }
+
+    .case-metric .swatch-row {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      margin: 0;
+      height: 100%;
+      grid-template-columns: 1fr;
+    }
+
+    .case-metric .swatch {
+      height: 100%;
+      min-height: 38px;
+    }
+
+    .readout {
+      grid-area: readout;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      align-content: space-between;
+      gap: clamp(8px, 1.35vh, 16px);
+    }
+
+    .profile-preview {
+      padding: 10px;
+      border: 1px solid rgba(91,71,49,.14);
+      border-radius: 7px;
+      background: var(--surface-warm);
+    }
+
+    .profile-preview h2 {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.15;
+    }
+
+    .profile-preview p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .profile-preview-frame {
+      height: 132px;
+      margin: 6px 0 5px;
+      border: 1px solid rgba(91,71,49,.14);
+      border-radius: 7px;
+      background: var(--image-frame);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      padding: 8px;
+    }
+
+    .profile-preview-frame img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: var(--pos, 50% 50%);
+      display: block;
+    }
+
+    .readout h2, .section-title {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.15;
+    }
+
+    .readout p, .source-box p {
+      color: var(--muted);
+      line-height: 1.45;
+      margin: 8px 0 0;
+      font-size: 14px;
+    }
+
+    .switch-visual {
+      aspect-ratio: 16 / 9;
+      min-height: 0;
+      height: auto;
+      display: grid;
+      place-items: center;
+      margin: 3px 0 5px;
+      border: 1px solid rgba(91,71,49,.14);
+      border-radius: 7px;
+      background: var(--surface-warm);
+      overflow: hidden;
+      padding: 4px;
+    }
+
+    .switch-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 5px;
+    }
+
+    .keycap-palette {
+      padding: 8px;
+      border: 1px solid rgba(91,71,49,.14);
+      border-radius: 7px;
+      background: var(--surface-warm);
+    }
+
+    .keycap-palette small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .sound-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      border: 1px solid rgba(91,71,49,.18);
+      background: var(--surface-chip);
+      border-radius: 999px;
+      padding: 7px 9px;
+      color: var(--chip-text);
+      font-size: 12px;
+      font-weight: 820;
+    }
+
+    .sections {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .band {
+      padding: 22px;
+      overflow: hidden;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+
+    .section-head p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      max-width: 840px;
+      line-height: 1.5;
+    }
+
+    .tier-label {
+      font-weight: 900;
+    }
+
+    .tier-budget { color: var(--green); }
+    .tier-mid-range { color: var(--blue); }
+    .tier-high { color: var(--violet); }
+
+    .rec-layout {
+      display: grid;
+      gap: 12px;
+    }
+
+    .rec-column {
+      padding: 14px;
+    }
+
+    .rec-column h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .rec-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(260px, 1fr));
+      gap: 10px;
+    }
+
+    .rec {
+      padding: 11px;
+      border-radius: 6px;
+      border: 1px solid rgba(91,71,49,.16);
+      background: var(--surface);
+    }
+
+    .rec a {
+      display: inline-block;
+      color: var(--link);
+      font-weight: 850;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .rec a:hover { text-decoration: underline; }
+    .rec p { margin: 5px 0 0; color: var(--muted); font-size: 12px; line-height: 1.35; }
+
+    .source-box {
+      display: inline-block;
+      padding: 0;
+      margin-top: 14px;
+      overflow: hidden;
+    }
+
+    .source-box summary {
+      list-style: none;
+      cursor: pointer;
+      width: max-content;
+      padding: 7px 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 820;
+      text-transform: uppercase;
+    }
+
+    .source-box summary::-webkit-details-marker { display: none; }
+
+    .source-box summary:after {
+      content: " (+)";
+    }
+
+    .source-box[open] summary:after {
+      content: " (-)";
+    }
+
+    .source-content {
+      padding: 0 14px 14px;
+    }
+
+    .source-box ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .source-box a { color: var(--link); font-weight: 760; }
+
+    @media (max-width: 980px) {
+      .hero, .stage-grid { grid-template-columns: 1fr; }
+      .stage-grid {
+        grid-template-areas:
+          "intro"
+          "preview"
+          "readout";
+      }
+      .panel { position: static; }
+      .visual-stage { min-height: 0; }
+      .topbar { align-items: flex-start; }
+      .readout { align-content: start; }
+      .switch-visual { min-height: 0; }
+    }
+
+    @media (max-width: 620px) {
+      .page { width: min(100% - 20px, 1440px); padding-top: 10px; }
+      .topbar { display: grid; }
+      .nav { justify-content: flex-start; }
+      .intro { padding: 0; }
+      .stage-grid, .band { padding: 14px; }
+      .preview-meta { grid-template-columns: 1fr; }
+      .keyboard { min-height: 150px; }
+      .section-head { display: grid; }
+      .rec-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span>Keyboard Configurator</span>
+        <a href="Pages/changelog.html">Changelog</a>
+      </div>
+      <div class="top-actions">
+        <nav class="nav" aria-label="Page sections">
+          <a href="Pages/layouts.html">Layouts</a>
+          <a href="Pages/colorways.html">Colorways</a>
+          <a href="Pages/profiles.html">Profiles</a>
+          <a href="Pages/keycaps.html">Keycaps</a>
+          <a href="Pages/boards.html">Boards</a>
+        </nav>
+        <label class="theme-picker">Theme
+          <select id="themeSelect" aria-label="Website color theme">
+            <option value="absolute">PBTFans Absolute</option>
+            <option value="olivia">GMK Olivia</option>
+            <option value="modernDolch">GMK Modern Dolch</option>
+            <option value="panels">GMK Panels</option>
+            <option value="santaNaixement">KAP Santa Llum Naixement</option>
+            <option value="santaResurreccio">KAP Santa Llum Resurreccio</option>
+            <option value="windbreaker">GMK Windbreaker</option>
+            <option value="analogDreams">GMK Analog Dreams</option>
+            <option value="britishRacingGreen">GMK British Racing Green</option>
+            <option value="copper">GMK Copper</option>
+            <option value="dualshot">GMK Dualshot</option>
+            <option value="laser">GMK Laser</option>
+            <option value="nervewrecker">GMK Nervewrecker</option>
+            <option value="phoenix">GMK Phoenix</option>
+          </select>
+        </label>
+      </div>
+    </header>
+
+    <section class="hero">
+      <aside class="panel" aria-label="Keyboard configuration controls">
+        <form class="controls">
+          <label>Keyboard layout
+            <select id="layout"></select>
+          </label>
+          <label>Switch type
+            <select id="switchType"></select>
+          </label>
+          <label>Switch sound profile
+            <select id="sound"></select>
+          </label>
+          <label>Spring weight
+            <select id="spring"></select>
+          </label>
+          <label>Budget range
+            <select id="budgetRange"></select>
+          </label>
+          <label>Keycap colorway
+            <select id="keycapColor"></select>
+          </label>
+          <label>Keycap profile
+            <select id="profile"></select>
+          </label>
+          <label>Case material
+            <select id="material"></select>
+          </label>
+          <label>Case colorway
+            <select id="caseColor"></select>
+          </label>
+        </form>
+      </aside>
+
+      <section class="visual-stage">
+        <div class="rainbow-rule" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="stage-grid">
+          <div class="intro">
+            <h1>Build a keyboard that feels like yours before you buy parts.</h1>
+            <p class="lede">Pick the layout, sound, keycaps, profile, and case finish. The preview and recommendations update together, keeping beginner choices understandable without hiding enthusiast details.</p>
+          </div>
+          <div class="preview-wrap">
+            <div class="keyboard" id="keyboardPreview" aria-label="Selected keyboard layout preview"></div>
+            <div class="preview-meta">
+              <div class="metric"><small>Layout</small><strong id="layoutMetric"></strong></div>
+              <div class="metric case-metric"><small>Case</small><strong id="caseMetric"></strong><div class="swatch-row compact" id="caseSwatches" aria-label="Selected case palette"></div></div>
+            </div>
+            <div class="profile-preview">
+              <h2 id="profileTitle"></h2>
+              <div class="profile-preview-frame" id="profilePreviewFrame"></div>
+              <p id="profileCopy"></p>
+            </div>
+          </div>
+          <div class="readout">
+            <h2 id="selectionTitle"></h2>
+            <p id="selectionCopy"></p>
+            <div class="switch-visual" aria-hidden="true">
+              <img class="switch-image" id="switchImage" src="Reference%20Library/Linear.png" alt="">
+            </div>
+            <h2 id="switchTitle"></h2>
+            <p id="switchCopy"></p>
+            <div class="keycap-palette"><small>Keycap colorway</small><strong id="keycapMetric"></strong><div class="swatch-row compact" id="keycapSwatches" aria-label="Selected keycap palette"></div></div>
+            <div class="sound-tags" id="soundTags"></div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <div class="sections">
+      <section class="band" id="keycap-options">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title" id="keycapSectionTitle"></h2>
+            <p id="keycapRecIntro"></p>
+          </div>
+        </div>
+        <div class="rec-layout">
+          <div class="rec-column"><h3 id="keycapTierTitle"></h3><div class="rec-list" id="keycapTierRecs"></div></div>
+        </div>
+      </section>
+
+      <section class="band" id="recommendations">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title" id="boardSectionTitle"></h2>
+            <p id="recIntro"></p>
+          </div>
+        </div>
+        <div class="rec-layout">
+          <div class="rec-column"><h3 id="boardTierTitle"></h3><div class="rec-list" id="boardTierRecs"></div></div>
+        </div>
+        <details class="source-box">
+          <summary>research/resources</summary>
+          <div class="source-content">
+            <p>Availability changes quickly, so the page links to product families and search terms rather than claiming every color/layout is always in stock.</p>
+            <ul>
+              <li>PBTfans Absolute is described by KBDfans as using a warm beige GMK L9 base with geometric, free-floating color compositions: <a href="https://kbdfans.com/products/pbtfans-absolute" target="_blank" rel="noreferrer">KBDfans PBTfans Absolute</a>.</li>
+              <li>KBDfans Tofu60 Redux listings show a wide aluminum/acrylic color range including white, black, gray, blue, green, purple, pink, lemon, champagne, acrylic, and raw acrylic: <a href="https://kbdfans.com/products/tofu60-redux-case" target="_blank" rel="noreferrer">KBDfans Tofu60 Redux</a>.</li>
+              <li>Keycap profile summaries use common distinctions found in current guides: sculpted versus uniform, low Cherry and KAM/XDA/MOA, medium OEM/MTNU, and tall spherical SA/KAT-style families: <a href="https://www.keychron.com/blogs/news/keycap-profiles" target="_blank" rel="noreferrer">Keychron profile guide</a> and <a href="https://mkbguide.com/blog/keycap-profiles-explained" target="_blank" rel="noreferrer">MKB Guide</a>.</li>
+              <li>Keycap recommendations include GMK, Domikey, JTK, DCS/Signature Plastics, Keyreative, Milkyway, PBTfans, NicePBT, and CannonCaps, with vendor anchors including NovelKeys, CannonKeys, Divinikey, and Unikeys.</li>
+              <li>CannonKeys' current keycap collections list broad in-stock sets across GMK, NicePBT, CannonCaps, Signature Plastics, KAT, DCS, and CXA: <a href="https://cannonkeys.com/collections/in-stock-keycaps" target="_blank" rel="noreferrer">CannonKeys in-stock keycaps</a>.</li>
+              <li>Divinikey carries brand examples such as JTK sets, including Flight and Brittle colorways, plus KAP sets such as Grey Alert; these examples help map dark/navy, translucent dark, and industrial gray/red color directions: <a href="https://divinikey.com/collections/keycap-sets" target="_blank" rel="noreferrer">Divinikey keycap sets</a>.</li>
+              <li>NovelKeys currently surfaces GMK and DCS options, and its Classic-TKL references ABS case construction plus black, beige, yellow, blue, orange, clear, pink, and translucent variants: <a href="https://novelkeys.com/collections/gmk" target="_blank" rel="noreferrer">NovelKeys GMK</a> and <a href="https://novelkeys.com/pages/classic-tkl-info" target="_blank" rel="noreferrer">Classic-TKL info</a>.</li>
+              <li>Board recommendations reference current/common families such as Keychron V/Q/Q Ultra, MonsGeek M series, Qwertykeys Neo, KBDfans Tofu, NovelKeys Classic-TKL, Weikav, Wooting, Mode, Geon, and CannonKeys, filtered by layout, material, and color direction.</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const layouts = [
+      { name: "Fullsize", copy: "100% with numpad, nav, arrows, and function row.", keys: 104, kind: "full", previewClass: "layout-wide", src: "Reference%20Library/layout-fullsize.png" },
+      { name: "1800", copy: "Compact fullsize: numpad stays, navigation compresses.", keys: 96, kind: "full", previewClass: "layout-wide", src: "Reference%20Library/layout-1800.png" },
+      { name: "96%", copy: "A beginner-friendly 1800 cousin with almost every key.", keys: 96, kind: "full", previewClass: "layout-wide", src: "Reference%20Library/layout-96.png" },
+      { name: "TKL/80%", copy: "No numpad, familiar arrows and nav cluster.", keys: 87, kind: "tkl", previewClass: "layout-tkl", src: "Reference%20Library/layout-tkl-80.png" },
+      { name: "75%", copy: "Function row plus arrows in a tighter footprint.", keys: 84, kind: "75", previewClass: "layout-75", src: "Reference%20Library/layout-75-exploded.png" },
+      { name: "70%/1800 FRL", copy: "1800-style board with function row removed.", keys: 75, kind: "75", previewClass: "layout-75", src: "Reference%20Library/layout-75-compact.png" },
+      { name: "65%", copy: "Compact typing with arrows and a few nav keys.", keys: 68, kind: "65", previewClass: "layout-65", src: "Reference%20Library/65%25.png" },
+      { name: "60%", copy: "Small classic custom format; layers do the heavy lifting.", keys: 61, kind: "60", previewClass: "layout-60", src: "Reference%20Library/60%25.png" },
+      { name: "HHKB/WKL", copy: "60% family with blocker-style bottom row personality.", keys: 60, kind: "hhkb", previewClass: "layout-hhkb", src: "Reference%20Library/HKKB.png" },
+      { name: "40%", copy: "Ultra-compact, highly layered, very portable.", keys: 42, kind: "40", previewClass: "layout-40", src: "Reference%20Library/layout-40.png" },
+      { name: "Alice/Arisu", copy: "Angled ergonomic layout with enthusiast styling.", keys: 68, kind: "alice", previewClass: "layout-alice", src: "Reference%20Library/Alice%20layout.webp" },
+      { name: "Numpad", copy: "Standalone numbers and macros.", keys: 21, kind: "numpad", previewClass: "layout-numpad", src: "Reference%20Library/Numpad%20layout.png" },
+    ];
+
+    const switchTypes = {
+      "Linear": "Smooth travel with no tactile bump. Often best for gaming, fast repeats, and a clean creamy or clacky build.",
+      "Tactile": "A bump during the press gives feedback before bottom-out. Great for typing when you want confirmation without click jacket noise.",
+      "Hall Effect": "Magnetic sensing instead of metal contacts. Excellent for gaming features like rapid trigger, adjustable actuation, and analog-like tuning."
+    };
+
+    const sounds = {
+      "Clicky": "Sharp, intentionally audible click. Fun, but not office friendly.",
+      "Clacky": "Higher-pitched, lively, crisp top-end sound.",
+      "Thocky": "Deeper, rounder, more muted pitch with fuller case resonance.",
+      "Creamy": "Smooth, soft, slightly marble-like sound from lubed linears and damped builds."
+    };
+
+    const springs = {
+      "Light": "Fast and easy to press; good for gaming or gentle typing.",
+      "Medium": "Balanced default for most people.",
+      "Heavy": "More resistance and fewer accidental presses; can feel premium but tiring."
+    };
+
+    const colorways = {
+      "PBTfans Absolute": { alpha: "#f3e5cb", mod: "#ded0b8", accents: ["#d95e55", "#e8bc54", "#76af75", "#5aa4c5"], preview: ["#f3e5cb", "#ded0b8", "#d95e55", "#e8bc54", "#76af75", "#5aa4c5"], copy: "Warm beige alphas, oatmeal modifiers, and playful primary accents inspired by PBTfans Absolute's geometric mood." },
+      "Classic Beige": { alpha: "#eee0c9", mod: "#d2b98f", accents: ["#6f5d4a"], preview: ["#eee0c9", "#d2b98f", "#6f5d4a"], copy: "GMK 9009-style cream alphas, gray-beige modifiers, and muted vintage accents." },
+      "Monochrome": { alpha: "#f6f4ef", mod: "#34322e", accents: ["#8d8a82"], preview: ["#f6f4ef", "#34322e", "#8d8a82"], copy: "GMK WoB/BoW-style contrast with a restrained gray novelty/accent lane." },
+      "Muted Pastel": { alpha: "#fff1eb", mod: "#f8dfe5", accents: ["#9bbbd0"], preview: ["#fff1eb", "#f8dfe5", "#9bbbd0"], copy: "GMK Olivia-adjacent soft alphas, blush modifiers, and gentle blue accenting." },
+      "Dark Accent": { alpha: "#232428", mod: "#3e4656", accents: ["#d97757"], preview: ["#232428", "#3e4656", "#d97757"], copy: "GMK Metropolis/Red Samurai-adjacent dark base with a vivid novelty/accent color." },
+      "Retro Terminal": { alpha: "#1f332b", mod: "#355f4b", accents: ["#b8d96d"], preview: ["#1f332b", "#355f4b", "#b8d96d"], copy: "GMK Terminal-style green-on-dark workstation energy." },
+      "Navy Cream": { alpha: "#f1e4ca", mod: "#172e46", accents: ["#dca35d"], preview: ["#f1e4ca", "#172e46", "#dca35d"], copy: "GMK Classic Blue/Navy-adjacent cream alphas, deep blue modifiers, and gold accents." },
+      "Cafe & Cocoa": { alpha: "#f0dac1", mod: "#805b44", accents: ["#3a2921"], preview: ["#f0dac1", "#805b44", "#3a2921"], copy: "GMK Cafe-style cream, coffee brown, and dark cocoa accent balance." },
+      "Industrial Gray": { alpha: "#d6d8d6", mod: "#4c5252", accents: ["#f08a36"], preview: ["#d6d8d6", "#4c5252", "#f08a36"], copy: "GMK Modern Dolch/Panels-adjacent gray base with safety-color accent keys." },
+      "Candy Brights": { alpha: "#fff7e8", mod: "#ff6b86", accents: ["#58b7ea"], preview: ["#fff7e8", "#ff6b86", "#58b7ea"], copy: "GMK Darling/Analog Dreams-adjacent neutral alphas, bright modifiers, and playful accents." },
+      "GMK Olivia": { alpha: "#f7ddd4", mod: "#342c2c", accents: ["#f1b4aa"], preview: ["#f7ddd4", "#342c2c", "#f1b4aa"], copy: "Blush alphas, dark chocolate modifiers, and soft rose accents." },
+      "GMK Modern Dolch": { alpha: "#d6d8d6", mod: "#4c5252", accents: ["#50c8c0", "#d84c68"], preview: ["#d6d8d6", "#4c5252", "#50c8c0", "#d84c68"], copy: "Cool gray alphas, dark gray modifiers, cyan accents, and restrained red-pink highlights." },
+      "GMK Panels": { alpha: "#0f7779", mod: "#214e73", accents: ["#bf2f2d", "#c9952c"], preview: ["#0f7779", "#214e73", "#bf2f2d", "#c9952c"], copy: "Deep teal and blue foundation with red and mustard panel-style accents." },
+      "KAP Santa Llum Naixement": { alpha: "#d9d74c", mod: "#23a77e", accents: ["#0e555f", "#d8921f"], preview: ["#d9d74c", "#23a77e", "#0e555f", "#d8921f"], copy: "Yellow-green, teal, deep blue-green, and warm orange stained-glass progression." },
+      "KAP Santa Llum Resurreccio": { alpha: "#dcb537", mod: "#d46d2c", accents: ["#a52d24", "#3a253b"], preview: ["#dcb537", "#d46d2c", "#a52d24", "#3a253b"], copy: "Gold, orange, red, and deep plum in a warmer stained-glass gradient." },
+      "GMK Windbreaker": { alpha: "#28c7bf", mod: "#9a74e0", accents: ["#ff5b9a", "#dff45a"], preview: ["#28c7bf", "#9a74e0", "#ff5b9a", "#dff45a"], copy: "Bright teal, purple, pink, and chartreuse with a sporty saturated feel." },
+      "GMK Analog Dreams": { alpha: "#f6efe4", mod: "#f477b5", accents: ["#75e3d4", "#e6e68c", "#ff9bd0"], preview: ["#f6efe4", "#f477b5", "#75e3d4", "#e6e68c", "#ff9bd0"], copy: "Cream alphas with stronger pink, cyan, yellow, and pastel neon nostalgia." },
+      "GMK British Racing Green": { alpha: "#f3efe5", mod: "#0f5a3c", accents: ["#e4d597"], preview: ["#f3efe5", "#0f5a3c", "#e4d597"], copy: "Ivory alphas, deep racing green modifiers, and muted gold detailing." },
+      "GMK Copper": { alpha: "#bd714e", mod: "#5a3328", accents: ["#087a7d", "#f2d2bd"], preview: ["#bd714e", "#5a3328", "#087a7d", "#f2d2bd"], copy: "Copper alphas, dark brown modifiers, teal accents, and pale metal highlights." },
+      "GMK Dualshot": { alpha: "#eef0ee", mod: "#36383a", accents: ["#f0c21b", "#1687d9", "#e5352a"], preview: ["#eef0ee", "#36383a", "#f0c21b", "#1687d9", "#e5352a"], copy: "Console gray base with yellow, blue, red, and cyan controller-style accents." },
+      "GMK Laser": { alpha: "#10082d", mod: "#5b2bd1", accents: ["#31f4ff", "#ff2f7d"], preview: ["#10082d", "#5b2bd1", "#31f4ff", "#ff2f7d"], copy: "Dark cyber purple base with cyan neon lines and magenta hot keys." },
+      "GMK Nervewrecker": { alpha: "#1e2418", mod: "#9dac1d", accents: ["#d7ee38", "#37215c"], preview: ["#1e2418", "#9dac1d", "#d7ee38", "#37215c"], copy: "Charcoal base with acid green, yellow-green, and deep purple accents." },
+      "GMK Phoenix": { alpha: "#080707", mod: "#1b1112", accents: ["#e33b22", "#f06a20", "#ffd13a"], preview: ["#080707", "#1b1112", "#e33b22", "#f06a20", "#ffd13a"], copy: "Black-heavy base with orange-red flame accents and brighter yellow-gold highlights." }
+    };
+
+    const profiles = {
+      "SA / KAT": ["Tall", "Sculpted", "Spherical", "Aggregated tall sculpted spherical family: SA is the taller retro version, KAT is a smoother medium-tall cousin."],
+      "KAM / XDA / MOA": ["Low-medium", "Uniform", "Flat or rounded uniform", "Aggregated uniform family: XDA is flatter and wider, KAM is a rounded uniform cousin, and MOA is a taller pillowy uniform option. All keep rows level for flexible kitting."],
+      "OEM": ["Medium", "Sculpted", "Cylindrical", "The standard prebuilt feel, taller than Cherry and broadly comfortable."],
+      "MTNU": ["Medium", "Sculpted", "Spherical", "Modern short sculpted profile from Matt3o/GMK lineage; cupped but less towering than SA/MT3."],
+      "Cherry": ["Low", "Sculpted", "Cylindrical", "Safest enthusiast default: lower, fast, neutral, and widely supported."]
+    };
+
+    const profileSummaryTags = {
+      "SA / KAT": ["Tall", "Sculpted", "Spherical"],
+      "KAM / XDA / MOA": ["Uniform", "Flexible rows", "Wide top"],
+      OEM: ["Medium height", "Prebuilt feel", "Familiar"],
+      MTNU: ["Medium", "Sculpted", "Spherical"],
+      Cherry: ["Fast feel", "Enthusiast default"]
+    };
+
+    const profileMedia = {
+      "SA / KAT": { src: "Reference%20Library/SA.png", pos: "50% 50%" },
+      "KAM / XDA / MOA": { src: "Reference%20Library/XDA.png", pos: "50% 50%" },
+      OEM: { src: "Reference%20Library/OEM.png", pos: "50% 50%" },
+      MTNU: { src: "Reference%20Library/MTNU.png", pos: "50% 50%" },
+      Cherry: { src: "Reference%20Library/Cherry.png", pos: "50% 50%" }
+    };
+
+    const switchMedia = {
+      Linear: "Reference%20Library/Linear.png",
+      Tactile: "Reference%20Library/Tactile.png",
+      Clicky: "Reference%20Library/Clicky.png"
+    };
+
+    const pageThemes = {
+      absolute: {
+        "--cream": "#f7efe1", "--paper": "#fffaf0", "--oat": "#eadcc6", "--sand": "#dcc6a5", "--ink": "#2e261f", "--muted": "#786a5d", "--label": "#59493c", "--link": "#2f6075", "--chip-text": "#5b4a3c",
+        "--line": "rgba(91, 71, 49, .22)", "--surface": "rgba(255, 250, 240, .82)", "--surface-soft": "rgba(255, 253, 247, .72)", "--surface-card": "rgba(255, 253, 247, .68)", "--surface-warm": "rgba(247, 239, 225, .7)", "--surface-chip": "rgba(247, 239, 225, .74)", "--control-bg": "#fffdf7", "--control-ink": "#2e261f", "--control-border": "rgba(91, 71, 49, .28)", "--select-arrow": "#6e5c4e", "--image-frame": "#1f1e1c", "--layout-frame": "#343434",
+        "--wash-1": "rgba(218,111,95,.14)", "--wash-2": "rgba(101,167,200,.18)", "--motif-1": "linear-gradient(118deg, transparent 0 12%, rgba(218, 111, 95, .16) 12% 13.2%, transparent 13.2% 100%), linear-gradient(72deg, transparent 0 72%, rgba(232, 189, 87, .16) 72% 73.4%, transparent 73.4% 100%)", "--motif-2": "radial-gradient(circle at 72% 18%, rgba(127, 182, 120, .14) 0 42px, transparent 43px), radial-gradient(circle at 86% 76%, rgba(101, 167, 200, .13) 0 58px, transparent 59px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#da6f5f", "--yellow": "#e8bd57", "--green": "#7fb678", "--blue": "#65a7c8", "--violet": "#a187c8", "--shadow": "0 22px 60px rgba(86, 57, 27, .13)"
+      },
+      olivia: {
+        "--cream": "#342c2c", "--paper": "#f7ddd4", "--oat": "#4a3b3a", "--sand": "#e8b5aa", "--ink": "#fff4ee", "--muted": "#e6c8c0", "--label": "#f4d7cf", "--link": "#ffd2c8", "--chip-text": "#fff0ea",
+        "--line": "rgba(255, 221, 213, .28)", "--surface": "rgba(54, 45, 45, .86)", "--surface-soft": "rgba(72, 57, 56, .78)", "--surface-card": "rgba(64, 51, 50, .74)", "--surface-warm": "rgba(92, 69, 66, .72)", "--surface-chip": "rgba(83, 61, 60, .82)", "--control-bg": "#fff7f2", "--control-ink": "#332d2b", "--control-border": "rgba(255, 221, 213, .34)", "--select-arrow": "#6a504b", "--image-frame": "#211c1c", "--layout-frame": "#2d2727",
+        "--wash-1": "rgba(244,171,160,.24)", "--wash-2": "rgba(25,22,22,.42)", "--motif-1": "linear-gradient(135deg, transparent 0 55%, rgba(30, 26, 26, .34) 55% 61%, transparent 61% 100%), linear-gradient(45deg, transparent 0 18%, rgba(241, 180, 170, .24) 18% 22%, transparent 22% 100%)", "--motif-2": "radial-gradient(circle at 9% 18%, rgba(246, 190, 178, .2) 0 56px, transparent 57px), radial-gradient(circle at 88% 24%, rgba(24, 22, 22, .42) 0 82px, transparent 83px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#f1b4aa", "--yellow": "#f5d5be", "--green": "#a48680", "--blue": "#2f2a2a", "--violet": "#c58f93", "--shadow": "0 22px 60px rgba(24, 18, 18, .28)"
+      },
+      modernDolch: {
+        "--cream": "#d6d8d6", "--paper": "#eef0ee", "--oat": "#bec4c1", "--sand": "#9da5a3", "--ink": "#24292a", "--muted": "#5f6869", "--label": "#3e4748", "--link": "#24736f", "--chip-text": "#3e4748",
+        "--line": "rgba(35, 42, 43, .24)", "--surface": "rgba(238, 240, 238, .82)", "--surface-soft": "rgba(247, 248, 247, .72)", "--surface-card": "rgba(241, 243, 242, .7)", "--surface-warm": "rgba(214, 219, 218, .72)", "--surface-chip": "rgba(218, 224, 223, .78)", "--control-bg": "#f7f8f7", "--control-ink": "#24292a", "--control-border": "rgba(35, 42, 43, .28)", "--select-arrow": "#4f5a5a", "--image-frame": "#24292a", "--layout-frame": "#343b3c",
+        "--wash-1": "rgba(76, 205, 197, .2)", "--wash-2": "rgba(218, 78, 105, .16)", "--motif-1": "linear-gradient(rgba(63, 75, 75, .08) 1px, transparent 1px), linear-gradient(90deg, rgba(63, 75, 75, .08) 1px, transparent 1px)", "--motif-2": "radial-gradient(circle at 80% 20%, rgba(80, 200, 192, .16) 0 60px, transparent 61px), linear-gradient(110deg, transparent 0 74%, rgba(216, 76, 104, .14) 74% 75.4%, transparent 75.4% 100%)", "--motif-size-1": "42px 42px", "--motif-size-2": "auto", "--red": "#d84c68", "--yellow": "#aab2ad", "--green": "#5f6c6c", "--blue": "#50c8c0", "--violet": "#3f4b4b", "--shadow": "0 22px 60px rgba(31, 39, 40, .15)"
+      },
+      panels: {
+        "--cream": "#0f7779", "--paper": "#e8ece3", "--oat": "#1f5c72", "--sand": "#c3942e", "--ink": "#f3f0df", "--muted": "#d2dfd4", "--label": "#edf0dc", "--link": "#ffe08a", "--chip-text": "#f3f0df",
+        "--line": "rgba(230, 238, 222, .26)", "--surface": "rgba(19, 96, 105, .84)", "--surface-soft": "rgba(20, 112, 116, .78)", "--surface-card": "rgba(18, 91, 102, .72)", "--surface-warm": "rgba(28, 123, 121, .72)", "--surface-chip": "rgba(28, 100, 119, .82)", "--control-bg": "#eef0e8", "--control-ink": "#123f46", "--control-border": "rgba(10, 52, 58, .36)", "--select-arrow": "#123f46", "--image-frame": "#0b3438", "--layout-frame": "#0d4248",
+        "--wash-1": "rgba(190, 39, 36, .22)", "--wash-2": "rgba(213, 158, 42, .24)", "--motif-1": "linear-gradient(90deg, rgba(33, 78, 115, .26) 0 18%, transparent 18% 35%, rgba(201, 149, 44, .22) 35% 43%, transparent 43% 100%)", "--motif-2": "linear-gradient(0deg, transparent 0 70%, rgba(191, 47, 45, .2) 70% 72%, transparent 72% 100%), radial-gradient(circle at 78% 70%, rgba(243, 240, 223, .1) 0 70px, transparent 71px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#bf2f2d", "--yellow": "#c9952c", "--green": "#1b8b84", "--blue": "#214e73", "--violet": "#17385a", "--shadow": "0 22px 60px rgba(2, 39, 44, .24)"
+      },
+      santaNaixement: {
+        "--cream": "#b9bbb4", "--paper": "#f4f2e8", "--oat": "#d7d2ad", "--sand": "#c9952b", "--ink": "#172a2f", "--muted": "#50615e", "--label": "#253c38", "--link": "#056e68", "--chip-text": "#223b37",
+        "--line": "rgba(23, 42, 47, .24)", "--surface": "rgba(244, 242, 232, .84)", "--surface-soft": "rgba(250, 248, 239, .76)", "--surface-card": "rgba(247, 244, 235, .72)", "--surface-warm": "rgba(218, 211, 171, .62)", "--surface-chip": "rgba(231, 225, 184, .72)", "--control-bg": "#fbf9f0", "--control-ink": "#172a2f", "--control-border": "rgba(23, 42, 47, .28)", "--select-arrow": "#36544f", "--image-frame": "#10262b", "--layout-frame": "#243d40",
+        "--wash-1": "rgba(20, 155, 117, .34)", "--wash-2": "rgba(215, 151, 30, .34)", "--motif-1": "linear-gradient(118deg, transparent 0 10%, rgba(216, 145, 25, .38) 10% 14%, transparent 14% 31%, rgba(215, 215, 76, .32) 31% 35%, transparent 35% 58%, rgba(35, 151, 115, .34) 58% 63%, transparent 63% 100%)", "--motif-2": "linear-gradient(68deg, transparent 0 70%, rgba(9, 79, 89, .3) 70% 75%, transparent 75% 100%), radial-gradient(circle at 80% 18%, rgba(234, 218, 83, .34) 0 64px, transparent 65px), radial-gradient(circle at 12% 78%, rgba(7, 102, 99, .28) 0 94px, transparent 95px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#d8921f", "--yellow": "#d9d74c", "--green": "#71aa24", "--blue": "#0e555f", "--violet": "#23a77e", "--shadow": "0 22px 60px rgba(31, 59, 51, .2)"
+      },
+      santaResurreccio: {
+        "--cream": "#b8b8b5", "--paper": "#f5eee3", "--oat": "#e2bd5a", "--sand": "#c4562f", "--ink": "#281c25", "--muted": "#684e52", "--label": "#4d2f34", "--link": "#9b2f24", "--chip-text": "#4d2f34",
+        "--line": "rgba(55, 31, 37, .25)", "--surface": "rgba(245, 238, 227, .84)", "--surface-soft": "rgba(252, 246, 235, .76)", "--surface-card": "rgba(248, 241, 231, .72)", "--surface-warm": "rgba(226, 188, 90, .46)", "--surface-chip": "rgba(232, 205, 127, .62)", "--control-bg": "#fcf6eb", "--control-ink": "#281c25", "--control-border": "rgba(55, 31, 37, .28)", "--select-arrow": "#5c3840", "--image-frame": "#211620", "--layout-frame": "#33242f",
+        "--wash-1": "rgba(196, 56, 36, .36)", "--wash-2": "rgba(228, 181, 48, .34)", "--motif-1": "linear-gradient(112deg, transparent 0 12%, rgba(89, 31, 54, .32) 12% 17%, transparent 17% 34%, rgba(164, 45, 36, .36) 34% 40%, transparent 40% 62%, rgba(223, 133, 31, .34) 62% 67%, transparent 67% 100%)", "--motif-2": "linear-gradient(68deg, transparent 0 72%, rgba(63, 38, 68, .3) 72% 78%, transparent 78% 100%), radial-gradient(circle at 12% 20%, rgba(237, 194, 64, .34) 0 64px, transparent 65px), radial-gradient(circle at 86% 74%, rgba(64, 35, 62, .3) 0 92px, transparent 93px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#a52d24", "--yellow": "#dcb537", "--green": "#d46d2c", "--blue": "#3a253b", "--violet": "#6a324a", "--shadow": "0 22px 60px rgba(75, 33, 31, .22)"
+      },
+      windbreaker: {
+        "--cream": "#28c7bf", "--paper": "#eef0ff", "--oat": "#a990e6", "--sand": "#dff45a", "--ink": "#173047", "--muted": "#405d73", "--label": "#284a60", "--link": "#b32971", "--chip-text": "#284a60",
+        "--line": "rgba(23, 48, 71, .24)", "--surface": "rgba(238, 240, 255, .84)", "--surface-soft": "rgba(247, 248, 255, .76)", "--surface-card": "rgba(242, 245, 255, .72)", "--surface-warm": "rgba(169, 144, 230, .46)", "--surface-chip": "rgba(205, 196, 245, .58)", "--control-bg": "#fbfbff", "--control-ink": "#173047", "--control-border": "rgba(23, 48, 71, .28)", "--select-arrow": "#365d76", "--image-frame": "#173047", "--layout-frame": "#273a71",
+        "--wash-1": "rgba(255, 86, 151, .24)", "--wash-2": "rgba(223, 244, 90, .22)", "--motif-1": "linear-gradient(90deg, rgba(154, 116, 224, .24) 0 22%, transparent 22% 38%, rgba(255, 88, 148, .2) 38% 51%, transparent 51% 100%)", "--motif-2": "linear-gradient(135deg, transparent 0 58%, rgba(223, 244, 90, .2) 58% 60%, transparent 60% 100%), radial-gradient(circle at 84% 22%, rgba(72, 213, 224, .2) 0 70px, transparent 71px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#ff5b9a", "--yellow": "#dff45a", "--green": "#63d76a", "--blue": "#28c7bf", "--violet": "#9a74e0", "--shadow": "0 22px 60px rgba(25, 65, 99, .17)"
+      },
+      analogDreams: {
+        "--cream": "#2a1234", "--paper": "#f6efe4", "--oat": "#f4bdd5", "--sand": "#e6e68c", "--ink": "#fff4fb", "--muted": "#f0c8e6", "--label": "#ffe0f3", "--link": "#8ff3ee", "--chip-text": "#fff4fb",
+        "--line": "rgba(255, 210, 239, .28)", "--surface": "rgba(62, 25, 78, .84)", "--surface-soft": "rgba(85, 34, 103, .78)", "--surface-card": "rgba(71, 28, 91, .74)", "--surface-warm": "rgba(119, 64, 133, .66)", "--surface-chip": "rgba(87, 42, 104, .82)", "--control-bg": "#fff0f7", "--control-ink": "#35173f", "--control-border": "rgba(255, 210, 239, .34)", "--select-arrow": "#552c62", "--image-frame": "#210f2d", "--layout-frame": "#321642",
+        "--wash-1": "rgba(247, 119, 181, .38)", "--wash-2": "rgba(122, 236, 229, .32)", "--motif-1": "linear-gradient(135deg, transparent 0 20%, rgba(244, 119, 181, .34) 20% 27%, transparent 27% 46%, rgba(144, 244, 236, .32) 46% 53%, transparent 53% 72%, rgba(230, 230, 140, .28) 72% 78%, transparent 78% 100%)", "--motif-2": "radial-gradient(circle at 82% 22%, rgba(255, 155, 208, .24) 0 82px, transparent 83px), radial-gradient(circle at 12% 78%, rgba(120, 238, 229, .24) 0 104px, transparent 105px), radial-gradient(circle at 26% 18%, rgba(230, 230, 140, .18) 0 62px, transparent 63px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#f477b5", "--yellow": "#e6e68c", "--green": "#75e3d4", "--blue": "#86dfe9", "--violet": "#b875c7", "--shadow": "0 22px 60px rgba(27, 9, 40, .28)"
+      },
+      britishRacingGreen: {
+        "--cream": "#0c3828", "--paper": "#f3efe5", "--oat": "#c9b77d", "--sand": "#d9c889", "--ink": "#f6f2e4", "--muted": "#c9d8cb", "--label": "#eef0de", "--link": "#e9d47d", "--chip-text": "#f6f2e4",
+        "--line": "rgba(237, 229, 196, .28)", "--surface": "rgba(9, 55, 39, .86)", "--surface-soft": "rgba(13, 70, 49, .78)", "--surface-card": "rgba(11, 62, 44, .74)", "--surface-warm": "rgba(34, 82, 56, .72)", "--surface-chip": "rgba(30, 76, 54, .82)", "--control-bg": "#f5f0e4", "--control-ink": "#0c3828", "--control-border": "rgba(237, 229, 196, .34)", "--select-arrow": "#254d38", "--image-frame": "#062a1d", "--layout-frame": "#0b3427",
+        "--wash-1": "rgba(5, 92, 55, .32)", "--wash-2": "rgba(217, 200, 137, .22)", "--motif-1": "linear-gradient(115deg, transparent 0 20%, rgba(217, 200, 137, .24) 20% 22%, transparent 22% 100%), linear-gradient(65deg, transparent 0 72%, rgba(9, 86, 53, .3) 72% 76%, transparent 76% 100%)", "--motif-2": "radial-gradient(circle at 84% 20%, rgba(241, 237, 220, .14) 0 64px, transparent 65px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#c9b77d", "--yellow": "#e4d597", "--green": "#0f5a3c", "--blue": "#123f32", "--violet": "#f3efe5", "--shadow": "0 22px 60px rgba(3, 31, 22, .3)"
+      },
+      copper: {
+        "--cream": "#087a7d", "--paper": "#f2d2bd", "--oat": "#5a3328", "--sand": "#bd714e", "--ink": "#fff3e8", "--muted": "#efc7b6", "--label": "#ffd9c4", "--link": "#9ff2ee", "--chip-text": "#fff3e8",
+        "--line": "rgba(255, 216, 191, .28)", "--surface": "rgba(12, 83, 83, .86)", "--surface-soft": "rgba(18, 105, 103, .78)", "--surface-card": "rgba(14, 88, 88, .74)", "--surface-warm": "rgba(93, 61, 48, .72)", "--surface-chip": "rgba(101, 66, 52, .82)", "--control-bg": "#f7dcc9", "--control-ink": "#3d241e", "--control-border": "rgba(255, 216, 191, .34)", "--select-arrow": "#5a3328", "--image-frame": "#17302c", "--layout-frame": "#0c4e50",
+        "--wash-1": "rgba(188, 103, 70, .3)", "--wash-2": "rgba(0, 137, 143, .28)", "--motif-1": "linear-gradient(100deg, transparent 0 18%, rgba(188, 103, 70, .34) 18% 22%, transparent 22% 58%, rgba(15, 113, 115, .3) 58% 63%, transparent 63% 100%)", "--motif-2": "radial-gradient(circle at 82% 20%, rgba(118, 59, 42, .28) 0 82px, transparent 83px), radial-gradient(circle at 10% 78%, rgba(120, 222, 220, .14) 0 90px, transparent 91px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#bd714e", "--yellow": "#d49a73", "--green": "#087a7d", "--blue": "#0b5960", "--violet": "#3a2620", "--shadow": "0 22px 60px rgba(31, 31, 24, .26)"
+      },
+      dualshot: {
+        "--cream": "#575a5f", "--paper": "#eef0ee", "--oat": "#36383a", "--sand": "#f0c21b", "--ink": "#f4f5ef", "--muted": "#d2d8d8", "--label": "#ecefea", "--link": "#4ed1da", "--chip-text": "#f4f5ef",
+        "--line": "rgba(238, 241, 236, .25)", "--surface": "rgba(58, 60, 63, .86)", "--surface-soft": "rgba(75, 78, 82, .78)", "--surface-card": "rgba(66, 68, 72, .74)", "--surface-warm": "rgba(85, 88, 92, .72)", "--surface-chip": "rgba(74, 78, 82, .82)", "--control-bg": "#f1f2ed", "--control-ink": "#252729", "--control-border": "rgba(238, 241, 236, .34)", "--select-arrow": "#44484c", "--image-frame": "#202326", "--layout-frame": "#34373b",
+        "--wash-1": "rgba(240, 194, 27, .22)", "--wash-2": "rgba(30, 160, 210, .22)", "--motif-1": "linear-gradient(90deg, rgba(229, 53, 42, .24) 0 7%, transparent 7% 24%, rgba(240, 194, 27, .26) 24% 38%, transparent 38% 58%, rgba(60, 197, 205, .22) 58% 72%, transparent 72% 100%)", "--motif-2": "linear-gradient(0deg, transparent 0 74%, rgba(238, 241, 236, .14) 74% 75%, transparent 75% 100%)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#e5352a", "--yellow": "#f0c21b", "--green": "#6bd0bf", "--blue": "#1687d9", "--violet": "#36383a", "--shadow": "0 22px 60px rgba(18, 20, 22, .28)"
+      },
+      laser: {
+        "--cream": "#10082d", "--paper": "#25124e", "--oat": "#34206a", "--sand": "#ff2f7d", "--ink": "#e6faff", "--muted": "#a9d8e8", "--label": "#c7f6ff", "--link": "#31f4ff", "--chip-text": "#e6faff",
+        "--line": "rgba(49, 244, 255, .3)", "--surface": "rgba(17, 9, 45, .88)", "--surface-soft": "rgba(31, 15, 72, .82)", "--surface-card": "rgba(26, 13, 60, .78)", "--surface-warm": "rgba(47, 24, 91, .76)", "--surface-chip": "rgba(42, 22, 82, .86)", "--control-bg": "#211246", "--control-ink": "#e6faff", "--control-border": "rgba(49, 244, 255, .38)", "--select-arrow": "#31f4ff", "--image-frame": "#09051e", "--layout-frame": "#140930",
+        "--wash-1": "rgba(49, 244, 255, .24)", "--wash-2": "rgba(255, 47, 125, .28)", "--motif-1": "linear-gradient(rgba(49, 244, 255, .12) 1px, transparent 1px), linear-gradient(90deg, rgba(49, 244, 255, .12) 1px, transparent 1px)", "--motif-2": "radial-gradient(circle at 84% 18%, rgba(49, 244, 255, .2) 0 82px, transparent 83px), linear-gradient(110deg, transparent 0 72%, rgba(255, 47, 125, .22) 72% 75%, transparent 75% 100%)", "--motif-size-1": "36px 36px", "--motif-size-2": "auto", "--red": "#ff2f7d", "--yellow": "#ff7a36", "--green": "#31f4ff", "--blue": "#2f2db4", "--violet": "#5b2bd1", "--shadow": "0 22px 60px rgba(4, 2, 18, .36)"
+      },
+      nervewrecker: {
+        "--cream": "#1e2418", "--paper": "#d8de6b", "--oat": "#37215c", "--sand": "#9dac1d", "--ink": "#eef4d2", "--muted": "#cbd4a4", "--label": "#edf5c5", "--link": "#d7ee38", "--chip-text": "#eef4d2",
+        "--line": "rgba(218, 238, 75, .28)", "--surface": "rgba(31, 38, 25, .88)", "--surface-soft": "rgba(47, 55, 33, .8)", "--surface-card": "rgba(39, 47, 30, .76)", "--surface-warm": "rgba(55, 33, 92, .68)", "--surface-chip": "rgba(54, 45, 72, .82)", "--control-bg": "#d8de6b", "--control-ink": "#1e2418", "--control-border": "rgba(218, 238, 75, .36)", "--select-arrow": "#37215c", "--image-frame": "#11150e", "--layout-frame": "#222818",
+        "--wash-1": "rgba(158, 180, 22, .34)", "--wash-2": "rgba(73, 34, 121, .28)", "--motif-1": "radial-gradient(circle at 18% 22%, rgba(158, 180, 22, .28) 0 86px, transparent 87px), radial-gradient(circle at 84% 78%, rgba(73, 34, 121, .3) 0 100px, transparent 101px)", "--motif-2": "linear-gradient(118deg, transparent 0 18%, rgba(218, 238, 75, .24) 18% 21%, transparent 21% 62%, rgba(67, 38, 107, .26) 62% 66%, transparent 66% 100%)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#7d54b2", "--yellow": "#d7ee38", "--green": "#9dac1d", "--blue": "#4a3a67", "--violet": "#37215c", "--shadow": "0 22px 60px rgba(9, 13, 8, .34)"
+      },
+      phoenix: {
+        "--cream": "#080707", "--paper": "#171111", "--oat": "#2a1615", "--sand": "#f06a20", "--ink": "#fff1c2", "--muted": "#f0b66c", "--label": "#ffd984", "--link": "#ffd13a", "--chip-text": "#fff1c2",
+        "--line": "rgba(255, 189, 58, .34)", "--surface": "rgba(8, 7, 7, .94)", "--surface-soft": "rgba(22, 15, 15, .9)", "--surface-card": "rgba(14, 10, 10, .86)", "--surface-warm": "rgba(52, 19, 14, .82)", "--surface-chip": "rgba(34, 18, 15, .9)", "--control-bg": "#130d0d", "--control-ink": "#fff1c2", "--control-border": "rgba(255, 189, 58, .42)", "--select-arrow": "#ffd13a", "--image-frame": "#030303", "--layout-frame": "#0a0808",
+        "--wash-1": "rgba(227, 59, 34, .42)", "--wash-2": "rgba(255, 209, 58, .3)", "--motif-1": "radial-gradient(circle at 82% 22%, rgba(240, 106, 32, .4) 0 92px, transparent 93px), radial-gradient(circle at 12% 82%, rgba(255, 209, 58, .28) 0 82px, transparent 83px)", "--motif-2": "linear-gradient(125deg, transparent 0 54%, rgba(8, 7, 7, .62) 54% 64%, transparent 64% 100%), linear-gradient(68deg, transparent 0 18%, rgba(227, 59, 34, .36) 18% 23%, transparent 23% 58%, rgba(255, 209, 58, .28) 58% 62%, transparent 62% 100%)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#e33b22", "--yellow": "#ffd13a", "--green": "#f06a20", "--blue": "#080707", "--violet": "#1b1112", "--shadow": "0 22px 60px rgba(0, 0, 0, .46)"
+      }
+    };
+
+    const materialColors = {
+      "Aluminum": {
+        "Black": "#252322", "Silver": "#c8c6bf", "Gray": "#777872", "E White": "#f4f0e8",
+        "Navy": "#243a54", "Burgundy": "#7e3f3e", "Forest Green": "#405a46", "Lavender": "#9a84b6",
+        "Champagne": "#d5bd8c", "Pink": "#e4a5aa", "Baby Blue": "#9fc7da", "Red": "#c95b50"
+      },
+      "ABS Plastic": {
+        "Black": "#282624", "White": "#f7f4eb", "Warm Gray": "#b7b0a2", "Cream": "#ead8b7",
+        "Navy": "#263d5a", "Mint": "#a8cfb3", "Blush": "#e8b0b1", "Yellow": "#e9c95b"
+      },
+      "Polycarbonate": {
+        "Frosted Clear": "#dce9e6", "Smoky Black": "#4b4b50", "Milky White": "#f1eee2", "Translucent Blue": "#8ebbd3",
+        "Translucent Purple": "#b6a1d0", "Translucent Green": "#9cc9a3", "Translucent Pink": "#e8abb8", "Opaque Cream": "#ead9bd"
+      }
+    };
+
+    const keycapColorTags = {
+      "PBTfans Absolute": ["cream", "beige", "rainbow", "primary", "geometric", "bright"],
+      "Classic Beige": ["beige", "cream", "retro", "gray"],
+      "Monochrome": ["mono", "black", "white", "gray"],
+      "Muted Pastel": ["pastel", "soft", "pink", "blue", "cream"],
+      "Dark Accent": ["dark", "black", "accent", "teal", "red", "yellow"],
+      "Retro Terminal": ["terminal", "green", "dark", "beige", "retro"],
+      "Navy Cream": ["navy", "blue", "cream", "gold"],
+      "Cafe & Cocoa": ["brown", "cream", "coffee", "beige"],
+      "Industrial Gray": ["gray", "industrial", "orange", "red", "yellow"],
+      "Candy Brights": ["bright", "pink", "yellow", "blue", "green", "rainbow"],
+      "GMK Olivia": ["pastel", "soft", "pink", "cream", "brown", "dark"],
+      "GMK Modern Dolch": ["gray", "mono", "teal", "red", "dark", "industrial"],
+      "GMK Panels": ["teal", "blue", "red", "yellow", "bright", "geometric"],
+      "KAP Santa Llum Naixement": ["green", "teal", "yellow", "orange", "bright"],
+      "KAP Santa Llum Resurreccio": ["gold", "orange", "red", "purple", "warm", "bright"],
+      "GMK Windbreaker": ["bright", "teal", "purple", "pink", "yellow", "green"],
+      "GMK Analog Dreams": ["pastel", "pink", "teal", "yellow", "purple", "cream", "bright"],
+      "GMK British Racing Green": ["green", "cream", "gold", "classic", "dark"],
+      "GMK Copper": ["brown", "teal", "cream", "orange", "dark"],
+      "GMK Dualshot": ["gray", "mono", "yellow", "blue", "red", "bright"],
+      "GMK Laser": ["dark", "purple", "teal", "pink", "bright"],
+      "GMK Nervewrecker": ["dark", "green", "purple", "yellow", "bright"],
+      "GMK Phoenix": ["dark", "red", "orange", "yellow", "black"]
+    };
+
+    const keycapColorRecs = {
+      "PBTfans Absolute": "warm beige alphas, oatmeal modifiers, geometric legends, and primary-color accents",
+      "Classic Beige": "9009, retro beige, gray-beige, and vintage computer color matching",
+      "Monochrome": "BoW, WoB, gray-on-white, white-on-black, and minimal grayscale sets",
+      "Muted Pastel": "soft PBT color, pastel modifiers, gentle sublegends, and low-contrast legends",
+      "Dark Accent": "dark bases with teal, red, yellow, warning, or terminal-style accent keys",
+      "Retro Terminal": "green terminal, beige terminal, workstation, and old-computer palettes",
+      "Navy Cream": "navy modifiers, cream alphas, aviation blues, nautical blues, and gold accents",
+      "Cafe & Cocoa": "coffee, chocolate, cafe, cream, caramel, and warm neutral keycap themes",
+      "Industrial Gray": "gray bases with orange, yellow, red, alert rows, or safety-color accent keys",
+      "Candy Brights": "saturated modifiers, playful novelties, rainbow accents, and neutral alphas",
+      "GMK Olivia": "blush, soft pink, dark brown modifiers, and elegant low-contrast legends",
+      "GMK Modern Dolch": "cool gray, dark gray, cyan, and red-pink accent colorways",
+      "GMK Panels": "teal, blue, red, mustard, and geometric panel color blocking",
+      "KAP Santa Llum Naixement": "green, teal, yellow, and orange stained-glass gradients",
+      "KAP Santa Llum Resurreccio": "gold, orange, red, and plum stained-glass gradients",
+      "GMK Windbreaker": "bright teal, purple, pink, chartreuse, and sporty saturated colorways",
+      "GMK Analog Dreams": "cream alphas, stronger pastel pink, cyan, yellow, lavender, and retro-neon accents",
+      "GMK British Racing Green": "ivory alphas, deep green modifiers, and muted gold details",
+      "GMK Copper": "copper, brown, teal, and pale metal highlight colorways",
+      "GMK Dualshot": "console gray, yellow, blue, red, and cyan accent colorways",
+      "GMK Laser": "dark purple, neon cyan, magenta, and cyberpunk colorways",
+      "GMK Nervewrecker": "charcoal, acid green, yellow-green, and deep purple colorways",
+      "GMK Phoenix": "black-heavy, orange-red flame, and bright gold highlight colorways"
+    };
+
+    const keycapCandidates = [
+      { tier: "Budget", name: "CannonKeys NicePBT / CannonCaps", brand: "NicePBT, CannonCaps", vendors: "CannonKeys", url: "https://cannonkeys.com/collections/cannonkeys-keycaps", profiles: ["Cherry"], colors: ["mono", "pastel", "bright", "green", "blue", "cream", "brown", "retro"], copy: "In-stock beginner-friendly PBT with broad kitting; strong first stop for Cherry-profile color matching." },
+      { tier: "Budget", name: "KAP keycap sets", brand: "KAP", vendors: "Divinikey, CannonKeys", url: "https://divinikey.com/search?q=KAP+keycaps", profiles: ["Cherry"], colors: ["gray", "industrial", "red", "mono", "dark"], copy: "KAP is the brand/series; Grey Alert is a specific gray/red colorway example that fits industrial, monochrome, and dark-accent builds." },
+      { tier: "Budget", name: "DCS 9009", brand: "Signature Plastics DCS", vendors: "CannonKeys", url: "https://cannonkeys.com/products/dcs-9009-keycaps", profiles: ["Cherry", "OEM", "MTNU"], colors: ["beige", "retro", "gray", "cream"], copy: "Classic 9009/vintage color direction in lower-profile DCS; useful when beige and retro are the target." },
+      { tier: "Budget", name: "XVX / YMDK XDA and MOA searches", brand: "XVX, YMDK", vendors: "Amazon, AliExpress, marketplace", url: "https://www.google.com/search?q=XDA+MOA+keycap+set", profiles: ["KAM / XDA / MOA"], colors: ["mono", "pastel", "bright", "cream", "blue", "pink"], copy: "Lowest-friction way to test uniform XDA/MOA shapes before committing to a designer kit." },
+      { tier: "Mid-range", name: "PBTfans Cherry profile sets", brand: "PBTfans", vendors: "KBDfans, Divinikey, other regional vendors", url: "https://kbdfans.com/collections/pbtfans", profiles: ["Cherry"], colors: ["cream", "beige", "navy", "blue", "gray", "mono", "pastel", "bright", "brown"], copy: "Polished Cherry-profile PBT with enthusiast color direction; best fit for refined but accessible builds." },
+      { tier: "Mid-range", name: "Milkyway PBT sets", brand: "Milkyway", vendors: "CannonKeys, Divinikey, regional vendors", url: "https://www.google.com/search?q=Milkyway+keycaps+NovelKeys+CannonKeys+Divinikey+Unikeys", profiles: ["Cherry"], colors: ["pastel", "bright", "blue", "cream", "brown", "dark", "green"], copy: "Good hunting ground for expressive PBT colorways, sublegends, and novelty-heavy sets." },
+      { tier: "Mid-range", name: "Domikey Cherry profile sets", brand: "Domikey", vendors: "NovelKeys, Divinikey, Unikeys, regional vendors", url: "https://www.google.com/search?q=Domikey+keycaps+NovelKeys+Divinikey+Unikeys", profiles: ["Cherry"], colors: ["mono", "dark", "terminal", "green", "navy", "cream", "red"], copy: "Often a strong ABS/Cherry alternative when you want deeper colors, doubleshot legends, or classic GMK-adjacent themes." },
+      { tier: "Mid-range", name: "JTK keycap sets", brand: "JTK", vendors: "Divinikey, NovelKeys, regional vendors", url: "https://divinikey.com/search?q=JTK+keycaps", profiles: ["Cherry"], colors: ["navy", "blue", "gold", "dark", "teal", "black", "accent"], copy: "JTK is the brand; Flight and Brittle are specific colorway examples for navy/gold, dark, translucent, and accent-forward builds." },
+      { tier: "Mid-range", name: "Keyreative / Keycreative KAT, KAM, KAP", brand: "Keyreative, Keycreative-search terms", vendors: "Divinikey, CannonKeys, regional vendors", url: "https://www.google.com/search?q=Keyreative+Keycreative+KAT+KAM+KAP+keycaps+Divinikey+CannonKeys", profiles: ["SA / KAT", "KAM / XDA / MOA", "Cherry"], colors: ["gray", "red", "mono", "pastel", "bright", "dark"], copy: "Best route for KAT/KAM-like profile exploration, with KAP adding modern Cherry-profile PBT options." },
+      { tier: "High", name: "GMK CYL Cherry profile", brand: "GMK", vendors: "NovelKeys, CannonKeys, Divinikey, Unikeys", url: "https://novelkeys.com/collections/gmk", profiles: ["Cherry"], colors: ["mono", "dark", "navy", "blue", "cream", "beige", "gray", "industrial", "red", "green", "brown", "bright"], copy: "Premium ABS color accuracy and crisp legends; choose when exact color story matters more than immediate availability." },
+      { tier: "High", name: "GMK MTNU", brand: "GMK", vendors: "NovelKeys, CannonKeys, Divinikey, Unikeys", url: "https://www.google.com/search?q=GMK+MTNU+NovelKeys+CannonKeys+Divinikey+Unikeys", profiles: ["MTNU"], colors: ["mono", "dark", "blue", "cream", "beige", "gray", "bright"], copy: "Short spherical feel with GMK color execution; inventory is more limited, so match by theme first and stock second." },
+      { tier: "High", name: "Signature Plastics SA / DCS", brand: "Signature Plastics", vendors: "SPKeyboards, CannonKeys, NovelKeys", url: "https://spkeyboards.com/", profiles: ["SA / KAT", "Cherry", "OEM"], colors: ["beige", "retro", "mono", "gray", "industrial", "dark"], copy: "SA is the classic tall spherical target; DCS is thinner, lower, and strong for vintage colorways." }
+    ];
+
+    const boardCandidates = [
+      { tier: "Budget", name: "Keychron V series", url: "https://www.keychron.com/collections/keychron-v-series-keyboard", layouts: ["full", "tkl", "75", "65", "60", "numpad"], materials: ["ABS Plastic"], colors: ["black", "white", "gray", "clear"], copy: "Plastic value boards with broad layout coverage; great when layout certainty matters more than case finish." },
+      { tier: "Budget", name: "NovelKeys Classic-TKL", url: "https://novelkeys.com/collections/classic-tkl", layouts: ["tkl"], materials: ["ABS Plastic", "Polycarbonate"], colors: ["black", "beige", "yellow", "blue", "orange", "clear", "pink"], copy: "ABS TKL with vintage styling and several playful colorways, including clear/translucent variants when stocked." },
+      { tier: "Budget", name: "MonsGeek M series", url: "https://www.monsgeek.com/", layouts: ["full", "tkl", "75", "65"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "purple", "yellow"], copy: "Affordable aluminum prebuilts and kits, especially strong for 75%, TKL-ish, and fullsize-adjacent layouts." },
+      { tier: "Budget", name: "Weikav aluminum kits", url: "https://www.google.com/search?q=Weikav+keyboard+kit+aluminum+65+75+TKL", layouts: ["75", "65", "60"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "purple", "pink", "green"], copy: "Budget aluminum customs with lots of color variety; verify exact PCB, VIA support, and vendor reputation before buying." },
+      { tier: "Budget", name: "WOBKEY Rainy75 / budget 75s", url: "https://www.google.com/search?q=Rainy75+aluminum+keyboard+kit+Divinikey", layouts: ["75"], materials: ["Aluminum"], colors: ["black", "white", "blue", "purple", "pink", "yellow"], copy: "A popular budget aluminum 75% direction when you want heft and color without custom-kit pricing." },
+      { tier: "Mid-range", name: "Keychron Q / Q Max series", url: "https://www.keychron.com/collections/keychron-q-series-keyboard", layouts: ["full", "tkl", "75", "65", "60", "numpad"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "purple"], copy: "Reliable aluminum family with broad layout support, beginner-friendly software, and easy availability." },
+      { tier: "Mid-range", name: "Qwertykeys Neo series", url: "https://www.qwertykeys.com/", layouts: ["tkl", "75", "65", "60"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "navy", "blue", "green", "purple", "red", "yellow", "clear"], copy: "Value custom kits with frequent aluminum and PC case options; especially relevant for 65%, 75%, and TKL builds." },
+      { tier: "Mid-range", name: "Evoworks EVO75 / EVO80", url: "https://www.ticktype.com/products/evo75", layouts: ["tkl", "75"], materials: ["Aluminum"], colors: ["black", "silver", "purple", "gold", "cream", "green"], copy: "Fully built custom-grade aluminum boards from the EVO line; strong fit for users who want Neo/QK-adjacent refinement without building from loose parts." },
+      { tier: "Mid-range", name: "Ticktype DP104 / lineup", url: "https://divinikey.com/collections/ticktype-mechanical-keyboards/products/ticktype-dp104-keyboard-kit", layouts: ["full", "tkl", "75"], materials: ["Aluminum"], colors: ["gray", "blue", "white", "pink", "black", "cream"], copy: "Ticktype brings Owlab/QK/Neo manufacturing DNA into ready-to-use boards, with the DP104 especially useful for fullsize shoppers wanting a more enthusiast feel." },
+      { tier: "Mid-range", name: "KBDfans Tofu / Taco / Odin families", url: "https://kbdfans.com/collections/keyboard-kit", layouts: ["full", "75", "65", "60", "hhkb"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "purple", "pink", "yellow", "clear", "beige"], copy: "Good ecosystem for compact customs, many finishes, and straightforward parts availability." },
+      { tier: "Mid-range", name: "Luminkey / Chilkey aluminum kits", url: "https://divinikey.com/collections/keyboards", layouts: ["75", "65"], materials: ["Aluminum"], colors: ["black", "white", "blue", "purple", "green", "red"], copy: "Divinikey-stocked modern aluminum kits; strong when you want a compact barebones with contemporary color options." },
+      { tier: "Mid-range", name: "Wooting 60HE+", url: "https://wooting.io/wooting-60he", layouts: ["60"], materials: ["ABS Plastic", "Aluminum"], colors: ["black", "white", "gray"], copy: "Hall Effect 60% platform; choose for performance first, then pair with aftermarket cases if color/material is the priority." },
+      { tier: "High", name: "Mode Designs", url: "https://modedesigns.com/", layouts: ["tkl", "75", "65", "60"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "cream", "silver", "clear"], copy: "Premium configurable customs with polished machining, finish control, and refined acoustics." },
+      { tier: "High", name: "Geonworks", url: "https://geon.works/", layouts: ["tkl", "75", "65", "60"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "red", "purple", "silver"], copy: "High-end aluminum customs for buyers chasing typing feel, fit, and finish more than beginner convenience." },
+      { tier: "High", name: "CannonKeys premium kits", url: "https://cannonkeys.com/collections/keyboard-kits", layouts: ["tkl", "75", "65", "60", "alice", "numpad"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "purple", "clear"], copy: "Rotating enthusiast kits and collaborations; best checked when your layout and color target are already clear." },
+      { tier: "High", name: "NovelKeys enthusiast drops", url: "https://novelkeys.com/collections/keyboards", layouts: ["tkl", "65", "60"], materials: ["ABS Plastic", "Aluminum", "Polycarbonate"], colors: ["black", "beige", "blue", "orange", "yellow", "clear", "pink"], copy: "Useful for distinctive colorways and limited drops, especially when the design language matters." }
+    ];
+
+    const keycapTierCopy = {
+      Budget: ["Budget keycaps", "Look for in-stock PBT sets, clones, and keyboard-brand sets when you want the mood quickly. Legends, thickness, and color matching vary, but these are useful for testing a profile or color direction."],
+      "Mid-range": ["Mid-range keycaps", "This tier usually gives better kitting, thicker plastic, cleaner legends, and more intentional color design. It is often the sweet spot for PBTfans, CannonCaps, NicePBT, Milkyway, and Keyreative-style sets."],
+      High: ["High-end keycaps", "Premium sets are about color accuracy, legend quality, unique profiles, and collector-grade design. Availability is often group-buy, aftermarket, or rotating in-stock drops rather than permanent catalog inventory."]
+    };
+
+    const boardTierCopy = {
+      Budget: ["Budget feel", "Best value, usually ABS plastic or simpler aluminum. Expect hot-swap, decent foam, and fewer finish choices. Sound can be excellent after basic tuning, but machining, weight, and firmware polish vary."],
+      "Mid-range": ["Mid-range feel", "More refined mounts, better factory dampening, cleaner anodizing or coating, tri-mode wireless more often, and fewer compromises in stabilizers, plates, and included accessories."],
+      High: ["High-end feel", "Heavier cases, tighter machining, controlled acoustics, custom mounting options, stronger finish quality, and more cohesive design. You pay for fit, finish, scarcity, and typing refinement."]
+    };
+
+    const budgetRanges = ["Budget", "Mid-range", "High"];
+    const defaultPreset = {
+      layout: "75%",
+      switchType: "Linear",
+      sound: "Creamy",
+      spring: "Medium",
+      budgetRange: "Mid-range",
+      keycapColor: "PBTfans Absolute",
+      profile: "Cherry",
+      material: "Aluminum",
+      theme: "absolute",
+      caseColor: "Champagne"
+    };
+
+    const layoutByName = Object.fromEntries(layouts.map(layout => [layout.name, layout]));
+    const caseColorNames = Object.fromEntries(Object.entries(materialColors).map(([material, colors]) => [material, Object.keys(colors)]));
+    keycapCandidates.forEach(candidate => {
+      candidate.profileSet = new Set(normalizeTags(candidate.profiles));
+      candidate.colorSet = new Set(normalizeTags(candidate.colors));
+    });
+    boardCandidates.forEach(candidate => {
+      candidate.layoutSet = new Set(normalizeTags(candidate.layouts));
+      candidate.materialSet = new Set(normalizeTags(candidate.materials));
+      candidate.colorSet = new Set(normalizeTags(candidate.colors));
+    });
+    const keycapCandidatesByTier = groupByTier(keycapCandidates);
+    const boardCandidatesByTier = groupByTier(boardCandidates);
+    const renderCache = {};
+
+    const els = {
+      layout: document.getElementById("layout"),
+      switchType: document.getElementById("switchType"),
+      sound: document.getElementById("sound"),
+      spring: document.getElementById("spring"),
+      budgetRange: document.getElementById("budgetRange"),
+      keycapColor: document.getElementById("keycapColor"),
+      profile: document.getElementById("profile"),
+      material: document.getElementById("material"),
+      caseColor: document.getElementById("caseColor"),
+      keyboard: document.getElementById("keyboardPreview")
+    };
+
+    const themeSelect = document.getElementById("themeSelect");
+
+    const ui = {
+      keycapSwatches: document.getElementById("keycapSwatches"),
+      caseSwatches: document.getElementById("caseSwatches"),
+      layoutMetric: document.getElementById("layoutMetric"),
+      caseMetric: document.getElementById("caseMetric"),
+      keycapMetric: document.getElementById("keycapMetric"),
+      selectionTitle: document.getElementById("selectionTitle"),
+      selectionCopy: document.getElementById("selectionCopy"),
+      switchTitle: document.getElementById("switchTitle"),
+      switchCopy: document.getElementById("switchCopy"),
+      profileTitle: document.getElementById("profileTitle"),
+      profilePreviewFrame: document.getElementById("profilePreviewFrame"),
+      profileCopy: document.getElementById("profileCopy"),
+      switchImage: document.getElementById("switchImage"),
+      soundTags: document.getElementById("soundTags"),
+      keycapSectionTitle: document.getElementById("keycapSectionTitle"),
+      keycapRecIntro: document.getElementById("keycapRecIntro"),
+      keycapTierTitle: document.getElementById("keycapTierTitle"),
+      keycapTierRecs: document.getElementById("keycapTierRecs"),
+      boardSectionTitle: document.getElementById("boardSectionTitle"),
+      recIntro: document.getElementById("recIntro"),
+      boardTierTitle: document.getElementById("boardTierTitle"),
+      boardTierRecs: document.getElementById("boardTierRecs")
+    };
+
+    function fillSelect(select, values) {
+      select.innerHTML = values.map(value => `<option value="${value}">${value}</option>`).join("");
+    }
+
+    function applyTheme(themeName) {
+      const theme = pageThemes[themeName] || pageThemes.absolute;
+      Object.entries(theme).forEach(([property, value]) => {
+        document.documentElement.style.setProperty(property, value);
+      });
+    }
+
+    fillSelect(els.layout, layouts.map(layout => layout.name));
+    fillSelect(els.switchType, Object.keys(switchTypes));
+    fillSelect(els.sound, Object.keys(sounds));
+    fillSelect(els.spring, Object.keys(springs));
+    fillSelect(els.budgetRange, budgetRanges);
+    fillSelect(els.keycapColor, Object.keys(colorways));
+    fillSelect(els.profile, Object.keys(profiles));
+    fillSelect(els.material, Object.keys(materialColors));
+
+    Object.entries(defaultPreset).forEach(([key, value]) => {
+      if (els[key]) els[key].value = value;
+    });
+    themeSelect.value = defaultPreset.theme;
+
+    function updateCaseColorOptions() {
+      const old = els.caseColor.value;
+      const names = caseColorNames[els.material.value];
+      fillSelect(els.caseColor, names);
+      els.caseColor.value = names.includes(old) ? old : names[0];
+    }
+
+    function isLightHex(color) {
+      const hex = color.replace("#", "");
+      const value = hex.length === 3 ? hex.split("").map(x => x + x).join("") : hex;
+      const [r, g, b] = value.match(/.{2}/g).map(x => parseInt(x, 16));
+      return (r * 299 + g * 587 + b * 114) / 1000 > 218;
+    }
+
+    function setHTML(key, target, html) {
+      if (renderCache[key] !== html) {
+        target.innerHTML = html;
+        renderCache[key] = html;
+      }
+    }
+
+    function setImage(key, img, src) {
+      if (renderCache[key] !== src) {
+        img.src = src;
+        renderCache[key] = src;
+      }
+    }
+
+    function swatchHTML(colors, markLight = false) {
+      return colors.map(color => {
+        const className = markLight && isLightHex(color) ? "swatch light-solid" : "swatch";
+        return `<span class="${className}" style="background-color:${color}"></span>`;
+      }).join("");
+    }
+
+    function update() {
+      const layout = layoutByName[els.layout.value];
+      const palette = colorways[els.keycapColor.value];
+      const caseHex = materialColors[els.material.value][els.caseColor.value];
+      els.keyboard.className = `keyboard ${layout.previewClass}`;
+      setHTML("keyboard", els.keyboard, `<img src="${layout.src}" alt="${layout.name} layout preview">`);
+      setHTML("keycapSwatches", ui.keycapSwatches, swatchHTML(palette.preview));
+      setHTML("caseSwatches", ui.caseSwatches, swatchHTML([caseHex], true));
+
+      ui.layoutMetric.textContent = `${layout.name} / about ${layout.keys} keys`;
+      ui.caseMetric.textContent = `${els.caseColor.value} ${els.material.value}`;
+      ui.keycapMetric.textContent = `${els.keycapColor.value}, ${els.profile.value}`;
+      ui.selectionTitle.textContent = `${layout.name} in ${els.caseColor.value} ${els.material.value}`;
+      ui.selectionCopy.textContent = `${layout.copy} ${palette.copy}`;
+      ui.switchTitle.textContent = `${els.switchType.value} switches, ${els.sound.value.toLowerCase()} target`;
+      ui.switchCopy.textContent = `${switchTypes[els.switchType.value]} ${sounds[els.sound.value]} ${springs[els.spring.value]}`;
+      const switchImageKey = els.sound.value === "Clicky" ? "Clicky" : els.switchType.value === "Tactile" ? "Tactile" : "Linear";
+      const profile = profiles[els.profile.value];
+      const media = profileMedia[els.profile.value];
+      ui.profileTitle.textContent = `${els.profile.value} profile`;
+      setHTML("profilePreview", ui.profilePreviewFrame, media
+        ? `<img src="${media.src}" style="--pos:${media.pos}" alt="${els.profile.value} profile preview">`
+        : "");
+      ui.profileCopy.textContent = `${profile[0]} / ${profile[1]} / ${profile[2]}. ${profile[3]}`;
+      setImage("switchImage", ui.switchImage, switchMedia[switchImageKey]);
+      setHTML("soundTags", ui.soundTags, profileSummaryTags[els.profile.value].map(x => `<span class="tag">${x}</span>`).join(""));
+      renderKeycapRecs();
+      renderRecs(layout);
+    }
+
+    function normalizeTags(values) {
+      return values.map(value => String(value).toLowerCase());
+    }
+
+    function overlapScore(selected, pool, weight = 1) {
+      return selected.reduce((score, tag) => score + (pool.has(tag) ? weight : 0), 0);
+    }
+
+    function groupByTier(candidates) {
+      return budgetRanges.reduce((groups, tier) => {
+        groups[tier] = candidates.filter(candidate => candidate.tier === tier);
+        return groups;
+      }, {});
+    }
+
+    function caseColorTags(colorName) {
+      const name = colorName.toLowerCase();
+      const tags = [];
+      if (name.includes("black") || name.includes("smoky")) tags.push("black", "dark");
+      if (name.includes("white") || name.includes("e-white") || name.includes("milky")) tags.push("white", "cream");
+      if (name.includes("gray") || name.includes("silver")) tags.push("gray", "silver");
+      if (name.includes("navy") || name.includes("blue")) tags.push("navy", "blue");
+      if (name.includes("green") || name.includes("mint")) tags.push("green");
+      if (name.includes("pink") || name.includes("blush")) tags.push("pink");
+      if (name.includes("purple") || name.includes("lavender")) tags.push("purple");
+      if (name.includes("red") || name.includes("burgundy")) tags.push("red");
+      if (name.includes("yellow") || name.includes("champagne")) tags.push("yellow", "gold");
+      if (name.includes("cream") || name.includes("clear") || name.includes("frosted")) tags.push("cream", "beige", "clear");
+      return tags.length ? tags : ["neutral"];
+    }
+
+    function layoutMatchTags(layout) {
+      const tags = [layout.kind];
+      if (layout.kind === "hhkb") tags.push("60");
+      if (layout.kind === "alice") tags.push("65");
+      if (layout.kind === "full") tags.push("tkl");
+      return tags;
+    }
+
+    function rankedByTier(candidates, scorer) {
+      return candidates
+        .map(candidate => ({ ...candidate, score: scorer(candidate) }))
+        .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name))
+        .slice(0, 4);
+    }
+
+    function renderReason(tags, label) {
+      return tags.length ? `<br><strong>${label}:</strong> ${tags.join(", ")}` : "";
+    }
+
+    function optionCard(item, details) {
+      return `
+        <article class="rec">
+          <a href="${item.url}" target="_blank" rel="noreferrer">${item.name}</a>
+          <p>${item.copy}${details}</p>
+        </article>
+      `;
+    }
+
+    function tierTitle(base, tier) {
+      const label = tier === "High" ? "High-end" : tier;
+      const className = tier.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      return `${base}: <span class="tier-label tier-${className}">${label}</span>`;
+    }
+
+    function renderKeycapRecs() {
+      const profileName = els.profile.value;
+      const colorName = els.keycapColor.value;
+      const tier = els.budgetRange.value;
+      const colorTags = keycapColorTags[colorName] || [];
+      const colorTagSet = new Set(colorTags);
+      const profileTags = normalizeTags([profileName]);
+      const colorDirection = keycapColorRecs[colorName] || "base tone, modifier tone, and accent behavior rather than exact set name";
+      const tierLabel = tier === "High" ? "High-end" : tier;
+      const tierCopy = keycapTierCopy[tier][1];
+      ui.keycapSectionTitle.innerHTML = tierTitle("Keycap Options By Feel", tier);
+      ui.keycapRecIntro.textContent = `${tierCopy} Suggestions are tuned for ${profileName} with ${colorDirection}.`;
+      ui.keycapTierTitle.textContent = `${tierLabel} options`;
+
+      const scoreKeycap = candidate =>
+        overlapScore(profileTags, candidate.profileSet, 5) +
+        overlapScore(colorTags, candidate.colorSet, 2);
+
+      const list = rankedByTier(keycapCandidatesByTier[tier], scoreKeycap);
+      ui.keycapTierRecs.innerHTML = list.map(item => optionCard(item, `
+        <br><strong>Brand:</strong> ${item.brand}
+        <br><strong>Vendors:</strong> ${item.vendors}
+        ${renderReason(item.profiles, "Profile fit")}
+        ${renderReason(item.colors.filter(tag => colorTagSet.has(tag)), "Color fit")}
+      `)).join("");
+    }
+
+    function renderRecs(layout) {
+      const selected = layout.name;
+      const material = els.material.value;
+      const tier = els.budgetRange.value;
+      const tierLabel = tier === "High" ? "High-end" : tier;
+      const caseTags = caseColorTags(els.caseColor.value);
+      const caseTagSet = new Set(caseTags);
+      const tierCopy = boardTierCopy[tier][1];
+      ui.boardSectionTitle.innerHTML = tierTitle("Keyboard Options By Budget", tier);
+      ui.recIntro.textContent = `${tierCopy} Suggestions are tuned for ${selected}, ${material}, and ${els.caseColor.value}. Always confirm current stock and exact kit contents on the vendor page.`;
+      ui.boardTierTitle.textContent = `${tierLabel} options`;
+
+      const layoutTags = layoutMatchTags(layout);
+      const materialTags = normalizeTags([material]);
+      const scoreBoard = candidate =>
+        overlapScore(layoutTags, candidate.layoutSet, 5) +
+        overlapScore(materialTags, candidate.materialSet, 4) +
+        overlapScore(caseTags, candidate.colorSet, 2);
+
+      const list = rankedByTier(boardCandidatesByTier[tier], scoreBoard);
+      ui.boardTierRecs.innerHTML = list.map(item => optionCard(item, `
+        ${renderReason(item.layouts, "Layout fit")}
+        ${renderReason(item.materials, "Material fit")}
+        ${renderReason(item.colors.filter(tag => caseTagSet.has(tag)), "Color fit")}
+      `)).join("");
+    }
+
+    Object.entries(els).forEach(([key, el]) => {
+      if (key !== "material") el.addEventListener("change", update);
+    });
+    els.material.addEventListener("change", () => { updateCaseColorOptions(); update(); });
+    themeSelect.addEventListener("change", () => applyTheme(themeSelect.value));
+
+    applyTheme(themeSelect.value);
+    updateCaseColorOptions();
+    els.caseColor.value = defaultPreset.caseColor;
+    update();
+  </script>
+</body>
+</html>
