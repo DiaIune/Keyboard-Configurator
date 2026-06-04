@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Keyboard Configurator Changelog</title>
+  <style>
+    :root {
+      --cream: #f7efe1;
+      --paper: #fffaf0;
+      --ink: #2e261f;
+      --muted: #786a5d;
+      --label: #59493c;
+      --line: rgba(91, 71, 49, .22);
+      --surface: rgba(255, 250, 240, .84);
+      --surface-soft: rgba(255, 253, 247, .74);
+      --red: #da6f5f;
+      --yellow: #e8bd57;
+      --green: #7fb678;
+      --blue: #65a7c8;
+      --violet: #a187c8;
+      --shadow: 0 22px 60px rgba(86, 57, 27, .13);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(118deg, transparent 0 12%, rgba(218, 111, 95, .16) 12% 13.2%, transparent 13.2% 100%),
+        radial-gradient(circle at 78% 18%, rgba(101, 167, 200, .16) 0 58px, transparent 59px),
+        linear-gradient(115deg, rgba(218,111,95,.14), transparent 24%),
+        linear-gradient(245deg, rgba(101,167,200,.18), transparent 28%),
+        var(--cream);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    .page {
+      width: min(980px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 52px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 860;
+      font-size: 18px;
+    }
+
+    .mark {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+      padding: 6px;
+      box-shadow: 0 8px 20px rgba(88, 60, 30, .12);
+    }
+
+    .mark i { display: block; border-radius: 4px; }
+    .mark i:nth-child(1) { background: var(--red); }
+    .mark i:nth-child(2) { background: var(--yellow); }
+    .mark i:nth-child(3) { background: var(--green); }
+    .mark i:nth-child(4) { background: var(--blue); }
+
+    a {
+      color: inherit;
+      font-weight: 820;
+    }
+
+    .back-link {
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 9px 11px;
+      background: var(--surface-soft);
+      font-size: 13px;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .rainbow-rule {
+      height: 8px;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr 1fr .7fr .9fr;
+    }
+
+    .rainbow-rule span:nth-child(1) { background: var(--red); }
+    .rainbow-rule span:nth-child(2) { background: var(--yellow); }
+    .rainbow-rule span:nth-child(3) { background: var(--green); }
+    .rainbow-rule span:nth-child(4) { background: var(--blue); }
+    .rainbow-rule span:nth-child(5) { background: var(--violet); }
+
+    .content { padding: 24px; }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.05;
+    }
+
+    .lede {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 740px;
+    }
+
+    .release {
+      margin-top: 10px;
+      padding: 16px;
+      border: 1px solid rgba(91, 71, 49, .18);
+      border-radius: 7px;
+      background: var(--surface-soft);
+    }
+
+    .branch {
+      margin-top: 18px;
+      border: 1px solid rgba(91, 71, 49, .2);
+      border-radius: 8px;
+      background: rgba(255, 253, 247, .42);
+      overflow: hidden;
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    .branch > summary {
+      padding: 14px 16px;
+      color: var(--ink);
+      font-size: 22px;
+      font-weight: 900;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .branch > summary:after,
+    .release > summary:after {
+      content: "+";
+      color: var(--muted);
+      font-weight: 900;
+    }
+
+    .branch[open] > summary:after,
+    .release[open] > summary:after {
+      content: "-";
+    }
+
+    .branch-body {
+      padding: 0 14px 14px;
+    }
+
+    .release > summary {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 860;
+    }
+
+    .release time {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 820;
+      text-transform: uppercase;
+    }
+
+    ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    @media (max-width: 620px) {
+      .page { width: min(100% - 20px, 980px); padding-top: 12px; }
+      .topbar { display: grid; }
+      .content { padding: 18px; }
+      .release > summary { display: grid; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        Keyboard Configurator Changelog
+      </div>
+      <a class="back-link" href="../index.html">Back to Configurator</a>
+    </header>
+
+    <section class="panel">
+      <div class="rainbow-rule" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="content">
+        <h1>Release History</h1>
+        <p class="lede">Each saved iteration uses semantic-style version naming so QA feedback can point to a known snapshot. Backups live in the local Backups folder.</p>
+
+        <details class="branch" open>
+          <summary>4.x Refinement Branch</summary>
+          <div class="branch-body">
+            <details class="release" open>
+              <summary>Version 5.3 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Moved case material from the bottom-right profile tag row into the dynamic selection title.</li>
+                <li>Kept the bottom-right tags focused only on keycap profile characteristics.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 5.2 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Moved theme reference images into Reference Library/Themes.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 5.1 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Added a no-console Windows Script launcher that opens the configurator without flashing a command prompt.</li>
+                <li>Added a Windows shortcut launcher with a custom top-left page mark icon recolored with the GMK Panels palette.</li>
+                <li>Moved the obsolete batch launcher into a Previous Launchers folder.</li>
+                <li>Recorded the theme direction that text boxes and controls may use accent colors when it strengthens the selected colorway while preserving contrast.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 5.0 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Rebalanced the GMK Olivia page theme toward darker modifier tones with deeper page surfaces, stronger dark background motifs, and light readable controls.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 4.9 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Pre-indexed keycap and keyboard recommendation candidates by budget tier to avoid filtering every candidate on each selection update.</li>
+                <li>Removed repeated tag normalization inside scoring loops by normalizing selected tags once per update.</li>
+                <li>Added guarded preview HTML and image updates so unchanged layout, profile, switch, and swatch markup is not rebuilt during unrelated dropdown changes.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 4.8 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Moved supporting HTML pages into a Pages folder while preserving navigation paths from the configurator and between reference pages.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 4.7 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Removed the Low tag from the bottom Cherry profile summary tags.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 4.6 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Renamed the budget range option from Medium to Mid-range across the configurator and option reference pages.</li>
+                <li>Strengthened the KAP Santa Llum Naixement and Resurreccio themes with more aggressive color washes and stained-glass-like background bands.</li>
+                <li>Added Evoworks EVO75/EVO80 and Ticktype DP104/lineup entries to the keyboard recommendation pool and full keyboard options page.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 4.5 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Added separate page theme presets for KAP Santa Llum Naixement, KAP Santa Llum Resurreccio, and GMK Windbreaker.</li>
+                <li>Expanded the theme selector width to fit longer preset names without dynamic resizing.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 4.4 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Added changelog behavior that automatically opens the newest major branch and newest release entry on page load.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 4.3 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Grouped changelog entries into collapsible major-version branches.</li>
+                <li>Made individual release entries collapsible inside each branch.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 4.2 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Changed the bottom-right summary tags to use curated profile labels instead of raw profile metadata.</li>
+                <li>Restricted Sculpted/Spherical style summary tags to SA/KAT and MTNU, avoiding incorrect Cylindrical/Sculpted tags for other profile choices.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 4.1 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Changed keycap and keyboard recommendation entries to a two-per-row desktop layout.</li>
+                <li>Kept recommendation cards single-column on small screens.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 4.0 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Renamed the aluminum case color from E-white to E White.</li>
+                <li>Adjusted E White to a solid warm off-white value.</li>
+                <li>Added a subtle solid-light swatch treatment for very pale case colors so they do not read as transparent.</li>
+              </ul>
+            </details>
+          </div>
+        </details>
+
+        <details class="branch">
+          <summary>3.x Preview Layout Branch</summary>
+          <div class="branch-body">
+            <details class="release">
+              <summary>Version 3.9 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Widened the case color preview bar so it covers more of the case metric area.</li>
+                <li>Removed the "Ano" prefix from aluminum case color names, leaving simple color labels.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 3.8 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Changed the case color preview from a thin lower strip to a thicker right-side color bar inside the case metric.</li>
+                <li>Moved the keycap colorway preview below the switch description so it aligns better with the keycap profile preview area.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 3.7 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Moved the keycap colorway preview from the middle metric row to directly below the switch preview.</li>
+                <li>Expanded the case colorway metric to cover the space previously occupied by the keycap colorway preview.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 3.6 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Added extra bottom padding and a slightly smaller image scale for Alice/Arisu to prevent bottom clipping.</li>
+                <li>Returned the numpad preview closer to native image sizing by removing forced image scale-up and shrinking the frame preset.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 3.5 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Increased HHKB and Alice/Arisu preview frame heights and slightly inset their images to prevent bottom clipping.</li>
+                <li>Reduced the numpad preview frame and image scale after the previous enlargement.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 3.4 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Reduced vertical padding and margin around the switch diagram area.</li>
+                <li>Changed the switch image box to a 16:9 shape so the diagram uses space more efficiently.</li>
+                <li>Spread the right-side preview text dynamically instead of letting the switch image area absorb most extra height.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 3.3 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Slightly reduced the enlarged numpad preview image inside its frame to prevent bottom-edge clipping.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 3.2 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Scaled the selected numpad preview image up inside its frame to minimize dark gray margin around the small source PNG.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 3.1 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Adjusted the selected numpad layout preview to use the image's actual aspect ratio.</li>
+                <li>Reduced numpad preview padding and widened the numpad preset so the image fills its slot better.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 3.0 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Fixed Alice and HHKB layout previews by changing layout images to max-contained sizing and clipping preview slots internally.</li>
+                <li>Restructured the top preview grid so the intro text and switch preview share the top row.</li>
+                <li>Expanded the switch preview vertically so it uses the empty right-side space beside the top intro text.</li>
+              </ul>
+            </details>
+          </div>
+        </details>
+
+        <details class="branch">
+          <summary>2.x Data And Navigation Branch</summary>
+          <div class="branch-body">
+            <details class="release">
+              <summary>Version 2.9 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Simplified case color preview to a single swatch for the selected case color.</li>
+                <li>Reduced keycap colorway previews to alpha, modifier, and novelty/accent colors.</li>
+                <li>Kept Absolute Cream Rainbow as the six-color exception because the rainbow accent set needs the wider palette.</li>
+                <li>Updated the colorway reference page to match the simplified GMK-inspired preview structure.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 2.8 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Replaced the generated switch visual with the provided Linear, Tactile, and Clicky switch images.</li>
+                <li>Mapped Clicky sound profile to the Clicky image, Tactile switch type to the Tactile image, and Linear/Hall Effect to the Linear image.</li>
+                <li>Resized the keycap profile preview frame with internal padding so profile images are not cut off.</li>
+                <li>Adjusted the hero grid so the dropdown panel and preview block stretch to matching heights.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 2.7 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Moved keycap and case color previews from the control panel into the middle preview metric row.</li>
+                <li>Compressed the hero/preview block by reducing preview padding, metric height, profile preview height, switch visual height, and overall visual-stage minimum height.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 2.6 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Updated the keycap and keyboard recommendation banners so the text after the colon is only the selected budget tier.</li>
+                <li>Added tier colors: green for Budget, blue for Medium, and purple for High-end.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 2.5 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Changed the research/resources section into a tiny collapsed disclosure button by default.</li>
+                <li>Preserved the full source notes and links inside the expandable section.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 2.4 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Consolidated the keycap recommendation heading with the selected budget-tier explanation.</li>
+                <li>Consolidated the keyboard recommendation heading with the selected budget-tier explanation.</li>
+                <li>Removed obsolete main-page CSS from the old inline layout, colorway, and profile indexes.</li>
+                <li>Defined defaults, budget ranges, layout lookup, case-color lookup, and recommendation matching presets up front.</li>
+                <li>Reduced repeated update work by avoiding case-color dropdown rebuilds except when material changes and by reusing normalized recommendation tag sets.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 2.3 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Added a budget range dropdown to the main configurator.</li>
+                <li>Changed keycap and keyboard recommendations on the main page to show only the selected budget tier.</li>
+                <li>Moved the layout, colorway, and profile indexes to separate reference pages.</li>
+                <li>Added full keycap and keyboard option table pages behind the top-right navigation.</li>
+                <li>Made collapsed section ribbons more compact for future reference sections.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 2.2 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Corrected keycap recommendation naming so JTK and KAP are treated as brands/series.</li>
+                <li>Moved Flight, Brittle, and Grey Alert into copy as specific colorway examples rather than line names.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 2.1 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Added the changelog page and top-left changelog link.</li>
+                <li>Started versioned backups using the Backups folder.</li>
+                <li>Expanded keycap recommendations to consider GMK, Domikey, JTK, DCS/Signature Plastics, Keyreative/Keycreative, Milkyway, PBTfans, NicePBT, and CannonCaps.</li>
+                <li>Added vendor-aware recommendation links for NovelKeys, CannonKeys, Divinikey, Unikeys, KBDfans, and related search paths.</li>
+                <li>Updated keyboard recommendations to score layout, material, and case color fit.</li>
+              </ul>
+            </details>
+
+            <details class="release">
+              <summary>Version 2.0 <time datetime="2026-06-04">June 4, 2026</time></summary>
+              <ul>
+                <li>Baseline backup after theme selector work, Panels contrast fixes, and layout-preview background cleanup.</li>
+                <li>Preserved the working Keyboard Configurator page and launcher before the v2.1 recommendation/changelog update.</li>
+              </ul>
+            </details>
+          </div>
+        </details>
+      </div>
+    </section>
+  </main>
+  <script>
+    const newestBranch = document.querySelector(".branch");
+    const newestRelease = document.querySelector(".release");
+    if (newestBranch) newestBranch.open = true;
+    if (newestRelease) newestRelease.open = true;
+  </script>
+</body>
+</html>
