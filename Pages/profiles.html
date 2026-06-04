@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Keycap Profile Index</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem("keyboardConfigurator.themeVars");
+        if (!saved) return;
+        Object.entries(JSON.parse(saved)).forEach(([property, value]) => {
+          document.documentElement.style.setProperty(property, value);
+        });
+      } catch (error) {}
+    })();
+  </script>
+  <style>
+    :root{--cream:#f7efe1;--paper:#fffaf0;--ink:#2e261f;--muted:#786a5d;--line:rgba(91,71,49,.22);--surface:rgba(255,250,240,.84);--surface-soft:rgba(255,253,247,.74);--image-frame:#1f1e1c;--red:#da6f5f;--yellow:#e8bd57;--green:#7fb678;--blue:#65a7c8;--violet:#a187c8;--shadow:0 22px 60px rgba(86,57,27,.13);--radius:8px}
+    *{box-sizing:border-box} body{margin:0;background:var(--motif-1,linear-gradient(90deg,transparent 0 100%)),var(--motif-2,linear-gradient(90deg,transparent 0 100%)),linear-gradient(115deg,var(--wash-1,rgba(218,111,95,.14)),transparent 24%),linear-gradient(245deg,var(--wash-2,rgba(101,167,200,.18)),transparent 28%),var(--cream);background-size:var(--motif-size-1,auto),var(--motif-size-2,auto),auto,auto,auto;background-attachment:fixed;color:var(--ink);font-family:"Plus Jakarta Sans",Aptos,"Segoe UI Variable","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-feature-settings:"kern" 1,"liga" 1;-webkit-font-smoothing:antialiased}
+    h1,.brand span:last-child{font-family:"Fraunces","Plus Jakarta Sans",Aptos,serif;font-optical-sizing:auto;font-weight:850;letter-spacing:0}
+    .page{width:min(1180px,calc(100% - 32px));margin:0 auto;padding:24px 0 48px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:18px}.brand{display:flex;align-items:center;gap:12px;font-weight:860;font-size:18px}.mark{width:42px;height:42px;border:1px solid var(--line);background:var(--paper);display:grid;grid-template-columns:repeat(2,1fr);gap:4px;padding:6px}.mark i{display:block;border-radius:4px}.mark i:nth-child(1){background:var(--red)}.mark i:nth-child(2){background:var(--yellow)}.mark i:nth-child(3){background:var(--green)}.mark i:nth-child(4){background:var(--blue)}
+    .nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}.nav a,.brand a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:820;border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:var(--surface-soft)}
+    .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.rainbow-rule{height:8px;display:grid;grid-template-columns:1.2fr .8fr 1fr .7fr .9fr}.rainbow-rule span:nth-child(1){background:var(--red)}.rainbow-rule span:nth-child(2){background:var(--yellow)}.rainbow-rule span:nth-child(3){background:var(--green)}.rainbow-rule span:nth-child(4){background:var(--blue)}.rainbow-rule span:nth-child(5){background:var(--violet)}
+    .content{padding:22px} h1{margin:0 0 8px;font-size:clamp(28px,4vw,44px);line-height:1.05} p{color:var(--muted);line-height:1.45}.chart{margin-top:16px;overflow-x:auto;border:1px solid rgba(91,71,49,.16);border-radius:7px;background:var(--surface-soft);padding:12px}.row{display:grid;grid-template-columns:112px minmax(260px,.95fr) minmax(240px,1fr);align-items:center;gap:12px;min-width:780px;padding:14px 0;border-bottom:1px solid rgba(91,71,49,.13)}.row:last-child{border-bottom:0}.name{font-weight:860}.media{height:136px;border:1px solid rgba(91,71,49,.12);border-radius:7px;overflow:hidden;background:var(--image-frame);display:grid;place-items:center}.media img{width:100%;height:100%;object-fit:contain;display:block}.copy{color:var(--muted);font-size:13px;line-height:1.35}
+    @media (max-width:620px){.page{width:min(100% - 20px,1180px);padding-top:12px}.topbar{display:grid}.nav{justify-content:flex-start}.content{padding:16px}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar"><div class="brand"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Profile Index</span><a href="../index.html">Configurator</a></div><nav class="nav" aria-label="Reference pages"><a href="layouts.html">Layouts</a><a href="colorways.html">Colorways</a><a href="keycaps.html">Keycaps</a><a href="boards.html">Boards</a><a href="builds.html">Builds</a><a href="changelog.html">Changelog</a></nav></header>
+    <section class="panel"><div class="rainbow-rule" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div><div class="content">
+      <h1>Keycap Profile Chart</h1>
+      <p>Sculpted profiles guide each row with different heights and angles. Uniform profiles keep rows level, which helps unusual layouts but changes the finger feel.</p>
+      <div class="chart">
+        <div class="row"><div class="name">SA / KAT</div><div class="media"><img src="../Reference%20Library/SA.png" alt="SA profile"></div><div class="copy"><strong>Tall / Sculpted / Spherical</strong><br>SA is tall and vintage-sounding; KAT is smoother and lower but still rounded and sculpted.</div></div>
+        <div class="row"><div class="name">KAM / XDA / MOA</div><div class="media"><img src="../Reference%20Library/XDA.png" alt="XDA profile"></div><div class="copy"><strong>Low-medium / Uniform / Broad top</strong><br>Uniform profiles are flexible for compact and unusual layouts. MOA is more rounded, but this category covers the broad uniform feel.</div></div>
+        <div class="row"><div class="name">OEM</div><div class="media"><img src="../Reference%20Library/OEM.png" alt="OEM profile"></div><div class="copy"><strong>Medium / Sculpted / Standard flat top</strong><br>The standard prebuilt feel, taller than Cherry and broadly comfortable.</div></div>
+        <div class="row"><div class="name">MTNU</div><div class="media"><img src="../Reference%20Library/MTNU.png" alt="MTNU profile"></div><div class="copy"><strong>Medium / Sculpted / Spherical</strong><br>Modern short sculpted profile from Matt3o/GMK lineage; cupped but less towering than SA/MT3.</div></div>
+        <div class="row"><div class="name">Cherry</div><div class="media"><img src="../Reference%20Library/Cherry.png" alt="Cherry profile"></div><div class="copy"><strong>Low / Sculpted / Standard flat top</strong><br>The enthusiast default: shorter, familiar, and widely available across GMK, PBTfans, JTK, Domikey, Milkyway, NicePBT, and many others.</div></div>
+      </div>
+    </div></section>
+  </main>
+</body>
+</html>

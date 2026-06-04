@@ -4,6 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Keyboard Configurator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --cream: #f7efe1;
@@ -44,6 +47,13 @@
 
     * { box-sizing: border-box; }
 
+    h1, h2, .brand span:last-child, .section-title {
+      font-family: "Fraunces", "Plus Jakarta Sans", Aptos, serif;
+      font-optical-sizing: auto;
+      font-weight: 850;
+      letter-spacing: 0;
+    }
+
     html { scroll-behavior: smooth; }
 
     body {
@@ -57,7 +67,9 @@
       background-size: var(--motif-size-1), var(--motif-size-2), auto, auto, auto;
       background-attachment: fixed;
       color: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      font-family: "Plus Jakarta Sans", Aptos, "Segoe UI Variable", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-feature-settings: "kern" 1, "liga" 1;
+      -webkit-font-smoothing: antialiased;
       letter-spacing: 0;
     }
 
@@ -523,6 +535,30 @@
       font-size: 14px;
     }
 
+    .switch-copy-grid {
+      display: grid;
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .switch-copy-grid div {
+      display: grid;
+      grid-template-columns: 74px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: var(--muted);
+      line-height: 1.35;
+      font-size: 13px;
+    }
+
+    .switch-copy-grid b {
+      color: var(--label);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
     .switch-visual {
       aspect-ratio: 16 / 9;
       min-height: 0;
@@ -735,6 +771,7 @@
           <a href="Pages/profiles.html">Profiles</a>
           <a href="Pages/keycaps.html">Keycaps</a>
           <a href="Pages/boards.html">Boards</a>
+          <a href="Pages/builds.html">Builds</a>
         </nav>
         <label class="theme-picker">Theme
           <select id="themeSelect" aria-label="Website color theme">
@@ -816,7 +853,7 @@
               <img class="switch-image" id="switchImage" src="Reference%20Library/Linear.png" alt="">
             </div>
             <h2 id="switchTitle"></h2>
-            <p id="switchCopy"></p>
+            <div class="switch-copy-grid" id="switchCopy"></div>
             <div class="keycap-palette"><small>Keycap colorway</small><strong id="keycapMetric"></strong><div class="swatch-row compact" id="keycapSwatches" aria-label="Selected keycap palette"></div></div>
             <div class="sound-tags" id="soundTags"></div>
           </div>
@@ -868,6 +905,24 @@
   </main>
 
   <script>
+    function siteRootPath() {
+      const path = window.location.pathname;
+      if (path.endsWith("/")) return path;
+      if (path.endsWith(".html")) return path.slice(0, path.lastIndexOf("/") + 1);
+      return `${path}/`;
+    }
+
+    function installInternalNavigation() {
+      document.querySelectorAll('a[href^="Pages/"]').forEach(link => {
+        link.addEventListener("click", event => {
+          event.preventDefault();
+          window.location.href = `${window.location.origin}${siteRootPath()}${link.getAttribute("href")}`;
+        });
+      });
+    }
+
+    installInternalNavigation();
+
     const layouts = [
       { name: "Fullsize", copy: "100% with numpad, nav, arrows, and function row.", keys: 104, kind: "full", previewClass: "layout-wide", src: "Reference%20Library/layout-fullsize.png" },
       { name: "1800", copy: "Compact fullsize: numpad stays, navigation compresses.", keys: 96, kind: "full", previewClass: "layout-wide", src: "Reference%20Library/layout-1800.png" },
@@ -918,8 +973,8 @@
       "GMK Panels": { alpha: "#0f7779", mod: "#214e73", accents: ["#bf2f2d", "#c9952c"], preview: ["#0f7779", "#214e73", "#bf2f2d", "#c9952c"], copy: "Deep teal and blue foundation with red and mustard panel-style accents." },
       "KAP Santa Llum Naixement": { alpha: "#d9d74c", mod: "#23a77e", accents: ["#0e555f", "#d8921f"], preview: ["#d9d74c", "#23a77e", "#0e555f", "#d8921f"], copy: "Yellow-green, teal, deep blue-green, and warm orange stained-glass progression." },
       "KAP Santa Llum Resurreccio": { alpha: "#dcb537", mod: "#d46d2c", accents: ["#a52d24", "#3a253b"], preview: ["#dcb537", "#d46d2c", "#a52d24", "#3a253b"], copy: "Gold, orange, red, and deep plum in a warmer stained-glass gradient." },
-      "GMK Windbreaker": { alpha: "#28c7bf", mod: "#9a74e0", accents: ["#ff5b9a", "#dff45a"], preview: ["#28c7bf", "#9a74e0", "#ff5b9a", "#dff45a"], copy: "Bright teal, purple, pink, and chartreuse with a sporty saturated feel." },
-      "GMK Analog Dreams": { alpha: "#f6efe4", mod: "#f477b5", accents: ["#75e3d4", "#e6e68c", "#ff9bd0"], preview: ["#f6efe4", "#f477b5", "#75e3d4", "#e6e68c", "#ff9bd0"], copy: "Cream alphas with stronger pink, cyan, yellow, and pastel neon nostalgia." },
+      "GMK Windbreaker": { alpha: "#9a74e0", mod: "#ff5b9a", accents: ["#dff45a", "#63d76a"], preview: ["#9a74e0", "#ff5b9a", "#dff45a", "#63d76a"], copy: "Purple, hot pink, chartreuse yellow, and green with a sporty saturated feel." },
+      "GMK Analog Dreams": { alpha: "#f6efe4", mod: "#f477b5", accents: ["#75e3d4", "#e6e68c", "#ff9bd0"], preview: ["#f6efe4", "#f477b5", "#75e3d4", "#e6e68c", "#ff9bd0"], copy: "Cream alphas with hot pink, cyan, yellow, and vaporwave pastel neon nostalgia." },
       "GMK British Racing Green": { alpha: "#f3efe5", mod: "#0f5a3c", accents: ["#e4d597"], preview: ["#f3efe5", "#0f5a3c", "#e4d597"], copy: "Ivory alphas, deep racing green modifiers, and muted gold detailing." },
       "GMK Copper": { alpha: "#bd714e", mod: "#5a3328", accents: ["#087a7d", "#f2d2bd"], preview: ["#bd714e", "#5a3328", "#087a7d", "#f2d2bd"], copy: "Copper alphas, dark brown modifiers, teal accents, and pale metal highlights." },
       "GMK Dualshot": { alpha: "#eef0ee", mod: "#36383a", accents: ["#f0c21b", "#1687d9", "#e5352a"], preview: ["#eef0ee", "#36383a", "#f0c21b", "#1687d9", "#e5352a"], copy: "Console gray base with yellow, blue, red, and cyan controller-style accents." },
@@ -931,9 +986,9 @@
     const profiles = {
       "SA / KAT": ["Tall", "Sculpted", "Spherical", "Aggregated tall sculpted spherical family: SA is the taller retro version, KAT is a smoother medium-tall cousin."],
       "KAM / XDA / MOA": ["Low-medium", "Uniform", "Flat or rounded uniform", "Aggregated uniform family: XDA is flatter and wider, KAM is a rounded uniform cousin, and MOA is a taller pillowy uniform option. All keep rows level for flexible kitting."],
-      "OEM": ["Medium", "Sculpted", "Cylindrical", "The standard prebuilt feel, taller than Cherry and broadly comfortable."],
+      "OEM": ["Medium", "Sculpted", "Standard flat top", "The standard prebuilt feel, taller than Cherry and broadly comfortable."],
       "MTNU": ["Medium", "Sculpted", "Spherical", "Modern short sculpted profile from Matt3o/GMK lineage; cupped but less towering than SA/MT3."],
-      "Cherry": ["Low", "Sculpted", "Cylindrical", "Safest enthusiast default: lower, fast, neutral, and widely supported."]
+      "Cherry": ["Low", "Sculpted", "Standard flat top", "Safest enthusiast default: lower, fast, neutral, and widely supported."]
     };
 
     const profileSummaryTags = {
@@ -990,14 +1045,14 @@
         "--wash-1": "rgba(196, 56, 36, .36)", "--wash-2": "rgba(228, 181, 48, .34)", "--motif-1": "linear-gradient(112deg, transparent 0 12%, rgba(89, 31, 54, .32) 12% 17%, transparent 17% 34%, rgba(164, 45, 36, .36) 34% 40%, transparent 40% 62%, rgba(223, 133, 31, .34) 62% 67%, transparent 67% 100%)", "--motif-2": "linear-gradient(68deg, transparent 0 72%, rgba(63, 38, 68, .3) 72% 78%, transparent 78% 100%), radial-gradient(circle at 12% 20%, rgba(237, 194, 64, .34) 0 64px, transparent 65px), radial-gradient(circle at 86% 74%, rgba(64, 35, 62, .3) 0 92px, transparent 93px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#a52d24", "--yellow": "#dcb537", "--green": "#d46d2c", "--blue": "#3a253b", "--violet": "#6a324a", "--shadow": "0 22px 60px rgba(75, 33, 31, .22)"
       },
       windbreaker: {
-        "--cream": "#28c7bf", "--paper": "#eef0ff", "--oat": "#a990e6", "--sand": "#dff45a", "--ink": "#173047", "--muted": "#405d73", "--label": "#284a60", "--link": "#b32971", "--chip-text": "#284a60",
+        "--cream": "#eef0ff", "--paper": "#fbf4ff", "--oat": "#a990e6", "--sand": "#dff45a", "--ink": "#173047", "--muted": "#405d73", "--label": "#284a60", "--link": "#b32971", "--chip-text": "#284a60",
         "--line": "rgba(23, 48, 71, .24)", "--surface": "rgba(238, 240, 255, .84)", "--surface-soft": "rgba(247, 248, 255, .76)", "--surface-card": "rgba(242, 245, 255, .72)", "--surface-warm": "rgba(169, 144, 230, .46)", "--surface-chip": "rgba(205, 196, 245, .58)", "--control-bg": "#fbfbff", "--control-ink": "#173047", "--control-border": "rgba(23, 48, 71, .28)", "--select-arrow": "#365d76", "--image-frame": "#173047", "--layout-frame": "#273a71",
-        "--wash-1": "rgba(255, 86, 151, .24)", "--wash-2": "rgba(223, 244, 90, .22)", "--motif-1": "linear-gradient(90deg, rgba(154, 116, 224, .24) 0 22%, transparent 22% 38%, rgba(255, 88, 148, .2) 38% 51%, transparent 51% 100%)", "--motif-2": "linear-gradient(135deg, transparent 0 58%, rgba(223, 244, 90, .2) 58% 60%, transparent 60% 100%), radial-gradient(circle at 84% 22%, rgba(72, 213, 224, .2) 0 70px, transparent 71px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#ff5b9a", "--yellow": "#dff45a", "--green": "#63d76a", "--blue": "#28c7bf", "--violet": "#9a74e0", "--shadow": "0 22px 60px rgba(25, 65, 99, .17)"
+        "--wash-1": "rgba(255, 86, 151, .34)", "--wash-2": "rgba(223, 244, 90, .36)", "--motif-1": "linear-gradient(90deg, rgba(154, 116, 224, .22) 0 18%, transparent 18% 31%, rgba(255, 88, 148, .34) 31% 50%, transparent 50% 63%, rgba(223, 244, 90, .34) 63% 76%, transparent 76% 100%)", "--motif-2": "linear-gradient(135deg, transparent 0 52%, rgba(223, 244, 90, .3) 52% 57%, transparent 57% 100%), radial-gradient(circle at 84% 22%, rgba(255, 88, 148, .24) 0 76px, transparent 77px), radial-gradient(circle at 15% 78%, rgba(223, 244, 90, .24) 0 82px, transparent 83px), radial-gradient(circle at 72% 82%, rgba(40, 199, 191, .08) 0 54px, transparent 55px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#ff5b9a", "--yellow": "#dff45a", "--green": "#63d76a", "--blue": "#4a8fb8", "--violet": "#9a74e0", "--shadow": "0 22px 60px rgba(25, 65, 99, .17)"
       },
       analogDreams: {
-        "--cream": "#2a1234", "--paper": "#f6efe4", "--oat": "#f4bdd5", "--sand": "#e6e68c", "--ink": "#fff4fb", "--muted": "#f0c8e6", "--label": "#ffe0f3", "--link": "#8ff3ee", "--chip-text": "#fff4fb",
-        "--line": "rgba(255, 210, 239, .28)", "--surface": "rgba(62, 25, 78, .84)", "--surface-soft": "rgba(85, 34, 103, .78)", "--surface-card": "rgba(71, 28, 91, .74)", "--surface-warm": "rgba(119, 64, 133, .66)", "--surface-chip": "rgba(87, 42, 104, .82)", "--control-bg": "#fff0f7", "--control-ink": "#35173f", "--control-border": "rgba(255, 210, 239, .34)", "--select-arrow": "#552c62", "--image-frame": "#210f2d", "--layout-frame": "#321642",
-        "--wash-1": "rgba(247, 119, 181, .38)", "--wash-2": "rgba(122, 236, 229, .32)", "--motif-1": "linear-gradient(135deg, transparent 0 20%, rgba(244, 119, 181, .34) 20% 27%, transparent 27% 46%, rgba(144, 244, 236, .32) 46% 53%, transparent 53% 72%, rgba(230, 230, 140, .28) 72% 78%, transparent 78% 100%)", "--motif-2": "radial-gradient(circle at 82% 22%, rgba(255, 155, 208, .24) 0 82px, transparent 83px), radial-gradient(circle at 12% 78%, rgba(120, 238, 229, .24) 0 104px, transparent 105px), radial-gradient(circle at 26% 18%, rgba(230, 230, 140, .18) 0 62px, transparent 63px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#f477b5", "--yellow": "#e6e68c", "--green": "#75e3d4", "--blue": "#86dfe9", "--violet": "#b875c7", "--shadow": "0 22px 60px rgba(27, 9, 40, .28)"
+        "--cream": "#f6efe4", "--paper": "#f7fff9", "--oat": "#d9f5ef", "--sand": "#eeee8f", "--ink": "#243238", "--muted": "#5d7275", "--label": "#334b50", "--link": "#008d9a", "--chip-text": "#2f4549",
+        "--line": "rgba(58, 158, 166, .26)", "--surface": "rgba(242, 255, 251, .9)", "--surface-soft": "rgba(234, 255, 250, .84)", "--surface-card": "rgba(238, 255, 251, .78)", "--surface-warm": "rgba(238, 238, 143, .44)", "--surface-chip": "rgba(220, 248, 242, .78)", "--control-bg": "#f2fffb", "--control-ink": "#243238", "--control-border": "rgba(58, 158, 166, .34)", "--select-arrow": "#008d9a", "--image-frame": "#243238", "--layout-frame": "#75e3d4",
+        "--wash-1": "rgba(117, 227, 212, .34)", "--wash-2": "rgba(238, 238, 143, .34)", "--motif-1": "linear-gradient(rgba(117, 227, 212, .28) 1px, transparent 1px), linear-gradient(90deg, rgba(117, 227, 212, .2) 1px, transparent 1px), linear-gradient(135deg, transparent 0 18%, rgba(117, 227, 212, .38) 18% 28%, transparent 28% 44%, rgba(244, 119, 181, .24) 44% 48%, transparent 48% 58%, rgba(238, 238, 143, .34) 58% 66%, transparent 66% 76%, rgba(255, 155, 208, .2) 76% 80%, transparent 80% 100%)", "--motif-2": "repeating-linear-gradient(0deg, transparent 0 18px, rgba(117, 227, 212, .22) 19px 20px), radial-gradient(circle at 18% 24%, rgba(255, 155, 208, .2) 0 34px, transparent 35px), radial-gradient(circle at 88% 68%, rgba(244, 119, 181, .2) 0 46px, transparent 47px), linear-gradient(118deg, transparent 0 58%, rgba(117, 227, 212, .24) 58% 61%, transparent 61% 76%, rgba(238, 238, 143, .24) 76% 79%, transparent 79% 100%), linear-gradient(62deg, transparent 0 16%, rgba(238, 238, 143, .28) 16% 20%, transparent 20% 100%), linear-gradient(152deg, transparent 0 28%, rgba(72, 38, 102, .12) 28% 34%, transparent 34% 100%)", "--motif-size-1": "44px 44px, 44px 44px, auto", "--motif-size-2": "auto, auto, auto, auto, auto, auto", "--red": "#f477b5", "--yellow": "#eeee8f", "--green": "#75e3d4", "--blue": "#4edee9", "--violet": "#65408c", "--shadow": "0 22px 60px rgba(64, 148, 154, .18)"
       },
       britishRacingGreen: {
         "--cream": "#0c3828", "--paper": "#f3efe5", "--oat": "#c9b77d", "--sand": "#d9c889", "--ink": "#f6f2e4", "--muted": "#c9d8cb", "--label": "#eef0de", "--link": "#e9d47d", "--chip-text": "#f6f2e4",
@@ -1005,9 +1060,9 @@
         "--wash-1": "rgba(5, 92, 55, .32)", "--wash-2": "rgba(217, 200, 137, .22)", "--motif-1": "linear-gradient(115deg, transparent 0 20%, rgba(217, 200, 137, .24) 20% 22%, transparent 22% 100%), linear-gradient(65deg, transparent 0 72%, rgba(9, 86, 53, .3) 72% 76%, transparent 76% 100%)", "--motif-2": "radial-gradient(circle at 84% 20%, rgba(241, 237, 220, .14) 0 64px, transparent 65px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#c9b77d", "--yellow": "#e4d597", "--green": "#0f5a3c", "--blue": "#123f32", "--violet": "#f3efe5", "--shadow": "0 22px 60px rgba(3, 31, 22, .3)"
       },
       copper: {
-        "--cream": "#087a7d", "--paper": "#f2d2bd", "--oat": "#5a3328", "--sand": "#bd714e", "--ink": "#fff3e8", "--muted": "#efc7b6", "--label": "#ffd9c4", "--link": "#9ff2ee", "--chip-text": "#fff3e8",
-        "--line": "rgba(255, 216, 191, .28)", "--surface": "rgba(12, 83, 83, .86)", "--surface-soft": "rgba(18, 105, 103, .78)", "--surface-card": "rgba(14, 88, 88, .74)", "--surface-warm": "rgba(93, 61, 48, .72)", "--surface-chip": "rgba(101, 66, 52, .82)", "--control-bg": "#f7dcc9", "--control-ink": "#3d241e", "--control-border": "rgba(255, 216, 191, .34)", "--select-arrow": "#5a3328", "--image-frame": "#17302c", "--layout-frame": "#0c4e50",
-        "--wash-1": "rgba(188, 103, 70, .3)", "--wash-2": "rgba(0, 137, 143, .28)", "--motif-1": "linear-gradient(100deg, transparent 0 18%, rgba(188, 103, 70, .34) 18% 22%, transparent 22% 58%, rgba(15, 113, 115, .3) 58% 63%, transparent 63% 100%)", "--motif-2": "radial-gradient(circle at 82% 20%, rgba(118, 59, 42, .28) 0 82px, transparent 83px), radial-gradient(circle at 10% 78%, rgba(120, 222, 220, .14) 0 90px, transparent 91px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#bd714e", "--yellow": "#d49a73", "--green": "#087a7d", "--blue": "#0b5960", "--violet": "#3a2620", "--shadow": "0 22px 60px rgba(31, 31, 24, .26)"
+        "--cream": "#3b2218", "--paper": "#f2d2bd", "--oat": "#5a3328", "--sand": "#bd714e", "--ink": "#fff3e8", "--muted": "#e3b89d", "--label": "#ffd9c4", "--link": "#74ddd8", "--chip-text": "#fff3e8",
+        "--line": "rgba(255, 216, 191, .3)", "--surface": "rgba(63, 34, 24, .9)", "--surface-soft": "rgba(74, 49, 38, .84)", "--surface-card": "rgba(68, 42, 31, .8)", "--surface-warm": "rgba(113, 67, 45, .76)", "--surface-chip": "rgba(67, 74, 61, .78)", "--control-bg": "#f1d2bd", "--control-ink": "#3d241e", "--control-border": "rgba(8, 122, 125, .34)", "--select-arrow": "#087a7d", "--image-frame": "#2b1812", "--layout-frame": "#0b5960",
+        "--wash-1": "rgba(188, 103, 70, .38)", "--wash-2": "rgba(8, 122, 125, .34)", "--motif-1": "linear-gradient(100deg, transparent 0 18%, rgba(188, 103, 70, .36) 18% 23%, transparent 23% 54%, rgba(8, 122, 125, .28) 54% 60%, transparent 60% 76%, rgba(90, 51, 40, .42) 76% 82%, transparent 82% 100%)", "--motif-2": "radial-gradient(circle at 82% 20%, rgba(118, 59, 42, .36) 0 82px, transparent 83px), radial-gradient(circle at 12% 78%, rgba(8, 122, 125, .26) 0 92px, transparent 93px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#bd714e", "--yellow": "#d49a73", "--green": "#087a7d", "--blue": "#0b5960", "--violet": "#2a1711", "--shadow": "0 22px 60px rgba(32, 17, 12, .34)"
       },
       dualshot: {
         "--cream": "#575a5f", "--paper": "#eef0ee", "--oat": "#36383a", "--sand": "#f0c21b", "--ink": "#f4f5ef", "--muted": "#d2d8d8", "--label": "#ecefea", "--link": "#4ed1da", "--chip-text": "#f4f5ef",
@@ -1063,8 +1118,8 @@
       "GMK Panels": ["teal", "blue", "red", "yellow", "bright", "geometric"],
       "KAP Santa Llum Naixement": ["green", "teal", "yellow", "orange", "bright"],
       "KAP Santa Llum Resurreccio": ["gold", "orange", "red", "purple", "warm", "bright"],
-      "GMK Windbreaker": ["bright", "teal", "purple", "pink", "yellow", "green"],
-      "GMK Analog Dreams": ["pastel", "pink", "teal", "yellow", "purple", "cream", "bright"],
+      "GMK Windbreaker": ["bright", "purple", "pink", "yellow", "green"],
+      "GMK Analog Dreams": ["pastel", "pink", "teal", "cyan", "yellow", "cream", "bright"],
       "GMK British Racing Green": ["green", "cream", "gold", "classic", "dark"],
       "GMK Copper": ["brown", "teal", "cream", "orange", "dark"],
       "GMK Dualshot": ["gray", "mono", "yellow", "blue", "red", "bright"],
@@ -1089,8 +1144,8 @@
       "GMK Panels": "teal, blue, red, mustard, and geometric panel color blocking",
       "KAP Santa Llum Naixement": "green, teal, yellow, and orange stained-glass gradients",
       "KAP Santa Llum Resurreccio": "gold, orange, red, and plum stained-glass gradients",
-      "GMK Windbreaker": "bright teal, purple, pink, chartreuse, and sporty saturated colorways",
-      "GMK Analog Dreams": "cream alphas, stronger pastel pink, cyan, yellow, lavender, and retro-neon accents",
+      "GMK Windbreaker": "purple, hot pink, chartreuse yellow, green, and sporty saturated colorways",
+      "GMK Analog Dreams": "cream alphas with hot pink splashes, cyan, yellow, vaporwave neon, and minimal lavender accenting",
       "GMK British Racing Green": "ivory alphas, deep green modifiers, and muted gold details",
       "GMK Copper": "copper, brown, teal, and pale metal highlight colorways",
       "GMK Dualshot": "console gray, yellow, blue, red, and cyan accent colorways",
@@ -1146,6 +1201,11 @@
     };
 
     const budgetRanges = ["Budget", "Mid-range", "High"];
+    const budgetRangeOptions = [
+      { value: "Budget", label: "Budget - Below $100" },
+      { value: "Mid-range", label: "Mid-range - $100-$250" },
+      { value: "High", label: "High-end - $250+" }
+    ];
     const defaultPreset = {
       layout: "75%",
       switchType: "Linear",
@@ -1215,7 +1275,11 @@
     };
 
     function fillSelect(select, values) {
-      select.innerHTML = values.map(value => `<option value="${value}">${value}</option>`).join("");
+      select.innerHTML = values.map(option => {
+        const value = typeof option === "string" ? option : option.value;
+        const label = typeof option === "string" ? option : option.label;
+        return `<option value="${value}">${label}</option>`;
+      }).join("");
     }
 
     function applyTheme(themeName) {
@@ -1223,13 +1287,19 @@
       Object.entries(theme).forEach(([property, value]) => {
         document.documentElement.style.setProperty(property, value);
       });
+      try {
+        localStorage.setItem("keyboardConfigurator.themeName", themeName);
+        localStorage.setItem("keyboardConfigurator.themeVars", JSON.stringify(theme));
+      } catch (error) {
+        // Theme persistence is optional; the configurator still works if storage is unavailable.
+      }
     }
 
     fillSelect(els.layout, layouts.map(layout => layout.name));
     fillSelect(els.switchType, Object.keys(switchTypes));
     fillSelect(els.sound, Object.keys(sounds));
     fillSelect(els.spring, Object.keys(springs));
-    fillSelect(els.budgetRange, budgetRanges);
+    fillSelect(els.budgetRange, budgetRangeOptions);
     fillSelect(els.keycapColor, Object.keys(colorways));
     fillSelect(els.profile, Object.keys(profiles));
     fillSelect(els.material, Object.keys(materialColors));
@@ -1237,7 +1307,12 @@
     Object.entries(defaultPreset).forEach(([key, value]) => {
       if (els[key]) els[key].value = value;
     });
-    themeSelect.value = defaultPreset.theme;
+    let storedTheme = defaultPreset.theme;
+    try {
+      const savedTheme = localStorage.getItem("keyboardConfigurator.themeName");
+      if (savedTheme && pageThemes[savedTheme]) storedTheme = savedTheme;
+    } catch (error) {}
+    themeSelect.value = storedTheme;
 
     function updateCaseColorOptions() {
       const old = els.caseColor.value;
@@ -1289,7 +1364,11 @@
       ui.selectionTitle.textContent = `${layout.name} in ${els.caseColor.value} ${els.material.value}`;
       ui.selectionCopy.textContent = `${layout.copy} ${palette.copy}`;
       ui.switchTitle.textContent = `${els.switchType.value} switches, ${els.sound.value.toLowerCase()} target`;
-      ui.switchCopy.textContent = `${switchTypes[els.switchType.value]} ${sounds[els.sound.value]} ${springs[els.spring.value]}`;
+      setHTML("switchCopy", ui.switchCopy, `
+        <div><b>Type</b><span>${switchTypes[els.switchType.value]}</span></div>
+        <div><b>Sound</b><span>${sounds[els.sound.value]}</span></div>
+        <div><b>Spring</b><span>${springs[els.spring.value]}</span></div>
+      `);
       const switchImageKey = els.sound.value === "Clicky" ? "Clicky" : els.switchType.value === "Tactile" ? "Tactile" : "Linear";
       const profile = profiles[els.profile.value];
       const media = profileMedia[els.profile.value];
