@@ -248,12 +248,226 @@
       <div class="rainbow-rule" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
       <div class="content">
         <h1>Release History</h1>
-        <p class="lede">Each saved iteration uses semantic-style version naming so QA feedback can point to a known snapshot. Backups live in the local Backups folder.</p>
+        <p class="lede">Every shipped change remains recorded here. Filesystem backups are now reserved for major milestone versions such as 10.0, while smaller patch releases stay documented in this changelog without creating extra backup clutter.</p>
 
         <details class="branch" open>
-          <summary>7.x SVG Prototype Branch</summary>
+          <summary>9.x Layout Data Branch</summary>
           <div class="branch-body">
             <details class="release" open>
+              <summary>Version 9.15 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Changed the backup policy so routine patch releases are recorded in the changelog without creating full filesystem backup sets.</li>
+                <li>Reserved full backup snapshots for major milestone releases such as 10.0 or larger structural changes.</li>
+                <li>Cleaned non-major changelog backup copies from the Backups folder while preserving the live changelog history.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 9.14 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Expanded keyboard recommendations with Hex80 HE, Geon Venom HE custom builds, MonsGeek budget HE options, and Akko entry-to-mid HE options.</li>
+                <li>Updated Wooting HE copy to reflect top-of-midrange pricing, strong software, and slightly weaker hardware value.</li>
+                <li>Added Budget options for Swagkeys Transition Lite TKL and Omnitype Bauer Lite.</li>
+                <li>Added Mid-range recommendations for Wind Studio kits, Krush65, and DaringRun customs, with DaringRun marked as rare/aftermarket-prone.</li>
+                <li>Added Owlab customs as a High-end recommendation family.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 9.13 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Made Hall Effect switch selection affect keyboard recommendations through switch compatibility scoring.</li>
+                <li>Added Mid-range Hall Effect board families from Akko / MonsGeek, Keychron HE, Neo65 Sonic HE+, and Wooting HE.</li>
+                <li>Updated keyboard recommendation copy and cards to show switch compatibility as a matching reason.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 9.12 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Removed the website theme from the Build Request summary, EmailJS payload, and fallback email draft.</li>
+                <li>Added a separate required Customer name field so customer identity and build name are no longer conflated.</li>
+                <li>Made Reply email required and added form validity enforcement before sending or opening a fallback email draft.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 9.11 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Added the Luminkey98 v2 with GMK Tuzi image to the Build Gallery page.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 9.10 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Added Qwertykeys QK series recommendations covering QK60, QK65, QK75, QK80, QK100, and QK101.</li>
+                <li>Added Meletrix Zoom series recommendations covering Zoom60/64, Zoom65, Zoom75, Zoom TKL, Zoom98, and Zoom Pad.</li>
+                <li>Updated the Boards index and recommendation filters so these mid-range to upper-mid families surface by layout, material, and case color direction.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 9.9 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Cropped the new 96% layout diagram to remove excess gray space above and below while keeping the right-side text label.</li>
+                <li>Added matching bottom padding to the numpad layout image so the lower border no longer appears cut off in the preview.</li>
+                <li>Applied the same bottom-framing treatment to the keycap profile reference images so profile labels and guide lines are not clipped.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 9.8 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Standardized the switch preview readout so Linear, Tactile, and Hall Effect selections keep the same section height.</li>
+                <li>Added fixed internal rows for the switch image, switch title, and three-part switch description grid.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 9.7 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Changed the aluminum Red case color from a soft coral/pink tone to a saturated Formula 1 red.</li>
+                <li>Kept the change scoped to the case color preset so page themes and keycap palettes are unaffected.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 9.6 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Removed the ambiguous KBDfans catch-all recommendation label.</li>
+                <li>Added separate KBDfans Tofu60 Redux and Tofu60 3.0 recommendations with budget-specific links.</li>
+                <li>Updated the Boards index so Budget links to Tofu60 Redux and Mid-range links to Tofu60 3.0.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 9.5 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Connected the Hall Effect switch type to the new Magnetic switch diagram in the live preview.</li>
+                <li>Kept clicky sound selections mapped to the clicky diagram while preserving tactile and linear switch-type diagrams.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 9.4 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Restyled the live build layout / case and switch type / sound headers as theme-accented callout boxes.</li>
+                <li>Added compact label text, accent border strips, tinted backgrounds, and subtle shadows to improve scan hierarchy in the preview readout.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 9.3 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Rebalanced the Build Request panel so the right-side form feels fuller and more intentional.</li>
+                <li>Increased form padding, textarea height, input height, and button/status presence while tightening summary spacing.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 9.2 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Optimized the main configurator code by removing obsolete per-layout preview CSS now superseded by the stable layout preview slot.</li>
+                <li>Consolidated candidate normalization and tier grouping into a single preparation pass for keycap and keyboard recommendations.</li>
+                <li>Routed recommendation list rendering through the existing render cache to avoid unnecessary DOM rewrites when generated content is unchanged.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 9.1 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Cropped layout preview image assets to reduce excess gray space while preserving the full diagrams.</li>
+                <li>Added a single stable layout preview slot preset so selected layout images no longer resize or shift between options.</li>
+                <li>Updated the Layout Index to remove the standalone 1800 entry, use the FRL 1800 image for 70% / 1800 FRL, and use the current Alice PNG.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 9.0 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Removed the standalone 1800 layout from the main configurator dropdown.</li>
+                <li>Reassigned the former 1800 preview image to the 70% / 1800 FRL layout entry.</li>
+              </ul>
+            </details>
+          </div>
+        </details>
+
+        <details class="branch">
+          <summary>8.x Request Submission Branch</summary>
+          <div class="branch-body">
+            <details class="release">
+              <summary>Version 8.9 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Added a subtle gold tint to the British Racing Green theme through warmer surfaces, controls, background washes, and motif highlights.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 8.8 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Added GMK Abstract, GMK Motif, KC Orange, and KKB Great Barrier Reef to the main keycap colorway selector and recommendation metadata.</li>
+                <li>Added matching theme-image colorway cards to the Colorways reference page.</li>
+                <li>Retuned KKB Great Barrier Reef around bright coral-orange, KC Orange around bright orange plus white-outline contrast, and GMK Motif around a beige-tan base with brighter red, green, yellow, blue, and pink accents.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 8.7 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Intensified the newest themes with more aggressive light tones, stronger washes, and larger theme-derived background motifs.</li>
+                <li>Updated GMK Abstract, GMK Motif, KC Orange, and KKB Great Barrier Reef so they feel more image-driven and less like simple palette swaps.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 8.6 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Added new page themes derived from the latest Themes folder images: GMK Abstract, GMK Motif, KC Orange, and KKB Great Barrier Reef.</li>
+                <li>Built each new theme around sampled image colors, including matching surfaces, controls, layout frames, motifs, and submit-button theme weighting.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 8.5 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Made the Submit Build Request button more theme-weighted by deriving its gradient from the active theme colors.</li>
+                <li>Added dynamic submit-button text contrast so the button remains readable across light, dark, and saturated themes.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 8.4 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Adjusted layout preview framing to match the newest layout image proportions and avoid clipping.</li>
+                <li>Gave the Theme selector a cooler blue/violet treatment and the Submit Build Request button a warmer red/yellow treatment so each control reads distinctly.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 8.3 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Tightened layout preview padding and width presets across the configurator.</li>
+                <li>Normalized compact, Alice / Arisu, HHKB, 65%, and numpad preview frames to reduce wasted dark frame space.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 8.2 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Updated the Alice / Arisu preview to use the new Reference Library PNG asset.</li>
+                <li>Reformatted the numpad preview frame for the new wide numpad image proportions.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 8.1 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Nudged the Alice / Arisu layout preview image 10 pixels upward for better framing.</li>
+                <li>Restyled the theme selector so it reads as a distinct colorway control instead of another navigation button.</li>
+                <li>Increased visual emphasis on the Build Request panel, right-side request form, and submit button.</li>
+              </ul>
+            </details>
+            <details class="release">
+              <summary>Version 8.0 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Integrated EmailJS into the Build Request form for in-page submission.</li>
+                <li>Added an optional reply email field and live submission status text.</li>
+                <li>Kept the prefilled email draft as a fallback if the EmailJS script cannot send.</li>
+              </ul>
+            </details>
+          </div>
+        </details>
+
+        <details class="branch">
+          <summary>7.x SVG Prototype Branch</summary>
+          <div class="branch-body">
+            <details class="release">
+              <summary>Version 7.9 <time datetime="2026-06-05">June 5, 2026</time></summary>
+              <ul>
+                <li>Added a Build Request segment to the main configurator.</li>
+                <li>Aggregates the selected layout, switch, keycap, case, budget, and page theme into one request summary.</li>
+                <li>Added build name and description fields with a prefilled email submission to jcbrisingr@gmail.com.</li>
+              </ul>
+            </details>
+            <details class="release">
               <summary>Version 7.8 <time datetime="2026-06-04">June 4, 2026</time></summary>
               <ul>
                 <li>Added a dedicated Build Gallery page using the keyboard build photos in Reference Library / Builds.</li>

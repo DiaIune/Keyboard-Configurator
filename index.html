@@ -41,6 +41,10 @@
       --green: #7fb678;
       --blue: #65a7c8;
       --violet: #a187c8;
+      --submit-1: #da6f5f;
+      --submit-2: #e8bd57;
+      --submit-3: #7fb678;
+      --submit-text: #2f2418;
       --shadow: 0 22px 60px rgba(86, 57, 27, .13);
       --radius: 8px;
     }
@@ -151,10 +155,16 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      color: var(--muted);
+      color: #fffaf0;
       font-size: 12px;
       font-weight: 820;
       text-transform: uppercase;
+      padding: 6px 8px 6px 12px;
+      border: 1px solid color-mix(in srgb, var(--blue) 58%, transparent);
+      border-radius: 10px;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--blue) 78%, white), color-mix(in srgb, var(--violet) 74%, white));
+      box-shadow: 0 12px 24px color-mix(in srgb, var(--blue) 28%, transparent);
     }
 
     .theme-picker select {
@@ -162,6 +172,9 @@
       min-height: 36px;
       padding: 9px 32px 9px 10px;
       font-size: 12px;
+      border-color: rgba(255, 255, 255, .42);
+      background: color-mix(in srgb, var(--surface) 88%, var(--blue) 12%);
+      color: var(--ink);
     }
 
     .nav a {
@@ -305,7 +318,7 @@
       padding: 0 10px 0;
     }
 
-    .preview-wrap, .readout, .rec-column, .source-box {
+    .preview-wrap, .readout, .rec-column, .source-box, .request-panel {
       border: 1px solid rgba(91, 71, 49, .18);
       background: var(--surface-soft);
       border-radius: var(--radius);
@@ -323,65 +336,14 @@
     .keyboard {
       width: 100%;
       aspect-ratio: 16 / 7;
-      min-height: 185px;
+      min-height: 172px;
       border-radius: 7px;
-      padding: 14px;
+      padding: 8px;
       background: var(--layout-frame);
       box-shadow: none;
       display: grid;
       place-items: center;
       overflow: hidden;
-    }
-
-    .keyboard.layout-wide {
-      width: 100%;
-      aspect-ratio: 16 / 7;
-      min-height: 185px;
-      margin: 0 auto;
-    }
-
-    .keyboard.layout-tkl {
-      width: min(760px, 96%);
-      aspect-ratio: 4.6 / 1;
-      min-height: 170px;
-      margin: 0 auto;
-    }
-
-    .keyboard.layout-75 {
-      width: min(650px, 90%);
-      aspect-ratio: 3.4 / 1;
-      min-height: 165px;
-      margin: 0 auto;
-    }
-
-    .keyboard.layout-60 {
-      width: min(520px, 82%);
-      aspect-ratio: 3.2 / 1;
-      min-height: 150px;
-      margin: 0 auto;
-    }
-
-    .keyboard.layout-hhkb {
-      width: min(520px, 82%);
-      aspect-ratio: 2.9 / 1;
-      min-height: 178px;
-      padding: 12px;
-      margin: 0 auto;
-    }
-
-    .keyboard.layout-40 {
-      width: min(440px, 74%);
-      aspect-ratio: 3 / 1;
-      min-height: 135px;
-      margin: 0 auto;
-    }
-
-    .keyboard.layout-alice {
-      width: min(680px, 92%);
-      aspect-ratio: 3.2 / 1;
-      min-height: 188px;
-      padding: 10px 12px 28px;
-      margin: 0 auto;
     }
 
     .keyboard img {
@@ -395,31 +357,19 @@
       filter: saturate(.92) contrast(1.04);
     }
 
-    .keyboard.layout-numpad {
-      width: min(255px, 62%);
-      aspect-ratio: 239 / 284;
-      min-height: 304px;
-      padding: 8px;
+    .keyboard:is(.layout-wide, .layout-tkl, .layout-75, .layout-65, .layout-60, .layout-hhkb, .layout-40, .layout-alice, .layout-numpad) {
+      width: min(780px, 94%);
+      aspect-ratio: 2.85 / 1;
+      min-height: 228px;
+      padding: 14px;
       margin: 0 auto;
     }
 
-    .keyboard.layout-hhkb img {
-      width: 96%;
-      height: 96%;
+    .keyboard:is(.layout-wide, .layout-tkl, .layout-75, .layout-65, .layout-60, .layout-hhkb, .layout-40, .layout-alice, .layout-numpad) img {
+      width: 100%;
+      height: 100%;
       object-fit: contain;
-    }
-
-    .keyboard.layout-alice img {
-      width: 94%;
-      height: 90%;
-      object-fit: contain;
-    }
-
-    .keyboard.layout-65 {
-      width: min(430px, 78%);
-      aspect-ratio: 301 / 170;
-      min-height: 205px;
-      margin: 0 auto;
+      object-position: center;
     }
 
     .preview-meta {
@@ -476,9 +426,9 @@
     .readout {
       grid-area: readout;
       padding: 14px;
-      display: flex;
-      flex-direction: column;
-      align-content: space-between;
+      display: grid;
+      grid-template-rows: auto auto 146px minmax(68px, auto) minmax(138px, auto) auto auto;
+      align-content: start;
       gap: clamp(8px, 1.35vh, 16px);
     }
 
@@ -528,6 +478,39 @@
       line-height: 1.15;
     }
 
+    .readout #selectionTitle,
+    .readout #switchTitle {
+      padding: 12px 13px;
+      border: 1px solid color-mix(in srgb, var(--submit-2) 38%, var(--line));
+      border-left: 5px solid var(--submit-1);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--surface) 78%, var(--submit-2) 22%), color-mix(in srgb, var(--surface-soft) 86%, var(--submit-3) 14%));
+      box-shadow: 0 10px 20px color-mix(in srgb, var(--submit-1) 16%, rgba(64, 42, 21, .1));
+      color: var(--ink);
+    }
+
+    .readout #switchTitle {
+      min-height: 68px;
+      display: grid;
+      align-content: center;
+    }
+
+    .readout #selectionTitle::before,
+    .readout #switchTitle::before {
+      display: block;
+      margin-bottom: 4px;
+      color: color-mix(in srgb, var(--submit-1) 74%, var(--label));
+      font-family: "Plus Jakarta Sans", Aptos, sans-serif;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .readout #selectionTitle::before { content: "Build layout and case"; }
+    .readout #switchTitle::before { content: "Switch type and sound"; }
+
     .readout p, .source-box p {
       color: var(--muted);
       line-height: 1.45;
@@ -537,15 +520,16 @@
 
     .switch-copy-grid {
       display: grid;
+      grid-template-rows: repeat(3, minmax(0, 1fr));
       gap: 7px;
-      margin-top: 8px;
+      min-height: 138px;
     }
 
     .switch-copy-grid div {
       display: grid;
       grid-template-columns: 74px 1fr;
       gap: 10px;
-      align-items: start;
+      align-items: center;
       color: var(--muted);
       line-height: 1.35;
       font-size: 13px;
@@ -560,12 +544,10 @@
     }
 
     .switch-visual {
-      aspect-ratio: 16 / 9;
       min-height: 0;
-      height: auto;
+      height: 146px;
       display: grid;
       place-items: center;
-      margin: 3px 0 5px;
       border: 1px solid rgba(91,71,49,.14);
       border-radius: 7px;
       background: var(--surface-warm);
@@ -728,6 +710,123 @@
 
     .source-box a { color: var(--link); font-weight: 760; }
 
+    .request-panel {
+      padding: 18px;
+      display: grid;
+      grid-template-columns: minmax(280px, .86fr) minmax(380px, 1.14fr);
+      gap: 18px;
+      align-items: stretch;
+      border-color: color-mix(in srgb, var(--accent) 36%, rgba(91, 71, 49, .18));
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--surface-soft) 92%, var(--accent) 8%), var(--surface-soft));
+      box-shadow: 0 16px 34px rgba(64, 42, 21, .12);
+    }
+
+    .request-panel > div:first-child {
+      display: grid;
+      align-content: start;
+    }
+
+    .request-panel > div:first-child p {
+      max-width: 58ch;
+      margin-bottom: 0;
+    }
+
+    .request-summary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px;
+      margin-top: 12px;
+    }
+
+    .request-summary div {
+      min-height: 82px;
+      padding: 13px 14px;
+      border: 1px solid color-mix(in srgb, var(--accent) 28%, rgba(91, 71, 49, .14));
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: inset 4px 0 0 color-mix(in srgb, var(--accent) 72%, transparent);
+    }
+
+    .request-summary b {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .build-request-form {
+      display: grid;
+      grid-template-columns: minmax(180px, .7fr) minmax(220px, 1fr);
+      gap: 14px;
+      align-content: stretch;
+      padding: 18px;
+      border: 1px solid color-mix(in srgb, var(--accent-2) 34%, rgba(91, 71, 49, .12));
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--surface) 88%, var(--accent-2) 12%);
+      box-shadow: 0 12px 26px rgba(64, 42, 21, .1);
+    }
+
+    .build-request-form label {
+      display: grid;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .build-request-form textarea {
+      min-height: 142px;
+      resize: vertical;
+    }
+
+    .build-request-form .full-span { grid-column: 1 / -1; }
+
+    .submit-build,
+    .request-status {
+      grid-column: span 1;
+    }
+
+    .build-request-form input,
+    .build-request-form textarea {
+      min-height: 42px;
+    }
+
+    .submit-build {
+      justify-self: stretch;
+      border: 0;
+      border-radius: 10px;
+      min-height: 48px;
+      padding: 13px 20px;
+      border: 1px solid color-mix(in srgb, var(--submit-2) 48%, transparent);
+      background: linear-gradient(135deg, var(--submit-1), var(--submit-2) 54%, var(--submit-3));
+      color: var(--submit-text);
+      font-weight: 850;
+      cursor: pointer;
+      box-shadow: 0 14px 24px color-mix(in srgb, var(--submit-1) 30%, rgba(64, 42, 21, .2));
+    }
+
+    .submit-build:hover {
+      filter: brightness(1.03) saturate(1.12);
+      transform: translateY(-1px);
+    }
+    .submit-build:disabled { cursor: wait; opacity: .64; }
+
+    .request-status {
+      align-self: center;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+      min-height: 48px;
+      display: grid;
+      align-items: center;
+      padding: 0 12px;
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--surface) 82%, transparent);
+    }
+
     @media (max-width: 980px) {
       .hero, .stage-grid { grid-template-columns: 1fr; }
       .stage-grid {
@@ -741,6 +840,8 @@
       .topbar { align-items: flex-start; }
       .readout { align-content: start; }
       .switch-visual { min-height: 0; }
+      .request-panel, .build-request-form { grid-template-columns: 1fr; }
+      .submit-build, .request-status { grid-column: 1 / -1; }
     }
 
     @media (max-width: 620px) {
@@ -753,6 +854,7 @@
       .keyboard { min-height: 150px; }
       .section-head { display: grid; }
       .rec-list { grid-template-columns: 1fr; }
+      .request-summary { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -779,6 +881,10 @@
             <option value="olivia">GMK Olivia</option>
             <option value="modernDolch">GMK Modern Dolch</option>
             <option value="panels">GMK Panels</option>
+            <option value="abstract">GMK Abstract</option>
+            <option value="motif">GMK Motif</option>
+            <option value="kcOrange">KC Orange</option>
+            <option value="greatBarrierReef">KKB Great Barrier Reef</option>
             <option value="santaNaixement">KAP Santa Llum Naixement</option>
             <option value="santaResurreccio">KAP Santa Llum Resurreccio</option>
             <option value="windbreaker">GMK Windbreaker</option>
@@ -862,6 +968,30 @@
     </section>
 
     <div class="sections">
+      <section class="request-panel" id="build-request">
+        <div>
+          <h2 class="section-title">Build Request</h2>
+          <p>Review the selected configuration, then add a name and short build brief before sending the request.</p>
+          <div class="request-summary" id="requestSummary" aria-live="polite"></div>
+        </div>
+        <form class="build-request-form" id="buildRequestForm">
+          <label>Customer name
+            <input id="customerName" name="customerName" type="text" placeholder="Your name" required>
+          </label>
+          <label>Build name
+            <input id="requestName" name="requestName" type="text" placeholder="Daily driver, office build, endgame 75%" required>
+          </label>
+          <label>Reply email
+            <input id="requestEmail" name="requestEmail" type="email" placeholder="you@example.com" required>
+          </label>
+          <label class="full-span">Description
+            <textarea id="requestDescription" name="requestDescription" placeholder="Tell me what you want this build to feel, sound, or look like." required></textarea>
+          </label>
+          <button class="submit-build" type="submit">Submit Build Request</button>
+          <span class="request-status" id="requestStatus" role="status" aria-live="polite"></span>
+        </form>
+      </section>
+
       <section class="band" id="keycap-options">
         <div class="section-head">
           <div>
@@ -904,7 +1034,15 @@
     </div>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
+    const emailConfig = {
+      publicKey: "mXhPIa8vBzMDiDyrx",
+      serviceId: "service_ax4nlhg",
+      templateId: "template_akjt9ad"
+    };
+    let emailJsInitialized = false;
+
     function siteRootPath() {
       const path = window.location.pathname;
       if (path.endsWith("/")) return path;
@@ -925,16 +1063,15 @@
 
     const layouts = [
       { name: "Fullsize", copy: "100% with numpad, nav, arrows, and function row.", keys: 104, kind: "full", previewClass: "layout-wide", src: "Reference%20Library/layout-fullsize.png" },
-      { name: "1800", copy: "Compact fullsize: numpad stays, navigation compresses.", keys: 96, kind: "full", previewClass: "layout-wide", src: "Reference%20Library/layout-1800.png" },
       { name: "96%", copy: "A beginner-friendly 1800 cousin with almost every key.", keys: 96, kind: "full", previewClass: "layout-wide", src: "Reference%20Library/layout-96.png" },
       { name: "TKL/80%", copy: "No numpad, familiar arrows and nav cluster.", keys: 87, kind: "tkl", previewClass: "layout-tkl", src: "Reference%20Library/layout-tkl-80.png" },
       { name: "75%", copy: "Function row plus arrows in a tighter footprint.", keys: 84, kind: "75", previewClass: "layout-75", src: "Reference%20Library/layout-75-exploded.png" },
-      { name: "70%/1800 FRL", copy: "1800-style board with function row removed.", keys: 75, kind: "75", previewClass: "layout-75", src: "Reference%20Library/layout-75-compact.png" },
+      { name: "70%/1800 FRL", copy: "1800-style board with function row removed.", keys: 75, kind: "75", previewClass: "layout-75", src: "Reference%20Library/layout-1800.png" },
       { name: "65%", copy: "Compact typing with arrows and a few nav keys.", keys: 68, kind: "65", previewClass: "layout-65", src: "Reference%20Library/65%25.png" },
       { name: "60%", copy: "Small classic custom format; layers do the heavy lifting.", keys: 61, kind: "60", previewClass: "layout-60", src: "Reference%20Library/60%25.png" },
       { name: "HHKB/WKL", copy: "60% family with blocker-style bottom row personality.", keys: 60, kind: "hhkb", previewClass: "layout-hhkb", src: "Reference%20Library/HKKB.png" },
       { name: "40%", copy: "Ultra-compact, highly layered, very portable.", keys: 42, kind: "40", previewClass: "layout-40", src: "Reference%20Library/layout-40.png" },
-      { name: "Alice/Arisu", copy: "Angled ergonomic layout with enthusiast styling.", keys: 68, kind: "alice", previewClass: "layout-alice", src: "Reference%20Library/Alice%20layout.webp" },
+      { name: "Alice/Arisu", copy: "Angled ergonomic layout with enthusiast styling.", keys: 68, kind: "alice", previewClass: "layout-alice", src: "Reference%20Library/Alice%20layout.png" },
       { name: "Numpad", copy: "Standalone numbers and macros.", keys: 21, kind: "numpad", previewClass: "layout-numpad", src: "Reference%20Library/Numpad%20layout.png" },
     ];
 
@@ -980,6 +1117,10 @@
       "GMK Dualshot": { alpha: "#eef0ee", mod: "#36383a", accents: ["#f0c21b", "#1687d9", "#e5352a"], preview: ["#eef0ee", "#36383a", "#f0c21b", "#1687d9", "#e5352a"], copy: "Console gray base with yellow, blue, red, and cyan controller-style accents." },
       "GMK Laser": { alpha: "#10082d", mod: "#5b2bd1", accents: ["#31f4ff", "#ff2f7d"], preview: ["#10082d", "#5b2bd1", "#31f4ff", "#ff2f7d"], copy: "Dark cyber purple base with cyan neon lines and magenta hot keys." },
       "GMK Nervewrecker": { alpha: "#1e2418", mod: "#9dac1d", accents: ["#d7ee38", "#37215c"], preview: ["#1e2418", "#9dac1d", "#d7ee38", "#37215c"], copy: "Charcoal base with acid green, yellow-green, and deep purple accents." },
+      "GMK Abstract": { alpha: "#e6d0b0", mod: "#653e2c", accents: ["#b02d20", "#b06b43", "#bb9f7e"], preview: ["#e6d0b0", "#653e2c", "#b02d20", "#b06b43", "#bb9f7e"], copy: "Tan-beige base, warm brown modifiers, red accents, and abstract caramel geometry." },
+      "GMK Motif": { alpha: "#d4beb1", mod: "#15583f", accents: ["#a00710", "#f0c84b", "#1f6fb3", "#df6aa7"], preview: ["#d4beb1", "#15583f", "#a00710", "#f0c84b", "#1f6fb3", "#df6aa7"], copy: "Beige-tan foundation with bright red, green, yellow, blue, and pink motif accents." },
+      "KC Orange": { alpha: "#ffffff", mod: "#8b91a2", accents: ["#f09a2a", "#dca453", "#634437"], preview: ["#ffffff", "#8b91a2", "#f09a2a", "#dca453", "#634437"], copy: "Crisp white outlines, neutral gray support, and saturated bright orange/amber accents." },
+      "KKB Great Barrier Reef": { alpha: "#169a8b", mod: "#239687", accents: ["#ff7a45", "#d58d7f", "#fff3ee"], preview: ["#169a8b", "#239687", "#ff7a45", "#d58d7f", "#fff3ee"], copy: "Aqua reef base with bright coral-orange as the central accent and soft shell highlights." },
       "GMK Phoenix": { alpha: "#080707", mod: "#1b1112", accents: ["#e33b22", "#f06a20", "#ffd13a"], preview: ["#080707", "#1b1112", "#e33b22", "#f06a20", "#ffd13a"], copy: "Black-heavy base with orange-red flame accents and brighter yellow-gold highlights." }
     };
 
@@ -1010,6 +1151,7 @@
     const switchMedia = {
       Linear: "Reference%20Library/Linear.png",
       Tactile: "Reference%20Library/Tactile.png",
+      "Hall Effect": "Reference%20Library/Magnetic.png",
       Clicky: "Reference%20Library/Clicky.png"
     };
 
@@ -1034,6 +1176,26 @@
         "--line": "rgba(230, 238, 222, .26)", "--surface": "rgba(19, 96, 105, .84)", "--surface-soft": "rgba(20, 112, 116, .78)", "--surface-card": "rgba(18, 91, 102, .72)", "--surface-warm": "rgba(28, 123, 121, .72)", "--surface-chip": "rgba(28, 100, 119, .82)", "--control-bg": "#eef0e8", "--control-ink": "#123f46", "--control-border": "rgba(10, 52, 58, .36)", "--select-arrow": "#123f46", "--image-frame": "#0b3438", "--layout-frame": "#0d4248",
         "--wash-1": "rgba(190, 39, 36, .22)", "--wash-2": "rgba(213, 158, 42, .24)", "--motif-1": "linear-gradient(90deg, rgba(33, 78, 115, .26) 0 18%, transparent 18% 35%, rgba(201, 149, 44, .22) 35% 43%, transparent 43% 100%)", "--motif-2": "linear-gradient(0deg, transparent 0 70%, rgba(191, 47, 45, .2) 70% 72%, transparent 72% 100%), radial-gradient(circle at 78% 70%, rgba(243, 240, 223, .1) 0 70px, transparent 71px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#bf2f2d", "--yellow": "#c9952c", "--green": "#1b8b84", "--blue": "#214e73", "--violet": "#17385a", "--shadow": "0 22px 60px rgba(2, 39, 44, .24)"
       },
+      abstract: {
+        "--cream": "#c8aa87", "--paper": "#f0d2ab", "--oat": "#9f8067", "--sand": "#b06b43", "--ink": "#2a1b13", "--muted": "#5d3c2b", "--label": "#3d2419", "--link": "#9b1f18", "--chip-text": "#3d2419",
+        "--line": "rgba(77, 43, 28, .28)", "--surface": "rgba(246, 220, 185, .86)", "--surface-soft": "rgba(255, 232, 197, .78)", "--surface-card": "rgba(247, 221, 188, .74)", "--surface-warm": "rgba(176, 107, 67, .36)", "--surface-chip": "rgba(187, 159, 126, .62)", "--control-bg": "#fff0d3", "--control-ink": "#291d14", "--control-border": "rgba(176, 45, 32, .38)", "--select-arrow": "#653e2c", "--image-frame": "#291d14", "--layout-frame": "#653e2c",
+        "--wash-1": "rgba(176, 45, 32, .42)", "--wash-2": "rgba(187, 159, 126, .5)", "--motif-1": "linear-gradient(112deg, transparent 0 8%, rgba(176, 107, 67, .44) 8% 15%, transparent 15% 30%, rgba(187, 159, 126, .42) 30% 38%, transparent 38% 52%, rgba(176, 45, 32, .36) 52% 59%, transparent 59% 100%), linear-gradient(68deg, transparent 0 70%, rgba(101, 62, 44, .34) 70% 76%, transparent 76% 100%)", "--motif-2": "radial-gradient(circle at 80% 20%, rgba(255, 226, 190, .32) 0 108px, transparent 109px), radial-gradient(circle at 14% 78%, rgba(176, 45, 32, .3) 0 98px, transparent 99px), repeating-linear-gradient(90deg, transparent 0 34px, rgba(101, 62, 44, .12) 35px 38px)", "--motif-size-1": "auto", "--motif-size-2": "auto, auto, 90px 90px", "--red": "#b02d20", "--yellow": "#d7b88e", "--green": "#9f8067", "--blue": "#422f24", "--violet": "#653e2c", "--shadow": "0 22px 60px rgba(78, 43, 28, .2)"
+      },
+      motif: {
+        "--cream": "#d4beb1", "--paper": "#f2e1d4", "--oat": "#c7aa96", "--sand": "#f0c84b", "--ink": "#271b15", "--muted": "#6e5145", "--label": "#3f2b22", "--link": "#a00710", "--chip-text": "#3f2b22",
+        "--line": "rgba(75, 45, 34, .25)", "--surface": "rgba(246, 226, 212, .88)", "--surface-soft": "rgba(255, 238, 224, .8)", "--surface-card": "rgba(248, 231, 218, .76)", "--surface-warm": "rgba(240, 200, 75, .34)", "--surface-chip": "rgba(212, 190, 177, .68)", "--control-bg": "#fff0e2", "--control-ink": "#271b15", "--control-border": "rgba(160, 7, 16, .34)", "--select-arrow": "#a00710", "--image-frame": "#1a1210", "--layout-frame": "#d4beb1",
+        "--wash-1": "rgba(212, 190, 177, .5)", "--wash-2": "rgba(160, 7, 16, .28)", "--motif-1": "linear-gradient(90deg, rgba(21, 88, 63, .34) 0 11%, transparent 11% 18%, rgba(160, 7, 16, .36) 18% 27%, transparent 27% 38%, rgba(240, 200, 75, .34) 38% 48%, transparent 48% 58%, rgba(31, 111, 179, .3) 58% 68%, transparent 68% 78%, rgba(223, 106, 167, .28) 78% 86%, transparent 86% 100%)", "--motif-2": "radial-gradient(circle at 82% 24%, rgba(240, 200, 75, .28) 0 92px, transparent 93px), radial-gradient(circle at 18% 76%, rgba(21, 88, 63, .26) 0 102px, transparent 103px), linear-gradient(128deg, transparent 0 54%, rgba(160, 7, 16, .22) 54% 59%, transparent 59% 100%)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#a00710", "--yellow": "#f0c84b", "--green": "#15583f", "--blue": "#1f6fb3", "--violet": "#df6aa7", "--shadow": "0 22px 60px rgba(80, 47, 36, .18)"
+      },
+      kcOrange: {
+        "--cream": "#ffffff", "--paper": "#fff7ea", "--oat": "#d8d9df", "--sand": "#f09a2a", "--ink": "#2d2928", "--muted": "#66564c", "--label": "#433832", "--link": "#c86a12", "--chip-text": "#423935",
+        "--line": "rgba(45, 41, 40, .22)", "--surface": "rgba(255, 255, 255, .9)", "--surface-soft": "rgba(255, 250, 242, .84)", "--surface-card": "rgba(255, 255, 255, .8)", "--surface-warm": "rgba(240, 154, 42, .44)", "--surface-chip": "rgba(216, 217, 223, .62)", "--control-bg": "#ffffff", "--control-ink": "#2d2928", "--control-border": "rgba(240, 154, 42, .48)", "--select-arrow": "#c86a12", "--image-frame": "#2c2929", "--layout-frame": "#ffffff",
+        "--wash-1": "rgba(240, 154, 42, .5)", "--wash-2": "rgba(255, 255, 255, .62)", "--motif-1": "linear-gradient(118deg, transparent 0 8%, rgba(240, 154, 42, .52) 8% 18%, transparent 18% 34%, rgba(255, 255, 255, .78) 34% 39%, transparent 39% 54%, rgba(171, 172, 183, .32) 54% 64%, transparent 64% 100%)", "--motif-2": "radial-gradient(circle at 84% 20%, rgba(240, 154, 42, .38) 0 116px, transparent 117px), radial-gradient(circle at 12% 80%, rgba(255, 255, 255, .7) 0 108px, transparent 109px), repeating-linear-gradient(0deg, transparent 0 26px, rgba(240, 154, 42, .16) 27px 30px)", "--motif-size-1": "auto", "--motif-size-2": "auto, auto, 72px 72px", "--red": "#f09a2a", "--yellow": "#dca453", "--green": "#ffffff", "--blue": "#8b91a2", "--violet": "#634437", "--shadow": "0 22px 60px rgba(74, 52, 31, .16)"
+      },
+      greatBarrierReef: {
+        "--cream": "#7dd8cc", "--paper": "#fff3ee", "--oat": "#169a8b", "--sand": "#ff7a45", "--ink": "#113638", "--muted": "#456f70", "--label": "#1d5153", "--link": "#d44f28", "--chip-text": "#1d5153",
+        "--line": "rgba(20, 56, 58, .24)", "--surface": "rgba(255, 244, 239, .9)", "--surface-soft": "rgba(255, 250, 247, .82)", "--surface-card": "rgba(255, 247, 244, .78)", "--surface-warm": "rgba(255, 122, 69, .46)", "--surface-chip": "rgba(22, 154, 139, .34)", "--control-bg": "#fff9f6", "--control-ink": "#14383a", "--control-border": "rgba(255, 122, 69, .44)", "--select-arrow": "#d44f28", "--image-frame": "#0b3032", "--layout-frame": "#169a8b",
+        "--wash-1": "rgba(22, 154, 139, .44)", "--wash-2": "rgba(255, 122, 69, .5)", "--motif-1": "linear-gradient(125deg, transparent 0 8%, rgba(22, 154, 139, .42) 8% 17%, transparent 17% 32%, rgba(255, 122, 69, .48) 32% 43%, transparent 43% 56%, rgba(213, 141, 127, .32) 56% 64%, transparent 64% 100%)", "--motif-2": "radial-gradient(circle at 84% 22%, rgba(255, 122, 69, .38) 0 112px, transparent 113px), radial-gradient(circle at 14% 76%, rgba(22, 154, 139, .34) 0 118px, transparent 119px), repeating-linear-gradient(135deg, transparent 0 30px, rgba(255, 122, 69, .16) 31px 35px)", "--motif-size-1": "auto", "--motif-size-2": "auto, auto, 96px 96px", "--red": "#ff7a45", "--yellow": "#d58d7f", "--green": "#169a8b", "--blue": "#239687", "--violet": "#357d80", "--shadow": "0 22px 60px rgba(25, 101, 96, .18)"
+      },
       santaNaixement: {
         "--cream": "#b9bbb4", "--paper": "#f4f2e8", "--oat": "#d7d2ad", "--sand": "#c9952b", "--ink": "#172a2f", "--muted": "#50615e", "--label": "#253c38", "--link": "#056e68", "--chip-text": "#223b37",
         "--line": "rgba(23, 42, 47, .24)", "--surface": "rgba(244, 242, 232, .84)", "--surface-soft": "rgba(250, 248, 239, .76)", "--surface-card": "rgba(247, 244, 235, .72)", "--surface-warm": "rgba(218, 211, 171, .62)", "--surface-chip": "rgba(231, 225, 184, .72)", "--control-bg": "#fbf9f0", "--control-ink": "#172a2f", "--control-border": "rgba(23, 42, 47, .28)", "--select-arrow": "#36544f", "--image-frame": "#10262b", "--layout-frame": "#243d40",
@@ -1056,8 +1218,8 @@
       },
       britishRacingGreen: {
         "--cream": "#0c3828", "--paper": "#f3efe5", "--oat": "#c9b77d", "--sand": "#d9c889", "--ink": "#f6f2e4", "--muted": "#c9d8cb", "--label": "#eef0de", "--link": "#e9d47d", "--chip-text": "#f6f2e4",
-        "--line": "rgba(237, 229, 196, .28)", "--surface": "rgba(9, 55, 39, .86)", "--surface-soft": "rgba(13, 70, 49, .78)", "--surface-card": "rgba(11, 62, 44, .74)", "--surface-warm": "rgba(34, 82, 56, .72)", "--surface-chip": "rgba(30, 76, 54, .82)", "--control-bg": "#f5f0e4", "--control-ink": "#0c3828", "--control-border": "rgba(237, 229, 196, .34)", "--select-arrow": "#254d38", "--image-frame": "#062a1d", "--layout-frame": "#0b3427",
-        "--wash-1": "rgba(5, 92, 55, .32)", "--wash-2": "rgba(217, 200, 137, .22)", "--motif-1": "linear-gradient(115deg, transparent 0 20%, rgba(217, 200, 137, .24) 20% 22%, transparent 22% 100%), linear-gradient(65deg, transparent 0 72%, rgba(9, 86, 53, .3) 72% 76%, transparent 76% 100%)", "--motif-2": "radial-gradient(circle at 84% 20%, rgba(241, 237, 220, .14) 0 64px, transparent 65px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#c9b77d", "--yellow": "#e4d597", "--green": "#0f5a3c", "--blue": "#123f32", "--violet": "#f3efe5", "--shadow": "0 22px 60px rgba(3, 31, 22, .3)"
+        "--line": "rgba(237, 229, 196, .32)", "--surface": "rgba(9, 55, 39, .86)", "--surface-soft": "rgba(13, 70, 49, .78)", "--surface-card": "rgba(11, 62, 44, .74)", "--surface-warm": "rgba(91, 90, 50, .58)", "--surface-chip": "rgba(64, 89, 54, .82)", "--control-bg": "#f5f0e4", "--control-ink": "#0c3828", "--control-border": "rgba(228, 213, 151, .42)", "--select-arrow": "#7b6f32", "--image-frame": "#062a1d", "--layout-frame": "#0b3427",
+        "--wash-1": "rgba(5, 92, 55, .32)", "--wash-2": "rgba(228, 213, 151, .3)", "--motif-1": "linear-gradient(115deg, transparent 0 20%, rgba(228, 213, 151, .34) 20% 23%, transparent 23% 100%), linear-gradient(65deg, transparent 0 72%, rgba(9, 86, 53, .3) 72% 76%, transparent 76% 100%)", "--motif-2": "radial-gradient(circle at 84% 20%, rgba(228, 213, 151, .2) 0 74px, transparent 75px), radial-gradient(circle at 14% 82%, rgba(201, 183, 125, .14) 0 88px, transparent 89px)", "--motif-size-1": "auto", "--motif-size-2": "auto", "--red": "#c9b77d", "--yellow": "#e4d597", "--green": "#0f5a3c", "--blue": "#123f32", "--violet": "#f3efe5", "--shadow": "0 22px 60px rgba(3, 31, 22, .3)"
       },
       copper: {
         "--cream": "#3b2218", "--paper": "#f2d2bd", "--oat": "#5a3328", "--sand": "#bd714e", "--ink": "#fff3e8", "--muted": "#e3b89d", "--label": "#ffd9c4", "--link": "#74ddd8", "--chip-text": "#fff3e8",
@@ -1090,7 +1252,7 @@
       "Aluminum": {
         "Black": "#252322", "Silver": "#c8c6bf", "Gray": "#777872", "E White": "#f4f0e8",
         "Navy": "#243a54", "Burgundy": "#7e3f3e", "Forest Green": "#405a46", "Lavender": "#9a84b6",
-        "Champagne": "#d5bd8c", "Pink": "#e4a5aa", "Baby Blue": "#9fc7da", "Red": "#c95b50"
+        "Champagne": "#d5bd8c", "Pink": "#e4a5aa", "Baby Blue": "#9fc7da", "Red": "#e10600"
       },
       "ABS Plastic": {
         "Black": "#282624", "White": "#f7f4eb", "Warm Gray": "#b7b0a2", "Cream": "#ead8b7",
@@ -1125,6 +1287,10 @@
       "GMK Dualshot": ["gray", "mono", "yellow", "blue", "red", "bright"],
       "GMK Laser": ["dark", "purple", "teal", "pink", "bright"],
       "GMK Nervewrecker": ["dark", "green", "purple", "yellow", "bright"],
+      "GMK Abstract": ["beige", "brown", "red", "orange", "warm", "geometric"],
+      "GMK Motif": ["beige", "green", "red", "yellow", "blue", "pink", "bright"],
+      "KC Orange": ["white", "gray", "orange", "yellow", "bright", "industrial"],
+      "KKB Great Barrier Reef": ["teal", "coral", "orange", "pink", "cream", "bright"],
       "GMK Phoenix": ["dark", "red", "orange", "yellow", "black"]
     };
 
@@ -1151,6 +1317,10 @@
       "GMK Dualshot": "console gray, yellow, blue, red, and cyan accent colorways",
       "GMK Laser": "dark purple, neon cyan, magenta, and cyberpunk colorways",
       "GMK Nervewrecker": "charcoal, acid green, yellow-green, and deep purple colorways",
+      "GMK Abstract": "beige-tan foundations with brown modifiers, red accents, and abstract warm geometry",
+      "GMK Motif": "beige-tan base colorways with bright red, green, yellow, blue, and pink accent kits",
+      "KC Orange": "white-outlined, gray-supported, bright orange and amber colorways",
+      "KKB Great Barrier Reef": "aqua, teal, bright coral-orange, shell pink, and reef-inspired colorways",
       "GMK Phoenix": "black-heavy, orange-red flame, and bright gold highlight colorways"
     };
 
@@ -1175,15 +1345,30 @@
       { tier: "Budget", name: "MonsGeek M series", url: "https://www.monsgeek.com/", layouts: ["full", "tkl", "75", "65"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "purple", "yellow"], copy: "Affordable aluminum prebuilts and kits, especially strong for 75%, TKL-ish, and fullsize-adjacent layouts." },
       { tier: "Budget", name: "Weikav aluminum kits", url: "https://www.google.com/search?q=Weikav+keyboard+kit+aluminum+65+75+TKL", layouts: ["75", "65", "60"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "purple", "pink", "green"], copy: "Budget aluminum customs with lots of color variety; verify exact PCB, VIA support, and vendor reputation before buying." },
       { tier: "Budget", name: "WOBKEY Rainy75 / budget 75s", url: "https://www.google.com/search?q=Rainy75+aluminum+keyboard+kit+Divinikey", layouts: ["75"], materials: ["Aluminum"], colors: ["black", "white", "blue", "purple", "pink", "yellow"], copy: "A popular budget aluminum 75% direction when you want heft and color without custom-kit pricing." },
+      { tier: "Budget", name: "KBDfans Tofu60 Redux", url: "https://kbdfans.com/collections/group-buy/products/tofu60-redux-case?sacode=12837r", layouts: ["60", "hhkb"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "purple", "pink", "yellow", "clear", "beige"], copy: "Budget-friendly Tofu case path with a wide color range; best for compact 60% and HHKB-style builds when you want the classic Tofu look." },
+      { tier: "Budget", name: "MonsGeek FUN / HE magnetic boards", url: "https://www.monsgeek.com/product-category/hall-effect-keyboard/", layouts: ["tkl", "75", "65", "60"], materials: ["ABS Plastic", "Aluminum"], colors: ["black", "white", "gray", "blue", "purple", "pink", "yellow"], switches: ["Hall Effect"], copy: "MonsGeek FUN60 HE, M1 V5 TMR, and related magnetic boards are the budget Hall Effect lane: strong rapid-trigger value, less boutique than custom HE options, and often the first place to check below mid-range pricing." },
+      { tier: "Budget", name: "Akko HE entry-to-mid boards", url: "https://en.akkogear.com/store/keyboard/", layouts: ["tkl", "75", "65", "60"], materials: ["ABS Plastic", "Aluminum"], colors: ["black", "white", "gray", "blue", "purple", "pink", "yellow"], switches: ["Hall Effect"], copy: "Akko MOD007 HE, 5087 HE, and related magnetic boards sit between budget and mid-range: more polished than the cheapest HE boards, but still value-focused compared with Wooting, Hex80, or custom HE builds." },
+      { tier: "Budget", name: "Swagkeys Transition Lite TKL", url: "https://divinikey.com/collections/keyboard-kits/products/swagkeys-transition-lite-tkl-keyboard", layouts: ["tkl"], materials: ["Polycarbonate", "ABS Plastic"], colors: ["black", "white", "gray", "purple", "clear"], copy: "Entry-level TKL kit with a lighter polycarbonate/plastic direction; useful when you want TKL layout and custom-kit feel without moving into premium aluminum pricing." },
+      { tier: "Budget", name: "Omnitype Bauer Lite", url: "https://omnitype.com/collections/keyboards/products/bauer-lite", layouts: ["65"], materials: ["ABS Plastic", "Polycarbonate"], colors: ["black", "white", "gray", "clear", "blue", "green", "pink", "yellow"], copy: "Injection-molded 65% kit based on the Bauer design language; a strong budget custom option when you want softer plastic acoustics and playful case color combinations." },
       { tier: "Mid-range", name: "Keychron Q / Q Max series", url: "https://www.keychron.com/collections/keychron-q-series-keyboard", layouts: ["full", "tkl", "75", "65", "60", "numpad"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "purple"], copy: "Reliable aluminum family with broad layout support, beginner-friendly software, and easy availability." },
+      { tier: "Mid-range", name: "Keychron HE magnetic series", url: "https://www.keychron.com/search?q=HE+magnetic+keyboard", layouts: ["full", "tkl", "75", "65", "60"], materials: ["Aluminum", "ABS Plastic"], colors: ["black", "white", "gray", "blue", "green"], switches: ["Hall Effect"], copy: "Keychron Q1 HE, Q/K HE, and HE 8K models fit users who want magnetic-switch gaming features inside familiar Keychron layouts and software." },
       { tier: "Mid-range", name: "Qwertykeys Neo series", url: "https://www.qwertykeys.com/", layouts: ["tkl", "75", "65", "60"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "navy", "blue", "green", "purple", "red", "yellow", "clear"], copy: "Value custom kits with frequent aluminum and PC case options; especially relevant for 65%, 75%, and TKL builds." },
+      { tier: "Mid-range", name: "Neo65 Sonic HE+", url: "https://www.qwertykeys.com/", layouts: ["65"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "purple", "red", "silver"], switches: ["Hall Effect"], copy: "Neo65 Sonic HE+ brings Qwertykeys/Neo value-custom feel into a 65% Hall Effect platform for users who want magnetic performance without abandoning enthusiast case quality." },
+      { tier: "Mid-range", name: "Qwertykeys x ATK Hex80 HE", url: "https://www.qwertykeys.com/products/hex80", layouts: ["tkl"], materials: ["Aluminum"], colors: ["black", "white", "gray", "silver", "blue", "green", "purple"], switches: ["Hall Effect"], copy: "Hex80 is a TKL/80% Hall Effect custom keyboard from Qwertykeys and ATK, aimed at users who want rapid trigger gaming performance with a more custom-board case feel." },
+      { tier: "Mid-range", name: "Qwertykeys QK series", url: "https://www.qwertykeys.com/", layouts: ["full", "tkl", "75", "65", "60"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "silver", "blue", "green", "purple", "red", "pink", "cream", "clear"], copy: "QK60, QK65, QK75, QK80, QK100, and QK101 cover compact through fullsize-adjacent layouts with enthusiast mounting, weights, and finish options at mid-range custom pricing." },
+      { tier: "Mid-range", name: "Meletrix Zoom series", url: "https://meletrix.com/", layouts: ["full", "tkl", "75", "65", "60", "numpad"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "silver", "blue", "green", "purple", "pink", "yellow", "cream", "clear"], copy: "Zoom60/64, Zoom65, Zoom75, Zoom TKL, Zoom98, and Zoom Pad are strong mid-range to upper-mid customs when you want modular layouts, many finishes, and a softer enthusiast feel." },
+      { tier: "Mid-range", name: "Wind Studio kits", url: "https://windstudio.store/", layouts: ["full", "tkl", "75", "65"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "silver", "blue", "green", "purple", "pink", "cream"], copy: "Wind X, X80, X98, and Z75-style kits fit the mid-range custom space with polished layouts, frequent color options, and a more enthusiast feel than mass-market prebuilts." },
+      { tier: "Mid-range", name: "Krush65", url: "https://vala.supply/products/krush65-keyboard", layouts: ["65"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "purple", "red", "silver"], copy: "Mid-range 65% custom with aluminum case direction, top mount/gummy o-ring style options, and a compact enthusiast feel when you want something less common than Neo/QK/Zoom." },
+      { tier: "Mid-range", name: "DaringRun customs", url: "https://www.kbdlab.io/components/gb-daringrun-dr-70f-keyboard", layouts: ["75", "65", "60"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "red", "silver", "cream"], copy: "DaringRun DR-70F and PG-7 style customs are mid-range enthusiast options with unusual layouts and strong personality, but they are rare and often require aftermarket hunting." },
       { tier: "Mid-range", name: "Evoworks EVO75 / EVO80", url: "https://www.ticktype.com/products/evo75", layouts: ["tkl", "75"], materials: ["Aluminum"], colors: ["black", "silver", "purple", "gold", "cream", "green"], copy: "Fully built custom-grade aluminum boards from the EVO line; strong fit for users who want Neo/QK-adjacent refinement without building from loose parts." },
       { tier: "Mid-range", name: "Ticktype DP104 / lineup", url: "https://divinikey.com/collections/ticktype-mechanical-keyboards/products/ticktype-dp104-keyboard-kit", layouts: ["full", "tkl", "75"], materials: ["Aluminum"], colors: ["gray", "blue", "white", "pink", "black", "cream"], copy: "Ticktype brings Owlab/QK/Neo manufacturing DNA into ready-to-use boards, with the DP104 especially useful for fullsize shoppers wanting a more enthusiast feel." },
-      { tier: "Mid-range", name: "KBDfans Tofu / Taco / Odin families", url: "https://kbdfans.com/collections/keyboard-kit", layouts: ["full", "75", "65", "60", "hhkb"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "purple", "pink", "yellow", "clear", "beige"], copy: "Good ecosystem for compact customs, many finishes, and straightforward parts availability." },
+      { tier: "Mid-range", name: "KBDfans Tofu60 3.0", url: "https://kbdfans.com/products/tofu60-3-0", layouts: ["60", "hhkb"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "purple", "red", "silver", "beige"], copy: "Modernized Tofu compact custom with gasket/top mounting paths, broader case configuration, and a more refined enthusiast feel than the Redux case path." },
       { tier: "Mid-range", name: "Luminkey / Chilkey aluminum kits", url: "https://divinikey.com/collections/keyboards", layouts: ["75", "65"], materials: ["Aluminum"], colors: ["black", "white", "blue", "purple", "green", "red"], copy: "Divinikey-stocked modern aluminum kits; strong when you want a compact barebones with contemporary color options." },
-      { tier: "Mid-range", name: "Wooting 60HE+", url: "https://wooting.io/wooting-60he", layouts: ["60"], materials: ["ABS Plastic", "Aluminum"], colors: ["black", "white", "gray"], copy: "Hall Effect 60% platform; choose for performance first, then pair with aftermarket cases if color/material is the priority." },
+      { tier: "Mid-range", name: "Wooting HE lineup", url: "https://wooting.io/", layouts: ["full", "tkl", "60"], materials: ["ABS Plastic", "Aluminum"], colors: ["black", "white", "gray"], switches: ["Hall Effect"], copy: "Wooting 60HE, 80HE, and Two HE are benchmark Hall Effect gaming boards. They sit near the top of mid-range pricing and can feel a bit overpriced for hardware alone, but the software, rapid trigger, and analog tuning are still excellent." },
       { tier: "High", name: "Mode Designs", url: "https://modedesigns.com/", layouts: ["tkl", "75", "65", "60"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "cream", "silver", "clear"], copy: "Premium configurable customs with polished machining, finish control, and refined acoustics." },
       { tier: "High", name: "Geonworks", url: "https://geon.works/", layouts: ["tkl", "75", "65", "60"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "red", "purple", "silver"], copy: "High-end aluminum customs for buyers chasing typing feel, fit, and finish more than beginner convenience." },
+      { tier: "High", name: "Owlab customs", url: "https://www.klc-smkx.com/E_OWLAB", layouts: ["tkl", "75", "65", "60"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "red", "purple", "silver", "cream"], copy: "High-end custom boards such as Jelly, Mr. Suit, Spring, and related Owlab projects are known for premium design, strong acoustics, and collector-grade fit and finish." },
+      { tier: "High", name: "Geon Venom HE custom builds", url: "https://geon.works/products/venom-tkl-he-pcb", layouts: ["tkl", "60"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "red", "purple", "silver"], switches: ["Hall Effect"], copy: "Venom HE PCBs are a high-end custom route for builders pairing Hall Effect performance with cases such as Frog TKL, Frog Leggera, Glare TKL, Tiger Lite, Frog Mini, or other compatible H87/H88/GH60-style cases." },
       { tier: "High", name: "CannonKeys premium kits", url: "https://cannonkeys.com/collections/keyboard-kits", layouts: ["tkl", "75", "65", "60", "alice", "numpad"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "purple", "clear"], copy: "Rotating enthusiast kits and collaborations; best checked when your layout and color target are already clear." },
       { tier: "High", name: "NovelKeys enthusiast drops", url: "https://novelkeys.com/collections/keyboards", layouts: ["tkl", "65", "60"], materials: ["ABS Plastic", "Aluminum", "Polycarbonate"], colors: ["black", "beige", "blue", "orange", "yellow", "clear", "pink"], copy: "Useful for distinctive colorways and limited drops, especially when the design language matters." }
     ];
@@ -1221,17 +1406,16 @@
 
     const layoutByName = Object.fromEntries(layouts.map(layout => [layout.name, layout]));
     const caseColorNames = Object.fromEntries(Object.entries(materialColors).map(([material, colors]) => [material, Object.keys(colors)]));
-    keycapCandidates.forEach(candidate => {
+    const keycapCandidatesByTier = prepareCandidatesByTier(keycapCandidates, candidate => {
       candidate.profileSet = new Set(normalizeTags(candidate.profiles));
       candidate.colorSet = new Set(normalizeTags(candidate.colors));
     });
-    boardCandidates.forEach(candidate => {
+    const boardCandidatesByTier = prepareCandidatesByTier(boardCandidates, candidate => {
       candidate.layoutSet = new Set(normalizeTags(candidate.layouts));
       candidate.materialSet = new Set(normalizeTags(candidate.materials));
       candidate.colorSet = new Set(normalizeTags(candidate.colors));
+      candidate.switchSet = new Set(normalizeTags(candidate.switches || ["Mechanical"]));
     });
-    const keycapCandidatesByTier = groupByTier(keycapCandidates);
-    const boardCandidatesByTier = groupByTier(boardCandidates);
     const renderCache = {};
 
     const els = {
@@ -1271,7 +1455,14 @@
       boardSectionTitle: document.getElementById("boardSectionTitle"),
       recIntro: document.getElementById("recIntro"),
       boardTierTitle: document.getElementById("boardTierTitle"),
-      boardTierRecs: document.getElementById("boardTierRecs")
+      boardTierRecs: document.getElementById("boardTierRecs"),
+      requestSummary: document.getElementById("requestSummary"),
+      buildRequestForm: document.getElementById("buildRequestForm"),
+      customerName: document.getElementById("customerName"),
+      requestName: document.getElementById("requestName"),
+      requestEmail: document.getElementById("requestEmail"),
+      requestStatus: document.getElementById("requestStatus"),
+      requestDescription: document.getElementById("requestDescription")
     };
 
     function fillSelect(select, values) {
@@ -1287,6 +1478,7 @@
       Object.entries(theme).forEach(([property, value]) => {
         document.documentElement.style.setProperty(property, value);
       });
+      setSubmitTheme(theme);
       try {
         localStorage.setItem("keyboardConfigurator.themeName", themeName);
         localStorage.setItem("keyboardConfigurator.themeVars", JSON.stringify(theme));
@@ -1342,6 +1534,145 @@
       }
     }
 
+    function hexToRgb(color) {
+      const hex = color.replace("#", "");
+      const value = hex.length === 3 ? hex.split("").map(x => x + x).join("") : hex;
+      return value.match(/.{2}/g).map(x => parseInt(x, 16));
+    }
+
+    function averageThemeColors(colors) {
+      const channels = colors.map(hexToRgb);
+      return channels[0].map((_, index) =>
+        Math.round(channels.reduce((sum, rgb) => sum + rgb[index], 0) / channels.length)
+      );
+    }
+
+    function isLightRgb([r, g, b]) {
+      return (r * 299 + g * 587 + b * 114) / 1000 > 150;
+    }
+
+    function setSubmitTheme(theme) {
+      const colors = ["--red", "--yellow", "--green"].map(key => theme[key]).filter(Boolean);
+      if (colors.length < 3) return;
+      document.documentElement.style.setProperty("--submit-1", colors[0]);
+      document.documentElement.style.setProperty("--submit-2", colors[1]);
+      document.documentElement.style.setProperty("--submit-3", colors[2]);
+      document.documentElement.style.setProperty("--submit-text", isLightRgb(averageThemeColors(colors)) ? "#2f2418" : "#fffaf0");
+    }
+
+    function budgetLabel(value = els.budgetRange.value) {
+      if (value === "High") return "High-end ($250+)";
+      if (value === "Mid-range") return "Mid-range ($100-$250)";
+      return "Budget (Below $100)";
+    }
+
+    function currentBuildRequest(layout = layoutByName[els.layout.value]) {
+      return {
+        layout: `${layout.name} / about ${layout.keys} keys`,
+        switch: `${els.switchType.value} / ${els.sound.value} / ${els.spring.value}`,
+        keycaps: `${els.keycapColor.value} / ${els.profile.value}`,
+        case: `${els.caseColor.value} ${els.material.value}`,
+        budget: budgetLabel()
+      };
+    }
+
+    function updateRequestSummary(layout) {
+      const request = currentBuildRequest(layout);
+      setHTML("requestSummary", ui.requestSummary, Object.entries(request).map(([label, value]) => `
+        <div><b>${label}</b><span>${value}</span></div>
+      `).join(""));
+    }
+
+    function emailJsReady() {
+      return Boolean(
+        window.emailjs &&
+        emailConfig.publicKey &&
+        emailConfig.serviceId &&
+        emailConfig.templateId &&
+        !Object.values(emailConfig).some(value => value.startsWith("YOUR_EMAILJS_"))
+      );
+    }
+
+    function emailTemplateParams(request, customerName, buildName, email, description) {
+      return {
+        requester_name: customerName,
+        customer_name: customerName,
+        reply_to: email,
+        build_name: buildName,
+        build_description: description,
+        layout: request.layout,
+        switch_type: els.switchType.value,
+        sound_profile: els.sound.value,
+        spring_weight: els.spring.value,
+        keycap_colorway: els.keycapColor.value,
+        keycap_profile: els.profile.value,
+        case_material: els.material.value,
+        case_colorway: els.caseColor.value,
+        budget_range: request.budget
+      };
+    }
+
+    function openFallbackEmail(request, customerName, buildName, email, description) {
+      const body = [
+        "Build Request",
+        "",
+        `Customer Name: ${customerName}`,
+        `Build Name: ${buildName}`,
+        `Reply Email: ${email}`,
+        "",
+        "Description:",
+        description,
+        "",
+        "Selected Configuration:",
+        `Layout: ${request.layout}`,
+        `Switch: ${request.switch}`,
+        `Keycaps: ${request.keycaps}`,
+        `Case: ${request.case}`,
+        `Budget: ${request.budget}`
+      ].join("\n");
+      const subject = `Keyboard Build Request - ${buildName || customerName || "New Build"}`;
+      window.location.href = `mailto:jcbrisingr@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    async function submitBuildRequest(event) {
+      event.preventDefault();
+      if (!ui.buildRequestForm.reportValidity()) return;
+      const request = currentBuildRequest();
+      const customerName = ui.customerName.value.trim();
+      const buildName = ui.requestName.value.trim();
+      const email = ui.requestEmail.value.trim();
+      const description = ui.requestDescription.value.trim();
+      const button = ui.buildRequestForm.querySelector(".submit-build");
+
+      if (!emailJsReady()) {
+        ui.requestStatus.textContent = "EmailJS IDs are not configured yet. Opening email draft instead.";
+        openFallbackEmail(request, customerName, buildName, email, description);
+        return;
+      }
+
+      button.disabled = true;
+      ui.requestStatus.textContent = "Sending request...";
+
+      try {
+        if (!emailJsInitialized) {
+          emailjs.init({ publicKey: emailConfig.publicKey });
+          emailJsInitialized = true;
+        }
+        await emailjs.send(
+          emailConfig.serviceId,
+          emailConfig.templateId,
+          emailTemplateParams(request, customerName, buildName, email, description)
+        );
+        ui.requestStatus.textContent = "Request sent.";
+        ui.buildRequestForm.reset();
+      } catch (error) {
+        ui.requestStatus.textContent = "Send failed. Opening email draft instead.";
+        openFallbackEmail(request, customerName, buildName, email, description);
+      } finally {
+        button.disabled = false;
+      }
+    }
+
     function swatchHTML(colors, markLight = false) {
       return colors.map(color => {
         const className = markLight && isLightHex(color) ? "swatch light-solid" : "swatch";
@@ -1369,7 +1700,7 @@
         <div><b>Sound</b><span>${sounds[els.sound.value]}</span></div>
         <div><b>Spring</b><span>${springs[els.spring.value]}</span></div>
       `);
-      const switchImageKey = els.sound.value === "Clicky" ? "Clicky" : els.switchType.value === "Tactile" ? "Tactile" : "Linear";
+      const switchImageKey = els.sound.value === "Clicky" ? "Clicky" : els.switchType.value;
       const profile = profiles[els.profile.value];
       const media = profileMedia[els.profile.value];
       ui.profileTitle.textContent = `${els.profile.value} profile`;
@@ -1381,6 +1712,7 @@
       setHTML("soundTags", ui.soundTags, profileSummaryTags[els.profile.value].map(x => `<span class="tag">${x}</span>`).join(""));
       renderKeycapRecs();
       renderRecs(layout);
+      updateRequestSummary(layout);
     }
 
     function normalizeTags(values) {
@@ -1391,11 +1723,12 @@
       return selected.reduce((score, tag) => score + (pool.has(tag) ? weight : 0), 0);
     }
 
-    function groupByTier(candidates) {
-      return budgetRanges.reduce((groups, tier) => {
-        groups[tier] = candidates.filter(candidate => candidate.tier === tier);
+    function prepareCandidatesByTier(candidates, prepare) {
+      return candidates.reduce((groups, candidate) => {
+        prepare(candidate);
+        groups[candidate.tier].push(candidate);
         return groups;
-      }, {});
+      }, Object.fromEntries(budgetRanges.map(tier => [tier, []])));
     }
 
     function caseColorTags(colorName) {
@@ -1467,12 +1800,12 @@
         overlapScore(colorTags, candidate.colorSet, 2);
 
       const list = rankedByTier(keycapCandidatesByTier[tier], scoreKeycap);
-      ui.keycapTierRecs.innerHTML = list.map(item => optionCard(item, `
+      setHTML("keycapTierRecs", ui.keycapTierRecs, list.map(item => optionCard(item, `
         <br><strong>Brand:</strong> ${item.brand}
         <br><strong>Vendors:</strong> ${item.vendors}
         ${renderReason(item.profiles, "Profile fit")}
         ${renderReason(item.colors.filter(tag => colorTagSet.has(tag)), "Color fit")}
-      `)).join("");
+      `)).join(""));
     }
 
     function renderRecs(layout) {
@@ -1484,29 +1817,42 @@
       const caseTagSet = new Set(caseTags);
       const tierCopy = boardTierCopy[tier][1];
       ui.boardSectionTitle.innerHTML = tierTitle("Keyboard Options By Budget", tier);
-      ui.recIntro.textContent = `${tierCopy} Suggestions are tuned for ${selected}, ${material}, and ${els.caseColor.value}. Always confirm current stock and exact kit contents on the vendor page.`;
+      ui.recIntro.textContent = `${tierCopy} Suggestions are tuned for ${selected}, ${material}, ${els.caseColor.value}, and ${els.switchType.value} switch compatibility. Always confirm current stock and exact kit contents on the vendor page.`;
       ui.boardTierTitle.textContent = `${tierLabel} options`;
 
       const layoutTags = layoutMatchTags(layout);
       const materialTags = normalizeTags([material]);
+      const selectedSwitch = els.switchType.value.toLowerCase();
+      const isHallEffect = selectedSwitch === "hall effect";
+      const scoreSwitch = candidate => {
+        const hasHallEffect = candidate.switchSet.has("hall effect");
+        if (isHallEffect) return hasHallEffect ? 9 : -4;
+        return hasHallEffect ? -2 : 2;
+      };
       const scoreBoard = candidate =>
         overlapScore(layoutTags, candidate.layoutSet, 5) +
         overlapScore(materialTags, candidate.materialSet, 4) +
-        overlapScore(caseTags, candidate.colorSet, 2);
+        overlapScore(caseTags, candidate.colorSet, 2) +
+        scoreSwitch(candidate);
 
       const list = rankedByTier(boardCandidatesByTier[tier], scoreBoard);
-      ui.boardTierRecs.innerHTML = list.map(item => optionCard(item, `
+      setHTML("boardTierRecs", ui.boardTierRecs, list.map(item => optionCard(item, `
         ${renderReason(item.layouts, "Layout fit")}
         ${renderReason(item.materials, "Material fit")}
+        ${renderReason((item.switches || ["Mechanical"]).filter(tag => tag.toLowerCase() === selectedSwitch || (!isHallEffect && tag !== "Hall Effect")), "Switch fit")}
         ${renderReason(item.colors.filter(tag => caseTagSet.has(tag)), "Color fit")}
-      `)).join("");
+      `)).join(""));
     }
 
     Object.entries(els).forEach(([key, el]) => {
       if (key !== "material") el.addEventListener("change", update);
     });
     els.material.addEventListener("change", () => { updateCaseColorOptions(); update(); });
-    themeSelect.addEventListener("change", () => applyTheme(themeSelect.value));
+    themeSelect.addEventListener("change", () => {
+      applyTheme(themeSelect.value);
+      updateRequestSummary();
+    });
+    ui.buildRequestForm.addEventListener("submit", submitBuildRequest);
 
     applyTheme(themeSelect.value);
     updateCaseColorOptions();
