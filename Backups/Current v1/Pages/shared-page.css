@@ -1,0 +1,252 @@
+:root {
+  --app-bg: var(--cream, #f7efe1);
+  --app-surface: var(--surface, rgba(255, 250, 240, .84));
+  --app-surface-soft: var(--surface-soft, rgba(255, 253, 247, .74));
+  --app-text: var(--ink, #2e261f);
+  --app-muted: var(--muted, #786a5d);
+  --app-border: var(--line, rgba(91, 71, 49, .22));
+  --app-red: var(--red, #da6f5f);
+  --app-gold: var(--yellow, #e8bd57);
+  --app-green: var(--green, #7fb678);
+  --app-blue: var(--blue, #65a7c8);
+  --app-violet: var(--violet, #a187c8);
+  --app-radius: var(--radius, 8px);
+}
+
+body {
+  color: var(--app-text);
+  cursor: default;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+a,
+button,
+select,
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+input,
+textarea {
+  cursor: text;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+body.reference-shell {
+  min-height: 100vh;
+  font-family: Aptos, "Segoe UI Variable", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-optical-sizing: auto;
+  letter-spacing: 0;
+  background-attachment: scroll !important;
+}
+
+body.reference-shell > .page {
+  width: min(1440px, calc(100% - 36px));
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 22px 0 34px;
+}
+
+.reference-shell .topbar {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(0, auto) minmax(220px, 1fr);
+  gap: 16px;
+  align-items: center;
+  padding: 0 0 18px;
+}
+
+.reference-shell .brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  font-size: 22px;
+  font-weight: 740;
+}
+
+.reference-shell h1,
+.reference-shell h2,
+.reference-shell .brand span:last-child {
+  font-family: Aptos, "Segoe UI Variable", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0;
+}
+
+.reference-shell .brand .mark {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--app-radius);
+  border-color: var(--app-border);
+  background: var(--paper, var(--app-surface));
+  box-shadow: none;
+}
+
+.reference-shell .brand a,
+.reference-shell .nav a,
+.reference-shell .close {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  background: color-mix(in srgb, var(--app-surface-soft) 88%, transparent);
+  color: var(--app-text);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 820;
+  line-height: 1.1;
+  padding: 8px 10px;
+}
+
+.reference-shell .nav {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  justify-self: center;
+  gap: 8px;
+}
+
+.reference-shell .nav a.active,
+.reference-shell .brand a.active {
+  background: color-mix(in srgb, var(--app-surface-soft) 64%, #8f8f8f 24%);
+  border-color: color-mix(in srgb, var(--app-border) 68%, #7f7f7f 32%);
+  color: color-mix(in srgb, var(--app-muted) 72%, #6f6f6f 28%);
+  cursor: default;
+  pointer-events: none;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .08);
+  opacity: .72;
+}
+
+.reference-shell .nav a:hover,
+.reference-shell .brand a:hover {
+  background: var(--app-surface);
+  border-color: color-mix(in srgb, var(--app-gold) 72%, var(--app-border));
+}
+
+.reference-shell .panel,
+.reference-shell .build-card,
+.reference-shell .card,
+.reference-shell .chart,
+.reference-shell dialog {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  box-shadow: none;
+}
+
+.reference-shell .content {
+  padding: 20px;
+}
+
+.reference-shell .rainbow-rule {
+  height: 7px;
+}
+
+.reference-shell h1 {
+  font-family: inherit;
+  font-size: clamp(24px, 2.4vw, 34px);
+  font-weight: 880;
+  line-height: 1.08;
+}
+
+.reference-shell h2 {
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 860;
+}
+
+.reference-shell p,
+.reference-shell .copy,
+.reference-shell .card p,
+.reference-shell .build-copy span,
+.reference-shell .build-copy small {
+  color: var(--app-muted);
+}
+
+.reference-shell .grid,
+.reference-shell .gallery {
+  gap: 14px;
+}
+
+.reference-shell .card,
+.reference-shell .build-copy {
+  background: color-mix(in srgb, var(--app-surface-soft) 88%, transparent);
+}
+
+@supports (content-visibility: auto) {
+  .reference-shell .card,
+  .reference-shell .build-card {
+    content-visibility: auto;
+    contain-intrinsic-size: 360px;
+  }
+}
+
+.reference-shell .card,
+.reference-shell .build-card,
+.reference-shell .layout-ref,
+.reference-shell .media,
+.reference-shell .theme-thumb {
+  contain: layout paint;
+}
+
+.reference-shell .card a {
+  color: var(--link, var(--app-blue));
+}
+
+.reference-shell .palette,
+.reference-shell .layout-ref,
+.reference-shell .media,
+.reference-shell .theme-thumb,
+.reference-shell .variant-button {
+  border-color: var(--app-border);
+}
+
+.reference-shell .variant-button {
+  background: color-mix(in srgb, var(--app-surface-soft) 72%, transparent);
+  color: var(--app-text);
+}
+
+@media (max-width: 1180px) {
+  body.reference-shell > .page {
+    width: min(100% - 28px, 1440px);
+    padding-top: 18px;
+  }
+
+  .reference-shell .topbar {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .reference-shell .nav {
+    grid-column: 1;
+    justify-content: flex-start;
+    justify-self: start;
+  }
+
+}
+
+@media (max-width: 720px) {
+  body.reference-shell > .page {
+    width: min(100% - 20px, 1440px);
+    padding-top: 12px;
+  }
+
+  .reference-shell .content {
+    padding: 16px;
+  }
+
+  .reference-shell .nav {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-bottom: 2px;
+  }
+
+  .reference-shell .nav a {
+    white-space: nowrap;
+  }
+}
