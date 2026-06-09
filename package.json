@@ -1,0 +1,9 @@
+{
+  "name": "keyboard-configurator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static keyboard configurator and reference library.",
+  "scripts": {
+    "validate": "node scripts/validate-static-site.js"
+  }
+}
