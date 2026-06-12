@@ -25,7 +25,7 @@
         dualshot: ["#3f4548", "#8f989a", "#f01917", "#ffd116", "#26d7df", "#1778f2"],
         laser: ["#10082d", "#31f4ff", "#ff2f7d", "#5b2bd1"],
         nervewrecker: ["#343736", "#d8ef00", "#371064", "#b8bab6"],
-        phoenix: ["#080707", "#e33b22", "#f06a20", "#ffd13a"]
+        phoenix: ["#101010", "#c9152f", "#e84a28", "#f07c18", "#c7b032"]
       };
       window.configuratorShellPalettes = shellPalettes;
       const hexToRgb = color => {
@@ -1925,6 +1925,16 @@
       padding: 22px 26px 38px;
     }
 
+    .keyboard.layout-wide,
+    .keyboard.layout-tkl {
+      padding: 18px 22px 34px;
+    }
+
+    .keyboard.layout-wide .keyboard-visual,
+    .keyboard.layout-tkl .keyboard-visual {
+      width: min(94%, var(--visual-width, 1040px));
+    }
+
     .keyboard.layout-75 .keyboard-visual {
       width: min(94%, var(--visual-width, 960px));
     }
@@ -1953,15 +1963,18 @@
       aspect-ratio: var(--visual-ratio, 3.25 / 1);
       border-radius: var(--case-radius, 14px);
       background:
-        linear-gradient(180deg, rgba(255,255,255,.28), rgba(0,0,0,.12)),
-        radial-gradient(circle at 18% 12%, rgba(255,255,255,.22), transparent 34%),
+        linear-gradient(180deg, rgba(255,255,255,.12), rgba(0,0,0,.14)),
+        radial-gradient(circle at 18% 10%, rgba(255,255,255,.12), transparent 42%),
         var(--case-color, #d8d2c7);
       border: 1px solid rgba(43,35,26,.22);
       box-shadow:
-        0 18px 30px rgba(37,29,19,.16),
-        0 4px 10px rgba(37,29,19,.1),
-        inset 0 1px 0 rgba(255,255,255,.34),
-        inset 0 -10px 18px rgba(0,0,0,.08);
+        0 24px 36px rgba(37,29,19,.18),
+        0 8px 14px rgba(37,29,19,.13),
+        inset 0 1px 0 rgba(255,255,255,.22),
+        inset 0 -15px 24px rgba(0,0,0,.13),
+        inset 10px 0 18px rgba(255,255,255,.04),
+        inset -10px 0 18px rgba(0,0,0,.08),
+        inset 0 0 0 2px rgba(255,255,255,.045);
       position: relative;
       display: block;
     }
@@ -1972,6 +1985,12 @@
       inset: 0;
       border-radius: inherit;
       pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.06), transparent 18% 82%, rgba(0,0,0,.1)),
+        linear-gradient(180deg, transparent 56%, rgba(0,0,0,.16));
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.07),
+        inset 0 -4px 0 rgba(0,0,0,.1);
     }
 
     .keyboard-plate {
@@ -1979,12 +1998,14 @@
       inset: clamp(8px, 2.2%, 18px);
       border-radius: calc(var(--case-radius, 14px) - 5px);
       background:
-        linear-gradient(180deg, rgba(255,255,255,.1), rgba(0,0,0,.12)),
-        rgba(35, 32, 28, .14);
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.22)),
+        rgba(22, 20, 17, .22);
       box-shadow:
-        inset 0 0 0 1px rgba(35, 28, 20, .18),
-        inset 0 10px 18px rgba(255,255,255,.08),
-        inset 0 -12px 18px rgba(0,0,0,.08);
+        inset 0 0 0 1px rgba(20, 15, 10, .3),
+        inset 0 8px 14px rgba(255,255,255,.035),
+        inset 0 -16px 24px rgba(0,0,0,.18),
+        0 1px 0 rgba(255,255,255,.06),
+        0 2px 8px rgba(0,0,0,.09);
     }
 
     .keyboard-visual.layout-alice {
@@ -1996,22 +2017,94 @@
 
     .keyboard-visual.layout-alice::before {
       background:
-        linear-gradient(180deg, rgba(255,255,255,.2), rgba(0,0,0,.1)),
+        linear-gradient(180deg, rgba(255,255,255,.11), rgba(0,0,0,.13)),
         var(--case-color, #d8d2c7);
       border: 1px solid rgba(43,35,26,.24);
-      box-shadow: 0 16px 28px rgba(37,29,19,.12), inset 0 0 0 1px rgba(255,255,255,.24);
+      box-shadow:
+        0 18px 30px rgba(37,29,19,.14),
+        inset 0 1px 0 rgba(255,255,255,.2),
+        inset 0 -13px 22px rgba(0,0,0,.12),
+        inset 0 0 0 1px rgba(255,255,255,.08);
       clip-path: polygon(2% 9%, 37% 9%, 50% 22%, 63% 9%, 98% 9%, 98% 88%, 61% 88%, 50% 97%, 39% 88%, 2% 88%);
     }
 
     .keyboard-visual.layout-alice .keyboard-plate {
       inset: 8% 3.5% 8%;
-      background: rgba(35, 32, 28, .15);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.2)),
+        rgba(22, 20, 17, .22);
       border-radius: 12px;
       clip-path: polygon(0 0, 38% 0, 50% 18%, 62% 0, 100% 0, 100% 91%, 62% 91%, 50% 100%, 38% 91%, 0 91%);
+      box-shadow:
+        inset 0 0 0 1px rgba(35, 28, 20, .2),
+        inset 0 12px 18px rgba(255,255,255,.04),
+        inset 0 -16px 24px rgba(0,0,0,.13);
     }
 
     .keyboard-visual.layout-alice .visual-key {
       height: calc(var(--h) * .93);
+    }
+
+    .keyboard-visual.material-aluminum {
+      background:
+        repeating-linear-gradient(91deg, rgba(255,255,255,.045) 0 .7px, transparent .7px 3px),
+        repeating-linear-gradient(1deg, rgba(0,0,0,.025) 0 .6px, transparent .6px 4px),
+        radial-gradient(circle at 18% 12%, rgba(255,255,255,.09), transparent 40%),
+        linear-gradient(180deg, rgba(255,255,255,.11), rgba(0,0,0,.15)),
+        var(--case-color, #d8d2c7);
+    }
+
+    .keyboard-visual.layout-alice.material-aluminum::before {
+      background:
+        repeating-linear-gradient(91deg, rgba(255,255,255,.045) 0 .7px, transparent .7px 3px),
+        repeating-linear-gradient(1deg, rgba(0,0,0,.025) 0 .6px, transparent .6px 4px),
+        linear-gradient(180deg, rgba(255,255,255,.11), rgba(0,0,0,.14)),
+        var(--case-color, #d8d2c7);
+    }
+
+    .keyboard-visual.material-abs-plastic {
+      background:
+        radial-gradient(ellipse at 28% 14%, rgba(255,255,255,.13), transparent 44%),
+        radial-gradient(circle at 54% 44%, rgba(255,255,255,.055) 0 .5px, transparent .95px) 0 0 / 3px 3px,
+        linear-gradient(180deg, rgba(255,255,255,.1), rgba(0,0,0,.11)),
+        color-mix(in srgb, var(--case-color, #d8d2c7) 92%, white 8%);
+      box-shadow:
+        0 22px 34px rgba(37,29,19,.15),
+        0 7px 12px rgba(37,29,19,.1),
+        inset 0 1px 0 rgba(255,255,255,.18),
+        inset 0 -12px 20px rgba(0,0,0,.1),
+        inset 0 0 0 2px rgba(255,255,255,.035);
+    }
+
+    .keyboard-visual.layout-alice.material-abs-plastic::before {
+      background:
+        radial-gradient(ellipse at 28% 14%, rgba(255,255,255,.13), transparent 44%),
+        radial-gradient(circle at 54% 44%, rgba(255,255,255,.055) 0 .5px, transparent .95px) 0 0 / 3px 3px,
+        linear-gradient(180deg, rgba(255,255,255,.1), rgba(0,0,0,.11)),
+        color-mix(in srgb, var(--case-color, #d8d2c7) 92%, white 8%);
+    }
+
+    .keyboard-visual.material-acrylic-polycarbonate {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.22), transparent 28% 72%, rgba(0,0,0,.08)),
+        radial-gradient(ellipse at 24% 18%, rgba(255,255,255,.24), transparent 45%),
+        linear-gradient(180deg, color-mix(in srgb, var(--case-color, #dce9e6) 62%, white 38%), color-mix(in srgb, var(--case-color, #dce9e6) 78%, black 22%));
+      border-color: color-mix(in srgb, var(--case-color, #dce9e6) 62%, rgba(30,35,38,.5));
+      box-shadow:
+        0 24px 36px rgba(28,36,39,.16),
+        0 8px 14px rgba(28,36,39,.1),
+        inset 0 1px 0 rgba(255,255,255,.32),
+        inset 0 -18px 28px rgba(0,0,0,.11),
+        inset 12px 0 22px rgba(255,255,255,.1),
+        inset -12px 0 22px rgba(0,0,0,.07),
+        inset 0 0 0 2px rgba(255,255,255,.08);
+    }
+
+    .keyboard-visual.layout-alice.material-acrylic-polycarbonate::before {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.22), transparent 28% 72%, rgba(0,0,0,.08)),
+        radial-gradient(ellipse at 24% 18%, rgba(255,255,255,.24), transparent 45%),
+        linear-gradient(180deg, color-mix(in srgb, var(--case-color, #dce9e6) 62%, white 38%), color-mix(in srgb, var(--case-color, #dce9e6) 78%, black 22%));
     }
 
     .key-row {
@@ -2031,27 +2124,116 @@
       min-height: 0;
       border: 1px solid rgba(43,35,26,.2);
       border-color: var(--key-outline, rgba(43,35,26,.2));
-      border-radius: var(--key-radius, 6px);
+      border-radius: var(--key-base-radius, var(--key-radius, 4px));
+      --key-bevel-line-light: color-mix(in srgb, var(--key-color, var(--alpha-color)) 66%, black 34%);
+      --key-bevel-line-strong: color-mix(in srgb, var(--key-color, var(--alpha-color)) 34%, black 66%);
+      --key-bevel-line-highlight: color-mix(in srgb, var(--key-color, var(--alpha-color)) 72%, white 28%);
       background:
-        linear-gradient(180deg, rgba(255,255,255,.34), rgba(255,255,255,.06) 38%, rgba(0,0,0,.1)),
+        linear-gradient(to right, transparent var(--key-top-inset-x, 8%), var(--key-bevel-line-highlight) var(--key-top-inset-x, 8%) calc(100% - var(--key-top-inset-x, 8%)), transparent calc(100% - var(--key-top-inset-x, 8%))) 0 var(--key-top-inset-y, 4%) / 100% 1px no-repeat,
+        linear-gradient(to bottom, transparent 0 var(--key-top-inset-y, 4%), var(--key-bevel-line-light) var(--key-top-inset-y, 4%) calc(100% - var(--key-top-inset-bottom, 27%)), transparent calc(100% - var(--key-top-inset-bottom, 27%))) var(--key-top-inset-x, 8%) 0 / 1px 100% no-repeat,
+        linear-gradient(to bottom, transparent 0 var(--key-top-inset-y, 4%), var(--key-bevel-line-light) var(--key-top-inset-y, 4%) calc(100% - var(--key-top-inset-bottom, 27%)), transparent calc(100% - var(--key-top-inset-bottom, 27%))) calc(100% - var(--key-top-inset-x, 8%)) 0 / 1px 100% no-repeat,
+        linear-gradient(to bottom right, transparent calc(50% - .8px), var(--key-bevel-line-strong) calc(50% - .8px) calc(50% + .8px), transparent calc(50% + .8px)) left bottom / var(--key-top-inset-x, 8%) var(--key-top-inset-bottom, 27%) no-repeat,
+        linear-gradient(to top right, transparent calc(50% - .8px), var(--key-bevel-line-strong) calc(50% - .8px) calc(50% + .8px), transparent calc(50% + .8px)) right bottom / var(--key-top-inset-x, 8%) var(--key-top-inset-bottom, 27%) no-repeat,
+        linear-gradient(135deg, rgba(255,255,255,.14), transparent 20% 72%, rgba(0,0,0,.18)),
+        radial-gradient(circle at 24% 26%, rgba(255,255,255,.035) 0 .32px, transparent .62px) 0 0 / 2px 2px,
+        radial-gradient(circle at 72% 68%, rgba(0,0,0,.032) 0 .28px, transparent .58px) 1px 1px / 3px 3px,
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.015) 38%, rgba(0,0,0,.24)),
         var(--key-color, var(--alpha-color));
       color: var(--legend-color, #28231d);
-      font-size: clamp(7px, .62vw, 11px);
       font-weight: 800;
       line-height: 1;
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-start;
-      padding: clamp(4px, .55vw, 7px);
       box-shadow:
-        0 2px 0 color-mix(in srgb, var(--key-color, var(--alpha-color)) 70%, black 30%),
-        0 3px 6px rgba(24,20,15,.18),
-        inset 0 1px 0 rgba(255,255,255,.46),
-        inset 0 -1px 0 rgba(0,0,0,.12);
+        0 1px 0 color-mix(in srgb, var(--key-color, var(--alpha-color)) 56%, black 44%),
+        0 2px 0 color-mix(in srgb, var(--key-color, var(--alpha-color)) 42%, black 58%),
+        0 5px 8px rgba(16,13,10,.28),
+        inset 1px 1px 0 rgba(255,255,255,.12),
+        inset -1px 0 0 rgba(0,0,0,.13),
+        inset 0 -4px 4px rgba(0,0,0,.23);
       transform: rotate(var(--r, 0deg));
       transform-origin: center;
       overflow: hidden;
-      white-space: nowrap;
+      isolation: isolate;
+      text-shadow: 0 1px 0 rgba(255,255,255,.08), 0 -1px 0 rgba(0,0,0,.08);
+    }
+
+    .visual-key::before,
+    .visual-key::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .visual-key::before {
+      z-index: 0;
+    }
+
+    .visual-key::after {
+      z-index: 1;
+    }
+
+    .visual-key::before {
+      inset:
+        var(--key-top-inset-y, 14%)
+        var(--key-top-inset-x, 13%)
+        var(--key-top-inset-bottom, 30%);
+      border-radius: var(--key-top-radius, max(2px, calc(var(--key-radius, 6px) - 3px)));
+      border: 1px solid var(--key-bevel-line-light);
+      background:
+        radial-gradient(circle at 18% 20%, rgba(255,255,255,.04) 0 .28px, transparent .55px) 0 0 / 2px 2px,
+        radial-gradient(circle at 74% 70%, rgba(0,0,0,.025) 0 .24px, transparent .5px) 1px 1px / 3px 3px,
+        linear-gradient(90deg, rgba(255,255,255,.1), transparent 20% 78%, rgba(0,0,0,.09)),
+        linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.035) 54%, rgba(0,0,0,.1));
+      box-shadow:
+        0 -2px 0 color-mix(in srgb, var(--key-color, var(--alpha-color)) 72%, white 28%),
+        -2px 0 0 color-mix(in srgb, var(--key-color, var(--alpha-color)) 76%, white 24%),
+        2px 0 0 color-mix(in srgb, var(--key-color, var(--alpha-color)) 70%, black 30%),
+        0 3px 0 color-mix(in srgb, var(--key-color, var(--alpha-color)) 62%, black 38%),
+        inset 0 1px 0 rgba(255,255,255,.2),
+        inset 0 -1px 0 rgba(0,0,0,.18),
+        inset 1px 0 0 rgba(255,255,255,.08),
+        inset -1px 0 0 rgba(0,0,0,.11),
+        0 1px 2px rgba(0,0,0,.14);
+      opacity: .94;
+    }
+
+    .visual-key::after {
+      inset: 64% 0 0;
+      border-radius: 0 0 var(--key-base-radius, var(--key-radius, 4px)) var(--key-base-radius, var(--key-radius, 4px));
+      background:
+        linear-gradient(to right, rgba(255,255,255,.035) 0 1px, transparent 1px calc(100% - 1px), rgba(0,0,0,.22) calc(100% - 1px) 100%),
+        radial-gradient(ellipse at 50% 100%, rgba(0,0,0,.26), transparent 64%),
+        linear-gradient(90deg, rgba(255,255,255,.02), transparent 18% 82%, rgba(0,0,0,.24)),
+        linear-gradient(180deg, rgba(0,0,0,.045), rgba(0,0,0,.28));
+      box-shadow:
+        inset 0 -1px 0 rgba(0,0,0,.16);
+      opacity: .86;
+    }
+
+    .key-legend {
+      position: absolute;
+      z-index: 2;
+      inset:
+        calc(var(--key-top-inset-y, 4%) + 2px)
+        calc(var(--key-top-inset-x, 8%) + 2px)
+        calc(var(--key-top-inset-bottom, 27%) + 2px);
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+      contain: paint;
+      color: var(--legend-color, #28231d);
+      font-size: var(--legend-font-size, clamp(6px, .58vw, 11px));
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: 0;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      text-align: left;
+      text-overflow: clip;
     }
 
     .visual-key.mod { --key-color: var(--mod-color); }
@@ -2059,13 +2241,40 @@
     .keyboard-visual .visual-key { color: var(--legend-color, #28231d); }
     .visual-key.case-accent { --key-color: color-mix(in srgb, var(--case-color) 72%, #26303a); color: var(--legend-color, #fff); }
     .visual-key.space { justify-content: center; }
+    .visual-key.space {
+      --key-top-inset-x: 3%;
+      --key-legend-pad-x: 10px;
+    }
+
+    .visual-key.space .key-legend {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .visual-key.tall-numpad-key {
+      --key-top-inset-y: 4%;
+      --key-top-inset-bottom: 6%;
+      --key-legend-pad-y: 8px;
+    }
+
+    .visual-key.space::after {
+      inset: 62% 0 0;
+      opacity: .6;
+    }
+
     .visual-key.blocker {
-      --key-color: var(--case-color);
       --key-outline: transparent;
       color: transparent;
       border-color: transparent;
-      background: var(--case-color);
+      background: transparent;
       box-shadow: none;
+      opacity: 0;
+    }
+
+    .visual-key.blocker::before,
+    .visual-key.blocker::after {
+      display: none;
     }
 
     .keyboard-visual.layout-60,
@@ -2488,6 +2697,7 @@
       .lower-three-column {
         grid-template-columns: 1fr;
       }
+
     }
 
     .current-summary {
@@ -2810,7 +3020,7 @@
                 <label>Case Material
                   <select id="material"></select>
                 </label>
-                <span class="help-dot" tabindex="0" data-help="Aluminum often feels premium, sturdy, and heavier. Plastic is usually cheaper and lighter. Polycarbonate can be softer and translucent. Wood adds a warmer natural look and feel.">?</span>
+                <span class="help-dot" tabindex="0" data-help="Aluminum often feels premium, sturdy, and heavier. Plastic is usually cheaper and lighter. Acrylic/Polycarbonate can be softer and translucent. Wood adds a warmer natural look and feel.">?</span>
               </div>
               <div class="control-step">
                 <span class="step-num">3.</span>
@@ -3076,7 +3286,6 @@
     };
 
     const colorways = {
-      "PBTfans Absolute": { alpha: "#f3e5cb", mod: "#ded0b8", accents: ["#d95e55", "#e8bc54", "#76af75", "#5aa4c5"], preview: ["#f3e5cb", "#ded0b8", "#d95e55", "#e8bc54", "#76af75", "#5aa4c5"], copy: "Warm beige alphas, oatmeal modifiers, and playful primary accents inspired by PBTfans Absolute's geometric mood." },
       "Classic Beige": { alpha: "#eee0c9", mod: "#d2b98f", accents: ["#6f5d4a"], preview: ["#eee0c9", "#d2b98f", "#6f5d4a"], copy: "GMK 9009-style cream alphas, gray-beige modifiers, and muted vintage accents." },
       "Monochrome": { alpha: "#f6f4ef", mod: "#34322e", accents: ["#8d8a82"], preview: ["#f6f4ef", "#34322e", "#8d8a82"], copy: "GMK WoB/BoW-style contrast with a restrained gray novelty/accent lane." },
       "Muted Pastel": { alpha: "#fff1eb", mod: "#f8dfe5", accents: ["#9bbbd0"], preview: ["#fff1eb", "#f8dfe5", "#9bbbd0"], copy: "GMK Olivia-adjacent soft alphas, blush modifiers, and gentle blue accenting." },
@@ -3086,6 +3295,7 @@
       "Cafe & Cocoa": { alpha: "#f0dac1", mod: "#805b44", accents: ["#3a2921"], preview: ["#f0dac1", "#805b44", "#3a2921"], copy: "GMK Cafe-style cream, coffee brown, and dark cocoa accent balance." },
       "Industrial Gray": { alpha: "#d6d8d6", mod: "#4c5252", accents: ["#f08a36"], preview: ["#d6d8d6", "#4c5252", "#f08a36"], copy: "GMK Modern Dolch/Panels-adjacent gray base with safety-color accent keys." },
       "Candy Brights": { alpha: "#fff7e8", mod: "#ff6b86", accents: ["#58b7ea"], preview: ["#fff7e8", "#ff6b86", "#58b7ea"], copy: "GMK Darling/Analog Dreams-adjacent neutral alphas, bright modifiers, and playful accents." },
+      "PBTfans Absolute": { alpha: "#f3e5cb", mod: "#ded0b8", accents: ["#d95e55", "#e8bc54", "#76af75", "#5aa4c5"], preview: ["#f3e5cb", "#ded0b8", "#d95e55", "#e8bc54", "#76af75", "#5aa4c5"], copy: "Warm beige alphas, oatmeal modifiers, and playful primary accents inspired by PBTfans Absolute's geometric mood." },
       "GMK Olivia": { alpha: "#f7ddd4", mod: "#342c2c", accents: ["#f1b4aa"], preview: ["#f7ddd4", "#342c2c", "#f1b4aa"], copy: "Blush alphas, dark chocolate modifiers, and soft rose accents." },
       "GMK Serika": { alpha: "#e7e6d5", mod: "#f0bc35", accents: ["#222927", "#d7a229"], preview: ["#e7e6d5", "#f0bc35", "#222927", "#d7a229"], copy: "Warm cream alphas, saturated yellow modifiers, and dark accent keys in a Serika-style core kit map." },
       "GMK Modern Dolch": { alpha: "#d6d8d6", mod: "#4c5252", accents: ["#50c8c0", "#d84c68"], preview: ["#d6d8d6", "#4c5252", "#50c8c0", "#d84c68"], copy: "Cool gray alphas, dark gray modifiers, cyan accents, and restrained red-pink highlights." },
@@ -3097,13 +3307,14 @@
       "GMK British Racing Green": { alpha: "#f3efe5", mod: "#0f5a3c", accents: ["#e4d597"], preview: ["#f3efe5", "#0f5a3c", "#e4d597"], copy: "Ivory alphas, deep racing green modifiers, and muted gold detailing." },
       "GMK Copper": { alpha: "#bd714e", mod: "#5a3328", accents: ["#087a7d", "#f2d2bd"], preview: ["#bd714e", "#5a3328", "#087a7d", "#f2d2bd"], copy: "Copper alphas, dark brown modifiers, teal accents, and pale metal highlights." },
       "GMK Dualshot": { alpha: "#8f989a", mod: "#3f4548", accents: ["#f01917", "#ffd116", "#26d7df", "#1778f2"], preview: ["#3f4548", "#8f989a", "#f01917", "#ffd116", "#26d7df", "#1778f2"], copy: "PlayStation-inspired gray base with concentrated red, yellow, cyan, and blue accent keys." },
+      "Yuri Base": { alpha: "#a9c3d8", mod: "#233044", accents: ["#f04a32"], preview: ["#a9c3d8", "#233044", "#f04a32"], copy: "Yuri Base-style pale blue alphas, deep navy modifiers, and vivid red Esc/Enter accents with red legends." },
       "GMK Laser": { alpha: "#10082d", mod: "#5b2bd1", accents: ["#31f4ff", "#ff2f7d"], preview: ["#10082d", "#5b2bd1", "#31f4ff", "#ff2f7d"], copy: "Dark cyber purple base with cyan neon lines and magenta hot keys." },
       "GMK Nervewrecker": { alpha: "#b8bab6", mod: "#343736", accents: ["#d8ef00", "#371064", "#2a2928"], preview: ["#b8bab6", "#343736", "#d8ef00", "#371064", "#2a2928"], copy: "Grey alphas with charcoal alpha pockets, neon yellow-green keys, and deep purple accents." },
       "GMK Abstract": { alpha: "#e6d0b0", mod: "#653e2c", accents: ["#b02d20", "#b06b43", "#bb9f7e"], preview: ["#e6d0b0", "#653e2c", "#b02d20", "#b06b43", "#bb9f7e"], copy: "Tan-beige base, warm brown modifiers, red accents, and abstract caramel geometry." },
       "GMK Motif": { alpha: "#f4eadb", mod: "#202322", accents: ["#ffd02c", "#e4282f", "#1f7dd3", "#1fa35b", "#f24e88"], preview: ["#f4eadb", "#202322", "#ffd02c", "#e4282f", "#1f7dd3", "#1fa35b", "#f24e88"], copy: "Cream confetti alphas, black confetti clusters, yellow space/arrow accents, and bold red, blue, green, and pink motif modifiers." },
       "KC Orange": { alpha: "#ffffff", mod: "#8b91a2", accents: ["#f09a2a", "#dca453", "#634437"], preview: ["#ffffff", "#8b91a2", "#f09a2a", "#dca453", "#634437"], copy: "Crisp white outlines, neutral gray support, and saturated bright orange/amber accents." },
       "KKB Great Barrier Reef": { alpha: "#e9a093", mod: "#e97866", accents: ["#1f5968", "#169a8b", "#f5b2a8"], preview: ["#169a8b", "#239687", "#e97866", "#e9a093", "#1f5968"], copy: "Coral-pink base kit with deeper reef-blue accents on arrows and select enter keys, inspired by teal reef artwork." },
-      "GMK Phoenix": { alpha: "#080707", mod: "#1b1112", accents: ["#e33b22", "#f06a20", "#ffd13a"], preview: ["#080707", "#1b1112", "#e33b22", "#f06a20", "#ffd13a"], copy: "Black-heavy base with orange-red flame accents and brighter yellow-gold highlights." }
+      "GMK Phoenix": { alpha: "#101010", mod: "#101010", accents: ["#c9152f", "#e84a28", "#f07c18", "#c7b032"], preview: ["#101010", "#c9152f", "#e84a28", "#f07c18", "#c7b032"], copy: "Near-black keycaps with phoenix-like red, ember orange, and antique gold legend zoning." }
     };
 
     const profiles = {
@@ -3242,13 +3453,13 @@
       "Aluminum": {
         "Black": "#252322", "Silver": "#c8c6bf", "Gray": "#777872", "E White": "#f4f0e8",
         "Navy": "#243a54", "Burgundy": "#7e3f3e", "Forest Green": "#405a46", "Lavender": "#9a84b6",
-        "Champagne": "#d5bd8c", "Pink": "#e4a5aa", "Baby Blue": "#9fc7da", "Red": "#e10600"
+        "Champagne": "#d5bd8c", "Pink": "#e4a5aa", "Baby Blue": "#9fc7da", "Seastone": "#95aeb8", "Red": "#e10600"
       },
       "ABS Plastic": {
         "Black": "#282624", "White": "#f7f4eb", "Warm Gray": "#b7b0a2", "Cream": "#ead8b7",
         "Navy": "#263d5a", "Mint": "#a8cfb3", "Blush": "#e8b0b1", "Yellow": "#e9c95b"
       },
-      "Polycarbonate": {
+      "Acrylic/Polycarbonate": {
         "Frosted Clear": "#dce9e6", "Smoky Black": "#4b4b50", "Milky White": "#f1eee2", "Translucent Blue": "#8ebbd3",
         "Translucent Purple": "#b6a1d0", "Translucent Green": "#9cc9a3", "Translucent Pink": "#e8abb8", "Opaque Cream": "#ead9bd"
       },
@@ -3278,6 +3489,7 @@
       "GMK British Racing Green": ["green", "cream", "gold", "classic", "dark"],
       "GMK Copper": ["brown", "teal", "cream", "orange", "dark"],
       "GMK Dualshot": ["gray", "mono", "red", "yellow", "cyan", "blue", "bright"],
+      "Yuri Base": ["blue", "navy", "red", "dark", "cool"],
       "GMK Laser": ["dark", "purple", "teal", "pink", "bright"],
       "GMK Nervewrecker": ["dark", "green", "purple", "yellow", "bright"],
       "GMK Abstract": ["beige", "brown", "red", "orange", "warm", "geometric"],
@@ -3308,6 +3520,7 @@
       "GMK British Racing Green": "ivory alphas, deep green modifiers, and muted gold details",
       "GMK Copper": "copper, brown, teal, and pale metal highlight colorways",
       "GMK Dualshot": "dark gray and medium gray base with PlayStation-style red, yellow, cyan, and blue accents",
+      "Yuri Base": "pale blue alphas, dark navy modifiers, red accents, and red legends",
       "GMK Laser": "dark purple, neon cyan, magenta, and cyberpunk colorways",
       "GMK Nervewrecker": "grey alphas with charcoal, acid green, yellow-green, and deep purple colorways",
       "GMK Abstract": "beige-tan foundations with brown modifiers, red accents, and abstract warm geometry",
@@ -3320,42 +3533,42 @@
     const keycapCandidates = [
       { tier: "Budget", name: "CannonKeys NicePBT / CannonCaps", brand: "NicePBT, CannonCaps", vendors: "CannonKeys", url: "https://cannonkeys.com/collections/cannonkeys-keycaps", profiles: ["Cherry"], colors: ["mono", "pastel", "bright", "green", "blue", "cream", "brown", "retro"], copy: "In-stock beginner-friendly PBT with broad kitting; strong first stop for Cherry-profile color matching." },
       { tier: "Budget", name: "KAP keycap sets", brand: "KAP", vendors: "Divinikey, CannonKeys", url: "https://divinikey.com/search?q=KAP+keycaps", profiles: ["Cherry"], colors: ["gray", "industrial", "red", "mono", "dark"], copy: "KAP is the brand/series; Grey Alert is a specific gray/red colorway example that fits industrial, monochrome, and dark-accent builds." },
-      { tier: "Budget", name: "DCS 9009", brand: "Signature Plastics DCS", vendors: "CannonKeys", url: "https://cannonkeys.com/products/dcs-9009-keycaps", profiles: ["Cherry", "OEM", "MTNU"], colors: ["beige", "retro", "gray", "cream"], copy: "Classic 9009/vintage color direction in lower-profile DCS; useful when beige and retro are the target." },
       { tier: "Budget", name: "XVX / YMDK XDA and MOA searches", brand: "XVX, YMDK", vendors: "Amazon, AliExpress, marketplace", url: "https://www.google.com/search?q=XDA+MOA+keycap+set", profiles: ["KAM / XDA / MOA"], colors: ["mono", "pastel", "bright", "cream", "blue", "pink"], copy: "Lowest-friction way to test uniform XDA/MOA shapes before committing to a designer kit." },
       { tier: "Mid-range", name: "PBTfans Cherry profile sets", brand: "PBTfans", vendors: "KBDfans, Divinikey, other regional vendors", url: "https://kbdfans.com/collections/pbtfans", profiles: ["Cherry"], colors: ["cream", "beige", "navy", "blue", "gray", "mono", "pastel", "bright", "brown"], copy: "Polished Cherry-profile PBT with enthusiast color direction; best fit for refined but accessible builds." },
       { tier: "Mid-range", name: "Milkyway PBT sets", brand: "Milkyway", vendors: "CannonKeys, Divinikey, regional vendors", url: "https://www.google.com/search?q=Milkyway+keycaps+NovelKeys+CannonKeys+Divinikey+Unikeys", profiles: ["Cherry"], colors: ["pastel", "bright", "blue", "cream", "brown", "dark", "green"], copy: "Good hunting ground for expressive PBT colorways, sublegends, and novelty-heavy sets." },
       { tier: "Mid-range", name: "Domikey Cherry profile sets", brand: "Domikey", vendors: "NovelKeys, Divinikey, Unikeys, regional vendors", url: "https://www.google.com/search?q=Domikey+keycaps+NovelKeys+Divinikey+Unikeys", profiles: ["Cherry"], colors: ["mono", "dark", "terminal", "green", "navy", "cream", "red"], copy: "Often a strong ABS/Cherry alternative when you want deeper colors, doubleshot legends, or classic GMK-adjacent themes." },
+      { tier: "Mid-range", name: "Signature Plastics DCS sets", brand: "Signature Plastics", vendors: "SPKeyboards, CannonKeys, NovelKeys", url: "https://spkeyboards.com/collections/dcs-profile-keycaps", profiles: ["Cherry", "OEM"], colors: ["beige", "retro", "gray", "cream", "mono", "dark"], copy: "DCS is the Signature Plastics profile/line; 9009 is a specific retro beige colorway under that line, not the product line itself. Treat DCS as a mid-to-high enthusiast option." },
       { tier: "Mid-range", name: "JTK keycap sets", brand: "JTK", vendors: "Divinikey, NovelKeys, regional vendors", url: "https://divinikey.com/search?q=JTK+keycaps", profiles: ["Cherry"], colors: ["navy", "blue", "gold", "dark", "teal", "black", "accent"], copy: "JTK is the brand; Flight and Brittle are specific colorway examples for navy/gold, dark, translucent, and accent-forward builds." },
       { tier: "Mid-range", name: "Keyreative / Keycreative KAT, KAM, KAP", brand: "Keyreative, Keycreative-search terms", vendors: "Divinikey, CannonKeys, regional vendors", url: "https://www.google.com/search?q=Keyreative+Keycreative+KAT+KAM+KAP+keycaps+Divinikey+CannonKeys", profiles: ["SA / KAT", "KAM / XDA / MOA", "Cherry"], colors: ["gray", "red", "mono", "pastel", "bright", "dark"], copy: "Best route for KAT/KAM-like profile exploration, with KAP adding modern Cherry-profile PBT options." },
       { tier: "High", name: "GMK CYL Cherry profile", brand: "GMK", vendors: "NovelKeys, CannonKeys, Divinikey, Unikeys", url: "https://novelkeys.com/collections/gmk", profiles: ["Cherry"], colors: ["mono", "dark", "navy", "blue", "cream", "beige", "gray", "industrial", "red", "green", "brown", "bright"], copy: "Premium ABS color accuracy and crisp legends; choose when exact color story matters more than immediate availability." },
       { tier: "High", name: "GMK MTNU", brand: "GMK", vendors: "NovelKeys, CannonKeys, Divinikey, Unikeys", url: "https://www.google.com/search?q=GMK+MTNU+NovelKeys+CannonKeys+Divinikey+Unikeys", profiles: ["MTNU"], colors: ["mono", "dark", "blue", "cream", "beige", "gray", "bright"], copy: "Short spherical feel with GMK color execution; inventory is more limited, so match by theme first and stock second." },
-      { tier: "High", name: "Signature Plastics SA / DCS", brand: "Signature Plastics", vendors: "SPKeyboards, CannonKeys, NovelKeys", url: "https://spkeyboards.com/", profiles: ["SA / KAT", "Cherry", "OEM"], colors: ["beige", "retro", "mono", "gray", "industrial", "dark"], copy: "SA is the classic tall spherical target; DCS is thinner, lower, and strong for vintage colorways." }
+      { tier: "High", name: "Signature Plastics SA / DCS premium runs", brand: "Signature Plastics", vendors: "SPKeyboards, CannonKeys, NovelKeys", url: "https://spkeyboards.com/", profiles: ["SA / KAT", "Cherry", "OEM"], colors: ["beige", "retro", "mono", "gray", "industrial", "dark"], copy: "SA is the classic tall spherical target, while DCS premium and limited runs belong in the mid-to-high enthusiast space rather than the budget lane." }
     ];
 
     const boardCandidates = [
       { tier: "Budget", name: "Keychron K / V series", url: "https://www.keychron.com/collections/keychron-keyboard", layouts: ["full", "tkl", "75", "65", "60", "96", "numpad", "alice"], materials: ["ABS Plastic"], colors: ["black", "white", "gray", "clear", "blue"], copy: "Keychron K and V boards are dependable plastic-case entry options with broad layout coverage; V-series Alice models such as V10 make this relevant for ergonomic selections too." },
-      { tier: "Budget", name: "NovelKeys Classic-TKL", url: "https://novelkeys.com/collections/classic-tkl", layouts: ["tkl"], materials: ["ABS Plastic", "Polycarbonate"], colors: ["black", "beige", "yellow", "blue", "orange", "clear", "pink"], copy: "ABS TKL with vintage styling and several playful colorways, including clear/translucent variants when stocked." },
-      { tier: "Budget", name: "EPOMAKER / Ajazz plastic boards", url: "https://www.epomaker.com/collections/keyboard", layouts: ["full", "tkl", "75", "65", "60", "96", "alice"], materials: ["ABS Plastic", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "purple", "pink", "yellow", "cream", "clear"], copy: "EPOMAKER and Ajazz boards are useful plastic-case value picks, especially for 75%, compact TKL, 96%, and Alice-style value layouts." },
-      { tier: "Budget", name: "EPOMAKER Tide / Alice / Feker Alice", url: "https://epomaker.com/search?q=alice", layouts: ["alice", "65", "60"], materials: ["ABS Plastic", "Polycarbonate", "Aluminum"], colors: ["black", "white", "gray", "cream", "wood", "clear"], copy: "EPOMAKER has several Alice-specific paths, including Tide Alice, Alice 66, and Feker Alice variants, so it should be considered directly when the Alice layout is selected." },
-      { tier: "Budget", name: "YUNZII plastic and PC boards", url: "https://www.yunzii.com/collections/keyboards", layouts: ["full", "tkl", "75", "65", "60", "96"], materials: ["ABS Plastic", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "pink", "green", "cream", "clear"], copy: "YUNZII is a good source for playful plastic, polycarbonate, and translucent prebuilts across compact through 96% layouts." },
-      { tier: "Budget", name: "Akko plastic lineup", url: "https://en.akkogear.com/store/keyboard/", layouts: ["full", "tkl", "75", "65", "60", "96", "alice"], materials: ["ABS Plastic", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "purple", "pink", "yellow", "cream"], copy: "Akko non-HE boards belong in the plastic-case value lane, and Akko Alice/ACR/Armor Alice models make the brand relevant for ergonomic builds too." },
+      { tier: "Budget", name: "NovelKeys Classic-TKL", url: "https://novelkeys.com/collections/classic-tkl", layouts: ["tkl"], materials: ["ABS Plastic", "Acrylic/Polycarbonate"], colors: ["black", "beige", "yellow", "blue", "orange", "clear", "pink"], copy: "ABS TKL with vintage styling and several playful colorways, including clear/translucent variants when stocked." },
+      { tier: "Budget", name: "EPOMAKER / Ajazz plastic boards", url: "https://www.epomaker.com/collections/keyboard", layouts: ["full", "tkl", "75", "65", "60", "96", "alice"], materials: ["ABS Plastic", "Acrylic/Polycarbonate"], colors: ["black", "white", "gray", "blue", "purple", "pink", "yellow", "cream", "clear"], copy: "EPOMAKER and Ajazz boards are useful plastic-case value picks, especially for 75%, compact TKL, 96%, and Alice-style value layouts." },
+      { tier: "Budget", name: "EPOMAKER Tide / Alice / Feker Alice", url: "https://epomaker.com/search?q=alice", layouts: ["alice", "65", "60"], materials: ["ABS Plastic", "Acrylic/Polycarbonate", "Aluminum"], colors: ["black", "white", "gray", "cream", "wood", "clear"], copy: "EPOMAKER has several Alice-specific paths, including Tide Alice, Alice 66, and Feker Alice variants, so it should be considered directly when the Alice layout is selected." },
+      { tier: "Budget", name: "YUNZII plastic and PC boards", url: "https://www.yunzii.com/collections/keyboards", layouts: ["full", "tkl", "75", "65", "60", "96"], materials: ["ABS Plastic", "Acrylic/Polycarbonate"], colors: ["black", "white", "gray", "blue", "pink", "green", "cream", "clear"], copy: "YUNZII is a good source for playful plastic, polycarbonate, and translucent prebuilts across compact through 96% layouts." },
+      { tier: "Budget", name: "Akko plastic lineup", url: "https://en.akkogear.com/store/keyboard/", layouts: ["full", "tkl", "75", "65", "60", "96", "alice"], materials: ["ABS Plastic", "Acrylic/Polycarbonate"], colors: ["black", "white", "gray", "blue", "purple", "pink", "yellow", "cream"], copy: "Akko non-HE boards belong in the plastic-case value lane, and Akko Alice/ACR/Armor Alice models make the brand relevant for ergonomic builds too." },
       { tier: "Budget", name: "MonsGeek M series", url: "https://www.monsgeek.com/", layouts: ["full", "tkl", "75", "65", "alice"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "purple", "yellow"], copy: "Affordable aluminum prebuilts and kits, especially strong for 75%, TKL-ish, fullsize-adjacent, and M6 Alice-style ergonomic layouts." },
-      { tier: "Budget", name: "Weikav aluminum kits", url: "https://weikav.com/product/record-alice/", layouts: ["75", "65", "60", "alice"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "purple", "pink", "green", "clear", "brown"], copy: "Budget aluminum customs with lots of color variety; Record Alice makes Weikav especially relevant for low-cost Alice experimentation." },
+      { tier: "Budget", name: "Weikav aluminum kits", url: "https://weikav.com/product/record-alice/", layouts: ["75", "65", "60", "alice"], materials: ["Aluminum", "Acrylic/Polycarbonate"], colors: ["black", "white", "gray", "blue", "purple", "pink", "green", "clear", "brown"], copy: "Budget aluminum customs with lots of color variety; Record Alice makes Weikav especially relevant for low-cost Alice experimentation." },
       { tier: "Budget", name: "WOBKEY Rainy75 / budget 75s", url: "https://www.google.com/search?q=Rainy75+aluminum+keyboard+kit+Divinikey", layouts: ["75"], materials: ["Aluminum"], colors: ["black", "white", "blue", "purple", "pink", "yellow"], copy: "A popular budget aluminum 75% direction when you want heft and color without custom-kit pricing." },
-      { tier: "Budget", name: "KBDfans Tofu60 Redux", url: "https://kbdfans.com/collections/group-buy/products/tofu60-redux-case?sacode=12837r", layouts: ["60", "hhkb"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "purple", "pink", "yellow", "clear", "beige"], copy: "Budget-friendly Tofu case path with a wide color range; best for compact 60% and HHKB-style builds when you want the classic Tofu look." },
+      { tier: "Budget", name: "KBDfans Tofu60 Redux", url: "https://kbdfans.com/collections/group-buy/products/tofu60-redux-case?sacode=12837r", layouts: ["60", "hhkb"], materials: ["Aluminum", "Acrylic/Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "purple", "pink", "yellow", "clear", "beige"], copy: "Budget-friendly Tofu case path with a wide color range; best for compact 60% and HHKB-style builds when you want the classic Tofu look." },
       { tier: "Budget", name: "MonsGeek FUN / HE magnetic boards", url: "https://www.monsgeek.com/product-category/hall-effect-keyboard/", layouts: ["tkl", "75", "65", "60"], materials: ["ABS Plastic", "Aluminum"], colors: ["black", "white", "gray", "blue", "purple", "pink", "yellow"], switches: ["Hall Effect"], copy: "MonsGeek FUN60 HE, M1 V5 TMR, and related magnetic boards are the budget Hall Effect lane: strong rapid-trigger value, less boutique than custom HE options, and often the first place to check below mid-range pricing." },
       { tier: "Budget", name: "Akko HE entry-to-mid boards", url: "https://en.akkogear.com/store/keyboard/", layouts: ["tkl", "75", "65", "60"], materials: ["ABS Plastic", "Aluminum"], colors: ["black", "white", "gray", "blue", "purple", "pink", "yellow"], switches: ["Hall Effect"], copy: "Akko MOD007 HE, 5087 HE, and related magnetic boards sit between budget and mid-range: more polished than the cheapest HE boards, but still value-focused compared with Wooting, Hex80, or custom HE builds." },
-      { tier: "Budget", name: "Swagkeys Transition Lite TKL", url: "https://divinikey.com/collections/keyboard-kits/products/swagkeys-transition-lite-tkl-keyboard", layouts: ["tkl"], materials: ["Polycarbonate", "ABS Plastic"], colors: ["black", "white", "gray", "purple", "clear"], copy: "Entry-level TKL kit with a lighter polycarbonate/plastic direction; useful when you want TKL layout and custom-kit feel without moving into premium aluminum pricing." },
-      { tier: "Budget", name: "Omnitype Bauer Lite", url: "https://omnitype.com/collections/keyboards/products/bauer-lite", layouts: ["65"], materials: ["ABS Plastic", "Polycarbonate"], colors: ["black", "white", "gray", "clear", "blue", "green", "pink", "yellow"], copy: "Injection-molded 65% kit based on the Bauer design language; a strong budget custom option when you want softer plastic acoustics and playful case color combinations." },
-      { tier: "Budget", name: "Swagkeys Eave65", url: "https://www.google.com/search?q=Swagkeys+Eave65+keyboard", layouts: ["65"], materials: ["ABS Plastic", "Polycarbonate"], colors: ["clear", "black", "white", "gray", "cream"], copy: "Eave65 belongs in the plastic 65% custom lane, especially when a translucent or lightweight case direction is preferred over aluminum heft." },
+      { tier: "Budget", name: "Swagkeys Transition Lite TKL", url: "https://divinikey.com/collections/keyboard-kits/products/swagkeys-transition-lite-tkl-keyboard", layouts: ["tkl"], materials: ["Acrylic/Polycarbonate", "ABS Plastic"], colors: ["black", "white", "gray", "purple", "clear"], copy: "Entry-level TKL kit with a lighter polycarbonate/plastic direction; useful when you want TKL layout and custom-kit feel without moving into premium aluminum pricing." },
+      { tier: "Budget", name: "Omnitype Bauer Lite", url: "https://omnitype.com/collections/keyboards/products/bauer-lite", layouts: ["65"], materials: ["ABS Plastic", "Acrylic/Polycarbonate"], colors: ["black", "white", "gray", "clear", "blue", "green", "pink", "yellow"], copy: "Injection-molded 65% kit based on the Bauer design language; a strong budget custom option when you want softer plastic acoustics and playful case color combinations." },
+      { tier: "Budget", name: "Swagkeys Eave65", url: "https://www.google.com/search?q=Swagkeys+Eave65+keyboard", layouts: ["65"], materials: ["ABS Plastic", "Acrylic/Polycarbonate"], colors: ["clear", "black", "white", "gray", "cream"], copy: "Eave65 belongs in the plastic 65% custom lane, especially when a translucent or lightweight case direction is preferred over aluminum heft." },
       { tier: "Mid-range", name: "Keychron Q / Q Max series", url: "https://www.keychron.com/collections/keychron-q-series-keyboard", layouts: ["full", "tkl", "75", "65", "60", "numpad", "alice"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "purple"], copy: "Reliable aluminum family with broad layout support, beginner-friendly software, and Alice choices such as Q8/Q10-style ergonomic boards." },
       { tier: "Mid-range", name: "Keychron HE magnetic series", url: "https://www.keychron.com/search?q=HE+magnetic+keyboard", layouts: ["full", "tkl", "75", "65", "60", "alice"], materials: ["Aluminum", "ABS Plastic"], colors: ["black", "white", "gray", "blue", "green"], switches: ["Hall Effect"], copy: "Keychron Q1 HE, Q/K HE, and HE 8K models fit users who want magnetic-switch gaming features inside familiar Keychron layouts and software; keep Alice support in mind for Keychron's broader ergonomic catalog." },
-      { tier: "Mid-range", name: "Qwertykeys Neo series", url: "https://www.qwertykeys.com/", layouts: ["tkl", "75", "65", "60", "alice"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "navy", "blue", "green", "purple", "red", "yellow", "clear"], copy: "Value custom kits with frequent aluminum and PC case options; Neo Ergo extends the Neo lane into Alice/ergonomic territory." },
+      { tier: "Mid-range", name: "Qwertykeys Neo series", url: "https://www.qwertykeys.com/", layouts: ["tkl", "75", "65", "60", "alice"], materials: ["Aluminum", "Acrylic/Polycarbonate"], colors: ["black", "white", "gray", "navy", "blue", "green", "purple", "red", "yellow", "clear"], copy: "Value custom kits with frequent aluminum and PC case options; Neo Ergo extends the Neo lane into Alice/ergonomic territory." },
       { tier: "Mid-range", name: "Neo65 Sonic HE+", url: "https://www.qwertykeys.com/", layouts: ["65"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "purple", "red", "silver"], switches: ["Hall Effect"], copy: "Neo65 Sonic HE+ brings Qwertykeys/Neo value-custom feel into a 65% Hall Effect platform for users who want magnetic performance without abandoning enthusiast case quality." },
       { tier: "Mid-range", name: "Qwertykeys x ATK Hex80 HE", url: "https://www.qwertykeys.com/products/hex80", layouts: ["tkl"], materials: ["Aluminum"], colors: ["black", "white", "gray", "silver", "blue", "green", "purple"], switches: ["Hall Effect"], copy: "Hex80 is a TKL/80% Hall Effect custom keyboard from Qwertykeys and ATK, aimed at users who want rapid trigger gaming performance with a more custom-board case feel." },
-      { tier: "Mid-range", name: "Qwertykeys QK series", url: "https://www.qwertykeys.com/products/qk-alice-duo", layouts: ["full", "tkl", "75", "65", "60", "alice"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "silver", "blue", "green", "purple", "red", "pink", "cream", "clear"], copy: "QK covers compact through fullsize-adjacent customs, and QK Alice Duo adds a premium split-Alice ergonomic option with QK's usual finish/configuration depth." },
-      { tier: "Mid-range", name: "Meletrix Zoom series", url: "https://meletrix.com/", layouts: ["full", "tkl", "75", "65", "60", "numpad"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "silver", "blue", "green", "purple", "pink", "yellow", "cream", "clear"], copy: "Zoom60/64, Zoom65, Zoom75, Zoom TKL, Zoom98, and Zoom Pad are strong mid-range to upper-mid customs when you want modular layouts, many finishes, and a softer enthusiast feel." },
-      { tier: "Mid-range", name: "Wind Studio kits", url: "https://windstudio.store/", layouts: ["full", "tkl", "75", "65"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "silver", "blue", "green", "purple", "pink", "cream"], copy: "Wind X, X80, X98, and Z75-style kits fit the mid-range custom space with polished layouts, frequent color options, and a more enthusiast feel than mass-market prebuilts." },
+      { tier: "Mid-range", name: "Qwertykeys QK series", url: "https://www.qwertykeys.com/products/qk-alice-duo", layouts: ["full", "tkl", "75", "65", "60", "alice"], materials: ["Aluminum", "Acrylic/Polycarbonate"], colors: ["black", "white", "gray", "silver", "blue", "green", "purple", "red", "pink", "cream", "clear"], copy: "QK covers compact through fullsize-adjacent customs, and QK Alice Duo adds a premium split-Alice ergonomic option with QK's usual finish/configuration depth." },
+      { tier: "Mid-range", name: "Meletrix Zoom series", url: "https://meletrix.com/", layouts: ["full", "tkl", "75", "65", "60", "numpad"], materials: ["Aluminum", "Acrylic/Polycarbonate"], colors: ["black", "white", "gray", "silver", "blue", "green", "purple", "pink", "yellow", "cream", "clear"], copy: "Zoom60/64, Zoom65, Zoom75, Zoom TKL, Zoom98, and Zoom Pad are strong mid-range to upper-mid customs when you want modular layouts, many finishes, and a softer enthusiast feel." },
+      { tier: "Mid-range", name: "Wind Studio kits", url: "https://windstudio.store/", layouts: ["full", "tkl", "75", "65"], materials: ["Aluminum", "Acrylic/Polycarbonate"], colors: ["black", "white", "gray", "silver", "blue", "green", "purple", "pink", "cream"], copy: "Wind X, X80, X98, and Z75-style kits fit the mid-range custom space with polished layouts, frequent color options, and a more enthusiast feel than mass-market prebuilts." },
       { tier: "Mid-range", name: "Krush65", url: "https://vala.supply/products/krush65-keyboard", layouts: ["65"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "purple", "red", "silver"], copy: "Mid-range 65% custom with aluminum case direction, top mount/gummy o-ring style options, and a compact enthusiast feel when you want something less common than Neo/QK/Zoom." },
       { tier: "Mid-range", name: "DaringRun customs", url: "https://www.kbdlab.io/components/gb-daringrun-dr-70f-keyboard", layouts: ["75", "65", "60"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "red", "silver", "cream"], copy: "DaringRun DR-70F and PG-7 style customs are mid-range enthusiast options with unusual layouts and strong personality, but they are rare and often require aftermarket hunting." },
       { tier: "Mid-range", name: "Evoworks EVO75 / EVO80", url: "https://www.ticktype.com/products/evo75", layouts: ["tkl", "75"], materials: ["Aluminum"], colors: ["black", "silver", "purple", "gold", "cream", "green"], copy: "Fully built custom-grade aluminum boards from the EVO line; strong fit for users who want Neo/QK-adjacent refinement without building from loose parts." },
@@ -3363,17 +3576,17 @@
       { tier: "Mid-range", name: "KBDfans Tofu60 3.0", url: "https://kbdfans.com/products/tofu60-3-0", layouts: ["60", "hhkb"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "purple", "red", "silver", "beige"], copy: "Modernized Tofu compact custom with gasket/top mounting paths, broader case configuration, and a more refined enthusiast feel than the Redux case path." },
       { tier: "Mid-range", name: "Luminkey / Chilkey aluminum kits", url: "https://divinikey.com/collections/keyboards", layouts: ["75", "65"], materials: ["Aluminum"], colors: ["black", "white", "blue", "purple", "green", "red"], copy: "Divinikey-stocked modern aluminum kits; strong when you want a compact barebones with contemporary color options." },
       { tier: "Mid-range", name: "Wooting HE lineup", url: "https://wooting.io/", layouts: ["full", "tkl", "60"], materials: ["ABS Plastic", "Aluminum"], colors: ["black", "white", "gray"], switches: ["Hall Effect"], copy: "Wooting 60HE, 80HE, and Two HE are benchmark Hall Effect gaming boards. They sit near the top of mid-range pricing and can feel a bit overpriced for hardware alone, but the software, rapid trigger, and analog tuning are still excellent." },
-      { tier: "High", name: "Mode Designs", url: "https://modedesigns.com/", layouts: ["tkl", "75", "65", "60"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "cream", "silver", "clear"], copy: "Premium configurable customs with polished machining, finish control, and refined acoustics." },
+      { tier: "High", name: "Mode Designs", url: "https://modedesigns.com/", layouts: ["tkl", "75", "65", "60"], materials: ["Aluminum", "Acrylic/Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "cream", "silver", "clear"], copy: "Premium configurable customs with polished machining, finish control, and refined acoustics." },
       { tier: "High", name: "Geonworks", url: "https://geon.works/", layouts: ["tkl", "75", "65", "60"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "red", "purple", "silver"], copy: "High-end aluminum customs for buyers chasing typing feel, fit, and finish more than beginner convenience." },
-      { tier: "High", name: "Owlab customs", url: "https://www.klc-smkx.com/E_OWLAB", layouts: ["tkl", "75", "65", "60", "alice"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "red", "purple", "silver", "cream"], copy: "High-end custom boards such as Jelly, Mr. Suit, Spring, HellCat Alice, and related Owlab projects are known for premium design, strong acoustics, and collector-grade fit and finish." },
+      { tier: "High", name: "Owlab customs", url: "https://www.klc-smkx.com/E_OWLAB", layouts: ["tkl", "75", "65", "60", "alice"], materials: ["Aluminum", "Acrylic/Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "red", "purple", "silver", "cream"], copy: "High-end custom boards such as Jelly, Mr. Suit, Spring, HellCat Alice, and related Owlab projects are known for premium design, strong acoustics, and collector-grade fit and finish." },
       { tier: "High", name: "Geon Venom HE custom builds", url: "https://geon.works/products/venom-tkl-he-pcb", layouts: ["tkl", "60"], materials: ["Aluminum"], colors: ["black", "white", "gray", "blue", "green", "red", "purple", "silver"], switches: ["Hall Effect"], copy: "Venom HE PCBs are a high-end custom route for builders pairing Hall Effect performance with cases such as Frog TKL, Frog Leggera, Glare TKL, Tiger Lite, Frog Mini, or other compatible H87/H88/GH60-style cases." },
-      { tier: "High", name: "CannonKeys premium kits", url: "https://cannonkeys.com/collections/keyboard-kits", layouts: ["tkl", "75", "65", "60", "alice", "numpad"], materials: ["Aluminum", "Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "purple", "clear"], copy: "Rotating enthusiast kits and collaborations; best checked when your layout and color target are already clear." },
-      { tier: "High", name: "NovelKeys enthusiast drops", url: "https://novelkeys.com/collections/keyboards", layouts: ["tkl", "65", "60"], materials: ["ABS Plastic", "Aluminum", "Polycarbonate"], colors: ["black", "beige", "blue", "orange", "yellow", "clear", "pink"], copy: "Useful for distinctive colorways and limited drops, especially when the design language matters." }
+      { tier: "High", name: "CannonKeys premium kits", url: "https://cannonkeys.com/collections/keyboard-kits", layouts: ["tkl", "75", "65", "60", "alice", "numpad"], materials: ["Aluminum", "Acrylic/Polycarbonate"], colors: ["black", "white", "gray", "blue", "green", "purple", "clear"], copy: "Rotating enthusiast kits and collaborations; best checked when your layout and color target are already clear." },
+      { tier: "High", name: "NovelKeys enthusiast drops", url: "https://novelkeys.com/collections/keyboards", layouts: ["tkl", "65", "60"], materials: ["ABS Plastic", "Aluminum", "Acrylic/Polycarbonate"], colors: ["black", "beige", "blue", "orange", "yellow", "clear", "pink"], copy: "Useful for distinctive colorways and limited drops, especially when the design language matters." }
     ];
 
     const keycapTierCopy = {
       Budget: ["Budget keycaps", "Look for in-stock PBT sets, clones, and keyboard-brand sets when you want the mood quickly. Legends, thickness, and color matching vary, but these are useful for testing a profile or color direction."],
-      "Mid-range": ["Mid-range keycaps", "This tier usually gives better kitting, thicker plastic, cleaner legends, and more intentional color design. It is often the sweet spot for PBTfans, CannonCaps, NicePBT, Milkyway, and Keyreative-style sets."],
+      "Mid-range": ["Mid-range keycaps", "This tier usually gives better kitting, thicker plastic, cleaner legends, and more intentional color design. It is often the sweet spot for PBTfans, Milkyway, Keyreative-style sets, and Signature Plastics DCS when the colorway and kitting match."],
       High: ["High-end keycaps", "Premium sets are about color accuracy, legend quality, unique profiles, and collector-grade design. Availability is often group-buy, aftermarket, or rotating in-stock drops rather than permanent catalog inventory."]
     };
 
@@ -3444,7 +3657,7 @@
         budgetRange: "Mid-range",
         keycapColor: "Navy Cream",
         profile: "MTNU",
-        material: "Polycarbonate",
+        material: "Acrylic/Polycarbonate",
         caseColor: "Smoky Black"
       },
       highEnd: {
@@ -3502,17 +3715,17 @@
       material: {
         "Aluminum": { highlight: .5, shade: .1, pad: 18, radius: 14 },
         "ABS Plastic": { highlight: .38, shade: .06, pad: 16, radius: 12 },
-        "Polycarbonate": { highlight: .7, shade: .04, pad: 18, radius: 16 },
+        "Acrylic/Polycarbonate": { highlight: .7, shade: .04, pad: 18, radius: 16 },
         "Plastic": { highlight: .38, shade: .06, pad: 16, radius: 12 },
         "Acrylic": { highlight: .7, shade: .04, pad: 18, radius: 16 },
         "Wood": { highlight: .3, shade: .14, pad: 18, radius: 10 }
       },
       profile: {
-        "SA / KAT": { lift: 7, radius: 8, shine: .8, minHeight: 38 },
-        "KAM / XDA / MOA": { lift: 3, radius: 7, shine: .68, minHeight: 34 },
-        "OEM": { lift: 5, radius: 6, shine: .72, minHeight: 36 },
-        "MTNU": { lift: 5, radius: 8, shine: .76, minHeight: 35 },
-        "Cherry": { lift: 4, radius: 6, shine: .7, minHeight: 34 }
+        "SA / KAT": { lift: 15, radius: 2, baseRadius: 2, topRadius: 4, topInsetX: 9, topInsetY: 4, topInsetBottom: 27, legendPadX: 8, legendPadY: 6, shine: .78, minHeight: 44 },
+        "KAM / XDA / MOA": { lift: 3, radius: 9, baseRadius: 9, topRadius: 12, topInsetX: 10, topInsetY: 5, topInsetBottom: 27, legendPadX: 8, legendPadY: 6, shine: .66, minHeight: 34 },
+        "OEM": { lift: 5, radius: 3, baseRadius: 3, topRadius: 3, topInsetX: 8, topInsetY: 4, topInsetBottom: 27, legendPadX: 8, legendPadY: 6, shine: .68, minHeight: 36 },
+        "MTNU": { lift: 5, radius: 2, baseRadius: 2, topRadius: 12, topInsetX: 10, topInsetY: 5, topInsetBottom: 27, legendPadX: 8, legendPadY: 6, shine: .72, minHeight: 35 },
+        "Cherry": { lift: 4, radius: 3, baseRadius: 3, topRadius: 3, topInsetX: 8, topInsetY: 4, topInsetBottom: 27, legendPadX: 8, legendPadY: 6, shine: .66, minHeight: 34 }
       },
       sound: {
         "Clicky": { depth: .18, gap: 5, tilt: 8 },
@@ -3522,6 +3735,10 @@
         "Silent": { depth: .1, gap: 4, tilt: 5 }
       }
     };
+
+    function cssClassToken(value) {
+      return String(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    }
 
     const keyGapUnit = .12;
     const rowPitchUnit = 1.12;
@@ -3590,14 +3807,15 @@
     function layout96Keys() {
       const y = 1.25;
       const mainEdge = 16.56;
-      const numX = mainEdge + 1.39;
-      const arrowX = numX - 3.36;
+      const numX = mainEdge + 1.65;
+      const arrowX = numX - 3.52;
       return [
         key("Esc", 0, 0, 1, 1, "mod"),
         ...row(2.05, 0, ["F1", "F2", "F3", "F4"]),
         ...row(2.05 + (1 + keyGapUnit) * 4 + fGroupGapUnit, 0, ["F5", "F6", "F7", "F8"]),
         ...row(2.05 + (1 + keyGapUnit) * 8 + fGroupGapUnit * 2, 0, ["F9", "F10", "F11", "F12"]),
-        ...row(numX, 0, [["Home", 1, "mod"], ["End", 1, "mod"], ["PgUp", 1, "mod"], ["PgDn", 1, "mod"]]),
+        key("Delete", mainEdge + .18, 0, 1, 1, "mod"),
+        ...row(numX, 0, [["PgUp", 1, "mod"], ["PgDn", 1, "mod"], ["Home", 1, "mod"], ["End", 1, "mod"]]),
         ...row(0, y, ansiNumbers),
         ...row(0, y + rowPitchUnit, ansiQ),
         ...row(0, y + rowPitchUnit * 2, ansiA),
@@ -3616,8 +3834,9 @@
     }
 
     function layout1800Keys() {
-      const numX = 18.05;
-      const arrowX = 14.6;
+      const mainEdge = 16.56;
+      const numX = mainEdge + 1.65;
+      const arrowX = numX - 3.52;
       return [
         ...row(0, 0, ansiNumbers),
         ...row(0, rowPitchUnit, ansiQ),
@@ -3773,12 +3992,12 @@
         ...ansiMain(0, 1.35),
         ...navCluster(17.1, 1.35),
         ...numpad(21.2, 1.35)
-      ], 1120),
+      ], 1120, { viewPad: { top: .12, right: .22, bottom: .46, left: .22 } }),
       "TKL/80%": model("TKL/80%", "layout-tkl", [
         ...fRow(0, 0, 17.1),
         ...ansiMain(0, 1.35),
         ...navCluster(17.1, 1.35)
-      ], 1040),
+      ], 1040, { viewPad: { top: .12, right: .22, bottom: .46, left: .22 } }),
       "75%": model("75%", "layout-75", [
         key("Esc", 0, 0, 1, 1, "mod"),
         ...row(1.55, 0, ["F1", "F2", "F3", "F4"]),
@@ -3818,7 +4037,7 @@
       "Numpad": model("Numpad", "layout-numpad", [
         ...numpad(0, 0, true)
       ], 330, { viewPad: { top: .14, right: .14, bottom: .18, left: .14 } }),
-      "96%": model("96%", "layout-wide", layout96Keys(), 1060),
+      "96%": model("96%", "layout-wide", layout96Keys(), 1060, { viewPad: { top: .14, right: .22, bottom: .48, left: .22 } }),
       "1800": model("1800", "layout-75", layout1800Keys(), 1080, { viewPad: { top: .16, right: .18, bottom: .24, left: .18 } }),
       "FRL": model("FRL", "layout-tkl", layoutFrlKeys(), 1080, { viewPad: { top: .16, right: .18, bottom: .28, left: .18 } }),
       "Alice/Arisu": model("Alice/Arisu", "layout-alice", aliceKeys(), 940, { height: 6.55, ratio: "2.34 / 1", viewPad: { top: -.55, right: .22, bottom: .18, left: .22 } })
@@ -3890,8 +4109,9 @@
       const profile = keyboardVisualMap.profile[state.profile] || keyboardVisualMap.profile.Cherry;
       const sound = keyboardVisualMap.sound[state.sound] || keyboardVisualMap.sound.Creamy;
       const accent = state.palette.accents?.[1] || state.palette.accents?.[0] || state.palette.mod;
+      const materialClass = ` material-${cssClassToken(state.material)}`;
       return {
-        className: layout.className,
+        className: `${layout.className}${materialClass}`,
         width: layout.widthPx,
         ratio: layout.ratio,
         alpha: state.palette.alpha,
@@ -3904,6 +4124,13 @@
         caseShade: material.shade,
         profileLift: profile.lift,
         keyRadius: profile.radius,
+        keyBaseRadius: profile.baseRadius ?? profile.radius,
+        keyTopRadius: profile.topRadius ?? profile.radius,
+        keyTopInsetX: profile.topInsetX ?? 13,
+        keyTopInsetY: profile.topInsetY ?? 13,
+        keyTopInsetBottom: profile.topInsetBottom ?? 30,
+        keyLegendPadX: profile.legendPadX ?? 8,
+        keyLegendPadY: profile.legendPadY ?? 7,
         keyShine: profile.shine,
         keyMinHeight: profile.minHeight,
         soundDepth: sound.depth,
@@ -4416,6 +4643,13 @@
         `--case-highlight:${params.caseHighlight}`,
         `--case-shade:${params.caseShade}`,
         `--key-radius:${params.keyRadius}px`,
+        `--key-base-radius:${params.keyBaseRadius}px`,
+        `--key-top-radius:${params.keyTopRadius}px`,
+        `--key-top-inset-x:${params.keyTopInsetX}%`,
+        `--key-top-inset-y:${params.keyTopInsetY}%`,
+        `--key-top-inset-bottom:${params.keyTopInsetBottom}%`,
+        `--key-legend-pad-x:${params.keyLegendPadX}px`,
+        `--key-legend-pad-y:${params.keyLegendPadY}px`,
         `--key-shine:${params.keyShine}`,
         `--key-min-height:${params.keyMinHeight}px`,
         `--key-gap:${params.keyGap}px`
@@ -4582,6 +4816,85 @@
         legendColors: { alpha: "#171b1d", modifier: "#e7eceb", accent1: "#171b1d", accent2: "#171b1d", accent3: "#171b1d", accent: "#171b1d", default: "#171b1d" },
         perKeyLegendColor: {
           ...legendColorMap(["F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", "Prt", "Print", "Scr", "Scroll", "Pause", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Del", "Delete", "PgUp", "PgDn", "Page Up", "Page Down"], "#e7eceb")
+        }
+      },
+      phoenix: {
+        modifierRole: "alpha",
+        spaceRole: "alpha",
+        accentLabels: [],
+        perKeyColor: {
+          ...labelColorMap(["Esc", "Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Back", "Backspace", "Enter"], "#101010"),
+          ...labelColorMap(navLabels, "#101010"),
+          ...labelColorMap(arrowLabels, "#101010"),
+          ...labelColorMap(["Num", "Num Lock", "/", "*", "-", "+", "."], "#101010"),
+          "": "#101010"
+        },
+        legendColors: {
+          alpha: "#dd2d25",
+          modifier: "#dd2d25",
+          accent: "#c7b032",
+          accent1: "#c9152f",
+          accent2: "#f07c18",
+          accent3: "#c7b032",
+          space: "#101010",
+          default: "#dd2d25"
+        },
+        perKeyLegendColor: {
+          ...legendColorMap(["Esc", "F1", "F2", "F3", "F4", "~", "`", "1", "2", "3", "4", "5", "Tab", "Q", "W", "E", "R", "Caps", "Caps Lock", "A", "S", "D", "F", "Shift", "Z", "X", "C", "Ctrl", "Control", "Super", "Win", "Meta", "Code", "Alt"], "#c9152f"),
+          ...legendColorMap(["F5", "F6", "F7", "F8", "6", "7", "8", "T", "Y", "U", "G", "H", "J", "V", "B", "N"], "#e84a28"),
+          ...legendColorMap(["F9", "F10", "9", "0", "I", "O", "P", "K", "L", "M", "(", ")", "<", ","], "#f07c18"),
+          ...legendColorMap(["F11", "F12", "F13", "Prt", "Print", "Scr", "Scroll", "Pause", "-", "=", "Back", "Backspace", "[", "]", "\\", ";", "'", "Enter", "?", "/", "Up", "Down", "Left", "Right"], "#c7b032"),
+          ...legendColorMap(["Ins", "Insert", "Home", "PgUp", "Del", "Delete", "End", "PgDn"], "#c7b032"),
+          ...legendColorMap(["Num", "Num Lock", "*", "+", ".", "0", "00"], "#c7b032")
+        },
+        legendResolver(item, index, state, model) {
+          const label = item.label;
+          const isNumpadLayout = state.layout.name === "Numpad";
+          const isRightSidePad = model?.width ? item.x > model.width * .72 : false;
+          const isNumpadKey = isNumpadLayout || isRightSidePad;
+          if (isNumpadKey && ["Num", "Num Lock", "/", "*", "-", "+", "Enter", ".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(label)) {
+            return "#c7b032";
+          }
+          const space = model?.keys?.find(key => key.type?.includes("space"));
+          if (space && item.y >= space.y - .08 && item.x > space.x + space.w - .05 && ["Alt", "Fn", "Menu", "Super", "Win", "Meta", "Code", "Ctrl", "Control"].includes(label)) {
+            return "#c7b032";
+          }
+          return "";
+        }
+      },
+      yuriBase: {
+        modifierRole: "modifier",
+        spaceRole: "alpha",
+        perKeyColor: {
+          ...labelColorMap(["Esc", "Enter"], "#f04a32"),
+          ...labelColorMap(["Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Back", "Backspace"], "#233044"),
+          ...labelColorMap(navLabels, "#233044"),
+          ...labelColorMap(arrowLabels, "#233044"),
+          ...labelColorMap(["F1", "F2", "F3", "F4", "F9", "F10", "F11", "F12"], "#a9c3d8"),
+          ...labelColorMap(["F5", "F6", "F7", "F8", "Prt", "Print", "Scr", "Scroll", "Pause"], "#233044"),
+          "": "#a9c3d8"
+        },
+        colorResolver(item, index, state, model) {
+          const label = item.label;
+          const isNumpadLayout = state.layout.name === "Numpad";
+          const isRightSidePad = model?.width ? item.x > model.width * .72 : false;
+          const isNumpadKey = isNumpadLayout || isRightSidePad;
+          if (isNumpadKey) {
+            if (["Enter"].includes(label)) return "#f04a32";
+            if (["Num", "Num Lock", "/", "*", "-", "+"].includes(label)) return "#233044";
+            if (["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."].includes(label)) return "#a9c3d8";
+          }
+          return "";
+        },
+        legendColors: {
+          alpha: "#f04a32",
+          modifier: "#f04a32",
+          accent: "#f04a32",
+          accent1: "#f04a32",
+          accent2: "#f04a32",
+          accent3: "#f04a32",
+          space: "#f04a32",
+          default: "#f04a32"
         }
       },
       kcOrange: {
@@ -4790,6 +5103,7 @@
       "GMK Windbreaker": { preset: "windbreaker" },
       "GMK Analog Dreams": { preset: "analogDreams" },
       "GMK Dualshot": { preset: "dualshot" },
+      "Yuri Base": { preset: "yuriBase" },
       "GMK Laser": { preset: "laser" },
       "GMK Nervewrecker": { preset: "nervewrecker" },
       "KC Orange": { preset: "kcOrange" },
@@ -4808,11 +5122,7 @@
         spaceRole: "alpha"
       },
       "GMK Phoenix": {
-        preset: "standard",
-        modifierRole: "modifier",
-        accentLabels: ["Esc", "Enter", "Up", "Down", "Left", "Right", ...alertRowLabels],
-        legendColors: { alpha: "#ffd13a", modifier: "#fff1c2", accent: "#080707", space: "#ffd13a", default: "#ffd13a" },
-        spaceRole: "alpha"
+        preset: "phoenix"
       }
     };
 
@@ -4861,7 +5171,8 @@
     function keyLegendColor(item, index, state, role) {
       const merged = colorMapForState(state);
       const id = keyIdentifier(item, index);
-      return merged.perKeyLegendColor?.[id]
+      return merged.legendResolver?.(item, index, state, layoutModels[state.layout.name] || layoutModels["75%"])
+        || merged.perKeyLegendColor?.[id]
         || merged.perKeyLegendColor?.[item.label]
         || merged.legendColors?.[role]
         || merged.legendColors?.default
@@ -4889,7 +5200,7 @@
       const shouldBlockForWkl =
         state.wkl &&
         wklEligibleLayouts.has(state.layout.name) &&
-        (wklKeyLabels.has(item.label) || isSecondKeyRightOfSpace(item, keys));
+        (wklKeyLabels.has(item.label) || (state.layout.name !== "FRL" && isSecondKeyRightOfSpace(item, keys)));
 
       if (shouldBlockForWkl) {
         return { ...item, label: "", type: "blocker" };
@@ -4912,6 +5223,28 @@
       return colors[role] || colors.alpha;
     }
 
+    function escapeHTML(value = "") {
+      return String(value).replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#39;"
+      }[character]));
+    }
+
+    function legendFontSize(item) {
+      const label = String(item.label || "").trim();
+      if (!label) return 10;
+      const compactLength = label.replace(/\s+/g, "").length;
+      const faceWidthUnits = Math.max(.45, item.w * (1 - ((item.topInsetX || 8) / 100) * 2));
+      const faceHeightUnits = Math.max(.35, item.h * (1 - ((item.topInsetY || 4) + (item.topInsetBottom || 27)) / 100));
+      const widthFit = (faceWidthUnits * 5.2) / Math.max(1, compactLength);
+      const heightFit = faceHeightUnits < .62 ? faceHeightUnits / .62 : 1;
+      const size = 11 * Math.min(1, widthFit, heightFit);
+      return Math.max(5.8, Math.min(11, size));
+    }
+
     function visualKeyHTML(item, model, index, state) {
       const renderItem = visualKeyForState(item, state, model.keys);
       const type = renderItem.type || (modifierKeyLabels.has(renderItem.label) ? "mod" : "");
@@ -4926,7 +5259,9 @@
       const height = (renderItem.h / model.height * 100).toFixed(3);
       const legendStyle = role === "blocker" ? ";--legend-color:transparent" : (legendColor ? `;--legend-color:${legendColor}` : "");
       const outlineStyle = role === "blocker" ? ";--key-outline:transparent" : (outlineColor ? `;--key-outline:${outlineColor}` : "");
-      return `<span class="visual-key ${type} role-${role}" data-key-role="${role}" style="--x:${left}%;--y:${top}%;--w:${width}%;--h:${height}%;--r:${renderItem.r || 0}deg;--key-color:${color}${legendStyle}${outlineStyle}">${renderItem.label || ""}</span>`;
+      const tallNumpadClass = renderItem.h > 1.5 && ["+", "Enter"].includes(renderItem.label) ? " tall-numpad-key" : "";
+      const fontSize = legendFontSize(renderItem).toFixed(2);
+      return `<span class="visual-key ${type}${tallNumpadClass} role-${role}" data-key-role="${role}" style="--x:${left}%;--y:${top}%;--w:${width}%;--h:${height}%;--r:${renderItem.r || 0}deg;--key-color:${color};--legend-font-size:${fontSize}px${legendStyle}${outlineStyle}"><span class="key-legend">${escapeHTML(renderItem.label || "")}</span></span>`;
     }
 
     function keyboardVisualHTML(state) {
@@ -5003,6 +5338,7 @@
       if (name.includes("black") || name.includes("smoky")) tags.push("black", "dark");
       if (name.includes("white") || name.includes("e-white") || name.includes("milky")) tags.push("white", "cream");
       if (name.includes("gray") || name.includes("silver")) tags.push("gray", "silver");
+      if (name.includes("seastone")) tags.push("gray", "blue", "cool");
       if (name.includes("navy") || name.includes("blue")) tags.push("navy", "blue");
       if (name.includes("green") || name.includes("mint")) tags.push("green");
       if (name.includes("pink") || name.includes("blush")) tags.push("pink");
