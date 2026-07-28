@@ -1,0 +1,11 @@
+*.lnk
+*.vbs
+*.bat
+Thumbs.db
+.DS_Store
+Backups/
+Previous Launchers/
+layout-preview-contact-*.png
+Font/open-cherry-master/*.glyphs
+Font/open-cherry-master/*.png
+Font/open-cherry-master/README.md

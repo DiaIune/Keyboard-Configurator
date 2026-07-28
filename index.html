@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -168,6 +168,14 @@
       --tooltip-text: #fffaf0;
       --shadow: 0 22px 60px rgba(86, 57, 27, .13);
       --radius: 8px;
+    }
+
+    @font-face {
+      font-family: "Open Cherry";
+      src: url("Font/open-cherry-master/OpenCherry-Regular.otf") format("opentype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
     }
 
     * { box-sizing: border-box; }
@@ -2025,16 +2033,16 @@
         inset 0 1px 0 rgba(255,255,255,.2),
         inset 0 -13px 22px rgba(0,0,0,.12),
         inset 0 0 0 1px rgba(255,255,255,.08);
-      clip-path: polygon(2% 9%, 37% 9%, 50% 22%, 63% 9%, 98% 9%, 98% 88%, 61% 88%, 50% 97%, 39% 88%, 2% 88%);
+      clip-path: polygon(2% 9%, 38% 9%, 45% 10.5%, 50% 14%, 55% 10.5%, 62% 9%, 98% 9%, 98% 88.5%, 64% 88.5%, 57% 89%, 50% 94%, 43% 89%, 36% 88.5%, 2% 88.5%);
     }
 
     .keyboard-visual.layout-alice .keyboard-plate {
-      inset: 8% 3.5% 8%;
+      inset: 5.5% 2.6% 5.8%;
       background:
         linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.2)),
         rgba(22, 20, 17, .22);
       border-radius: 12px;
-      clip-path: polygon(0 0, 38% 0, 50% 18%, 62% 0, 100% 0, 100% 91%, 62% 91%, 50% 100%, 38% 91%, 0 91%);
+      clip-path: polygon(0 0, 34% 0, 45% 5.5%, 49% 9%, 51% 9%, 55% 5.5%, 66% 0, 100% 0, 100% 94%, 66% 94%, 57% 93.5%, 52% 98%, 48% 98%, 43% 93.5%, 34% 94%, 0 94%);
       box-shadow:
         inset 0 0 0 1px rgba(35, 28, 20, .2),
         inset 0 12px 18px rgba(255,255,255,.04),
@@ -2047,19 +2055,31 @@
 
     .keyboard-visual.material-aluminum {
       background:
+        linear-gradient(90deg, rgba(255,255,255,.08), transparent 20% 78%, rgba(0,0,0,.14)),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.16)),
+        url("Reference%20Library/Materials/anodized-aluminum-brush.png"),
         repeating-linear-gradient(91deg, rgba(255,255,255,.045) 0 .7px, transparent .7px 3px),
         repeating-linear-gradient(1deg, rgba(0,0,0,.025) 0 .6px, transparent .6px 4px),
         radial-gradient(circle at 18% 12%, rgba(255,255,255,.09), transparent 40%),
         linear-gradient(180deg, rgba(255,255,255,.11), rgba(0,0,0,.15)),
         var(--case-color, #d8d2c7);
+      background-size: auto, auto, 100% 150%, auto, auto, auto, auto, auto;
+      background-position: center, center, center, center, center, center, center, center;
+      background-blend-mode: normal, normal, soft-light, normal, normal, normal, normal, normal;
     }
 
     .keyboard-visual.layout-alice.material-aluminum::before {
       background:
+        linear-gradient(90deg, rgba(255,255,255,.08), transparent 20% 78%, rgba(0,0,0,.14)),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.16)),
+        url("Reference%20Library/Materials/anodized-aluminum-brush.png"),
         repeating-linear-gradient(91deg, rgba(255,255,255,.045) 0 .7px, transparent .7px 3px),
         repeating-linear-gradient(1deg, rgba(0,0,0,.025) 0 .6px, transparent .6px 4px),
         linear-gradient(180deg, rgba(255,255,255,.11), rgba(0,0,0,.14)),
         var(--case-color, #d8d2c7);
+      background-size: auto, auto, 100% 150%, auto, auto, auto, auto;
+      background-position: center, center, center, center, center, center, center;
+      background-blend-mode: normal, normal, soft-light, normal, normal, normal, normal;
     }
 
     .keyboard-visual.material-abs-plastic {
@@ -2105,6 +2125,46 @@
         linear-gradient(135deg, rgba(255,255,255,.22), transparent 28% 72%, rgba(0,0,0,.08)),
         radial-gradient(ellipse at 24% 18%, rgba(255,255,255,.24), transparent 45%),
         linear-gradient(180deg, color-mix(in srgb, var(--case-color, #dce9e6) 62%, white 38%), color-mix(in srgb, var(--case-color, #dce9e6) 78%, black 22%));
+    }
+
+    .keyboard-visual.case-walnut { --wood-grain-image: url("Reference%20Library/Materials/walnut-grain-horizontal.png"); }
+    .keyboard-visual.case-maple { --wood-grain-image: url("Reference%20Library/Materials/maple-grain-horizontal.png"); }
+    .keyboard-visual.case-oak { --wood-grain-image: url("Reference%20Library/Materials/oak-grain-horizontal.png"); }
+
+    .keyboard-visual.material-wood {
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.08), transparent 22% 76%, rgba(0,0,0,.16)),
+        linear-gradient(180deg, rgba(255,255,255,.16), rgba(0,0,0,.2)),
+        var(--wood-grain-image, linear-gradient(90deg, rgba(255,255,255,.06), rgba(0,0,0,.06))),
+        var(--case-color, #b88a4f);
+      background-size: auto, auto, 100% 170%, auto;
+      background-position: center, center, center, center;
+      border-color: color-mix(in srgb, var(--case-color, #b88a4f) 54%, rgba(35, 22, 12, .65));
+      box-shadow:
+        0 24px 36px rgba(37,24,12,.2),
+        0 8px 14px rgba(37,24,12,.16),
+        inset 0 1px 0 rgba(255,255,255,.18),
+        inset 0 -16px 24px rgba(0,0,0,.18),
+        inset 0 0 0 2px rgba(255,255,255,.045);
+    }
+
+    .keyboard-visual.layout-alice.material-wood::before {
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.08), transparent 22% 76%, rgba(0,0,0,.16)),
+        linear-gradient(180deg, rgba(255,255,255,.16), rgba(0,0,0,.19)),
+        var(--wood-grain-image, linear-gradient(90deg, rgba(255,255,255,.06), rgba(0,0,0,.06))),
+        var(--case-color, #b88a4f);
+      background-size: auto, auto, 100% 170%, auto;
+      background-position: center, center, center, center;
+    }
+
+    .keyboard-visual.layout-alice.material-aluminum,
+    .keyboard-visual.layout-alice.material-abs-plastic,
+    .keyboard-visual.layout-alice.material-acrylic-polycarbonate,
+    .keyboard-visual.layout-alice.material-wood {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
     }
 
     .key-row {
@@ -2154,6 +2214,7 @@
       overflow: hidden;
       isolation: isolate;
       text-shadow: 0 1px 0 rgba(255,255,255,.08), 0 -1px 0 rgba(0,0,0,.08);
+      container-type: inline-size;
     }
 
     .visual-key::before,
@@ -2219,21 +2280,57 @@
         calc(var(--key-top-inset-x, 8%) + 2px)
         calc(var(--key-top-inset-bottom, 27%) + 2px);
       display: flex;
-      align-items: flex-start;
+      align-items: var(--legend-align-items, flex-start);
       justify-content: flex-start;
       min-width: 0;
       min-height: 0;
       overflow: hidden;
       contain: paint;
       color: var(--legend-color, #28231d);
+      font-family: "Open Cherry", Aptos, "Segoe UI Variable", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       font-size: var(--legend-font-size, clamp(6px, .58vw, 11px));
-      font-weight: 800;
+      font-weight: 400;
       line-height: 1.05;
       letter-spacing: 0;
-      white-space: normal;
-      overflow-wrap: anywhere;
+      white-space: var(--legend-white-space, normal);
+      overflow-wrap: var(--legend-overflow-wrap, anywhere);
       text-align: left;
       text-overflow: clip;
+      text-rendering: geometricPrecision;
+      -webkit-font-smoothing: antialiased;
+      font-synthesis: none;
+    }
+
+    .visual-key.legend-modifier .key-legend {
+      inset:
+        calc(var(--key-top-inset-y, 4%) + 1px)
+        calc(var(--key-top-inset-x, 8%) + 1px)
+        calc(var(--key-top-inset-bottom, 27%) + 1px);
+      --legend-align-items: center;
+      --legend-white-space: nowrap;
+      --legend-overflow-wrap: normal;
+    }
+
+    .keyboard-visual.profile-mtnu .visual-key.legend-alpha .key-legend,
+    .keyboard-visual.profile-kam-xda-moa .visual-key.legend-alpha .key-legend {
+      transform: translate(3px, 3px);
+    }
+
+    .key-sublegend {
+      position: absolute;
+      z-index: 3;
+      right: calc(var(--key-top-inset-x, 8%) + 6px);
+      bottom: calc(var(--key-top-inset-bottom, 27%) + 7px);
+      color: var(--sublegend-color, transparent);
+      font-family: "Open Cherry", Aptos, "Segoe UI Variable", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: calc(var(--legend-font-size, 10px) * .58);
+      font-weight: 400;
+      line-height: 1;
+      opacity: 1;
+      text-rendering: geometricPrecision;
+      -webkit-font-smoothing: antialiased;
+      font-synthesis: none;
+      pointer-events: none;
     }
 
     .visual-key.mod { --key-color: var(--mod-color); }
@@ -3296,6 +3393,11 @@
       "Industrial Gray": { alpha: "#d6d8d6", mod: "#4c5252", accents: ["#f08a36"], preview: ["#d6d8d6", "#4c5252", "#f08a36"], copy: "GMK Modern Dolch/Panels-adjacent gray base with safety-color accent keys." },
       "Candy Brights": { alpha: "#fff7e8", mod: "#ff6b86", accents: ["#58b7ea"], preview: ["#fff7e8", "#ff6b86", "#58b7ea"], copy: "GMK Darling/Analog Dreams-adjacent neutral alphas, bright modifiers, and playful accents." },
       "PBTfans Absolute": { alpha: "#f3e5cb", mod: "#ded0b8", accents: ["#d95e55", "#e8bc54", "#76af75", "#5aa4c5"], preview: ["#f3e5cb", "#ded0b8", "#d95e55", "#e8bc54", "#76af75", "#5aa4c5"], copy: "Warm beige alphas, oatmeal modifiers, and playful primary accents inspired by PBTfans Absolute's geometric mood." },
+      "DCX Dragon Darts": { alpha: "#58e2de", mod: "#173247", accents: ["#ff5658", "#78f2ef", "#0f2639"], preview: ["#58e2de", "#173247", "#ff5658", "#78f2ef", "#0f2639"], copy: "Bright aqua alphas, deep blue modifiers, and punchy coral-red accents inspired by DCX Dragon Darts." },
+      "GMK Fox": { alpha: "#d7e4df", mod: "#0d554f", accents: ["#c7722c", "#f1f4ee", "#0f4a45"], preview: ["#d7e4df", "#0d554f", "#c7722c", "#f1f4ee", "#0f4a45"], copy: "Bone-white alphas, deep forest-teal modifiers, dark teal legends, and rust-orange fox accent keys." },
+      "GMK Gorp": { alpha: "#e9e2d5", mod: "#b9d4c4", accents: ["#9dbbd1", "#d7ded4", "#222522"], preview: ["#e9e2d5", "#b9d4c4", "#9dbbd1", "#d7ded4", "#222522"], copy: "Soft trail-ready cream alphas, sage modifiers, pale blue escape/enter accents, and dark charcoal legends." },
+      "GMK Gurokawa": { alpha: "#dcddec", mod: "#c9f1df", accents: ["#f6c0df", "#c9f5bd", "#dc9ff0", "#d6429a"], preview: ["#dcddec", "#f6c0df", "#c9f1df", "#c9f5bd", "#dc9ff0", "#d6429a"], copy: "Pale lavender caps, pink legends and sublegends, mint and soft green modifiers, and gentle kawaii accent keys." },
+      "GMK Mecha 01": { alpha: "#6e32c7", mod: "#111314", accents: ["#35e52e", "#7a3ce1", "#242424"], preview: ["#111314", "#6e32c7", "#35e52e", "#7a3ce1", "#242424"], copy: "Eva-inspired black modifiers, purple alphas, neon green legends, and bright green accent keys." },
       "GMK Olivia": { alpha: "#f7ddd4", mod: "#342c2c", accents: ["#f1b4aa"], preview: ["#f7ddd4", "#342c2c", "#f1b4aa"], copy: "Blush alphas, dark chocolate modifiers, and soft rose accents." },
       "GMK Serika": { alpha: "#e7e6d5", mod: "#f0bc35", accents: ["#222927", "#d7a229"], preview: ["#e7e6d5", "#f0bc35", "#222927", "#d7a229"], copy: "Warm cream alphas, saturated yellow modifiers, and dark accent keys in a Serika-style core kit map." },
       "GMK Modern Dolch": { alpha: "#d6d8d6", mod: "#4c5252", accents: ["#50c8c0", "#d84c68"], preview: ["#d6d8d6", "#4c5252", "#50c8c0", "#d84c68"], copy: "Cool gray alphas, dark gray modifiers, cyan accents, and restrained red-pink highlights." },
@@ -3307,15 +3409,74 @@
       "GMK British Racing Green": { alpha: "#f3efe5", mod: "#0f5a3c", accents: ["#e4d597"], preview: ["#f3efe5", "#0f5a3c", "#e4d597"], copy: "Ivory alphas, deep racing green modifiers, and muted gold detailing." },
       "GMK Copper": { alpha: "#bd714e", mod: "#5a3328", accents: ["#087a7d", "#f2d2bd"], preview: ["#bd714e", "#5a3328", "#087a7d", "#f2d2bd"], copy: "Copper alphas, dark brown modifiers, teal accents, and pale metal highlights." },
       "GMK Dualshot": { alpha: "#8f989a", mod: "#3f4548", accents: ["#f01917", "#ffd116", "#26d7df", "#1778f2"], preview: ["#3f4548", "#8f989a", "#f01917", "#ffd116", "#26d7df", "#1778f2"], copy: "PlayStation-inspired gray base with concentrated red, yellow, cyan, and blue accent keys." },
-      "Yuri Base": { alpha: "#a9c3d8", mod: "#233044", accents: ["#f04a32"], preview: ["#a9c3d8", "#233044", "#f04a32"], copy: "Yuri Base-style pale blue alphas, deep navy modifiers, and vivid red Esc/Enter accents with red legends." },
-      "GMK Laser": { alpha: "#10082d", mod: "#5b2bd1", accents: ["#31f4ff", "#ff2f7d"], preview: ["#10082d", "#5b2bd1", "#31f4ff", "#ff2f7d"], copy: "Dark cyber purple base with cyan neon lines and magenta hot keys." },
+      "GMK Yuri": { alpha: "#a9c3d8", mod: "#233044", accents: ["#f04a32"], preview: ["#a9c3d8", "#233044", "#f04a32"], copy: "GMK Yuri-style pale blue alphas, deep navy modifiers, and vivid red Esc/Enter accents with red legends." },
+      "GMK Laser": { alpha: "#2b176f", mod: "#211a43", accents: ["#d41450", "#00a8bd", "#321d84"], preview: ["#211a43", "#2b176f", "#321d84", "#00a8bd", "#d41450"], copy: "Cyberdeck-style purple alphas, darker navy-purple modifiers, cyan alpha legends, and magenta modifier legends." },
+      "GMK Mictlan": { alpha: "#151515", mod: "#262626", accents: ["#ff8a18", "#00c6d6", "#f12f8d", "#f2c219", "#9a5cf2"], preview: ["#151515", "#262626", "#ff8a18", "#00c6d6", "#f12f8d", "#f2c219", "#9a5cf2"], copy: "Black caps with vivid Mictlan-style cyan, magenta, yellow, orange, and purple legends plus orange enter and bright arrow accents." },
       "GMK Nervewrecker": { alpha: "#b8bab6", mod: "#343736", accents: ["#d8ef00", "#371064", "#2a2928"], preview: ["#b8bab6", "#343736", "#d8ef00", "#371064", "#2a2928"], copy: "Grey alphas with charcoal alpha pockets, neon yellow-green keys, and deep purple accents." },
       "GMK Abstract": { alpha: "#e6d0b0", mod: "#653e2c", accents: ["#b02d20", "#b06b43", "#bb9f7e"], preview: ["#e6d0b0", "#653e2c", "#b02d20", "#b06b43", "#bb9f7e"], copy: "Tan-beige base, warm brown modifiers, red accents, and abstract caramel geometry." },
       "GMK Motif": { alpha: "#f4eadb", mod: "#202322", accents: ["#ffd02c", "#e4282f", "#1f7dd3", "#1fa35b", "#f24e88"], preview: ["#f4eadb", "#202322", "#ffd02c", "#e4282f", "#1f7dd3", "#1fa35b", "#f24e88"], copy: "Cream confetti alphas, black confetti clusters, yellow space/arrow accents, and bold red, blue, green, and pink motif modifiers." },
       "KC Orange": { alpha: "#ffffff", mod: "#8b91a2", accents: ["#f09a2a", "#dca453", "#634437"], preview: ["#ffffff", "#8b91a2", "#f09a2a", "#dca453", "#634437"], copy: "Crisp white outlines, neutral gray support, and saturated bright orange/amber accents." },
       "KKB Great Barrier Reef": { alpha: "#e9a093", mod: "#e97866", accents: ["#1f5968", "#169a8b", "#f5b2a8"], preview: ["#169a8b", "#239687", "#e97866", "#e9a093", "#1f5968"], copy: "Coral-pink base kit with deeper reef-blue accents on arrows and select enter keys, inspired by teal reef artwork." },
+      "GMK Terror Below": { alpha: "#007c73", mod: "#102420", accents: ["#91d8c6", "#004f49", "#022a26"], preview: ["#102420", "#007c73", "#004f49", "#91d8c6", "#022a26"], copy: "Deep aquatic teal alphas, near-black modifiers, mint accent keys, and pale ghostly legends." },
+      "GMK Handarbeit": { alpha: "#b9302a", mod: "#655091", accents: ["#eda81d", "#1f5d96", "#5e9636", "#d07e72", "#eb6b18"], preview: ["#b9302a", "#655091", "#eda81d", "#1f5d96", "#5e9636", "#d07e72", "#eb6b18"], copy: "Handarbeit-style primary color blocking with red alphas, purple modifiers, yellow bars, and blue/green utility clusters." },
+      "KKB Sacred Timeline": { alpha: "#8a8c7d", mod: "#273023", accents: ["#e87727", "#b9bbb0", "#4d5546", "#d9a232"], preview: ["#111111", "#273023", "#8a8c7d", "#b9bbb0", "#e87727", "#d9a232"], copy: "Olive-black modifiers, grey alphas, orange accent keys, and colored sublegends inspired by the Sacred Timeline base kit." },
+      "MW Fyrefly": { alpha: "#d7dfd9", mod: "#95aaa0", accents: ["#e76d11", "#303538", "#c6d0c9"], preview: ["#303538", "#95aaa0", "#d7dfd9", "#e76d11", "#c6d0c9"], copy: "Misty grey-green alphas, sage modifiers, black support keys, and vivid orange enters/esc accents." },
+      "MW Unmanned Playground": { alpha: "#eeeae0", mod: "#efb6bf", accents: ["#8bded1", "#9ed7de", "#d9b985"], preview: ["#eeeae0", "#8bded1", "#9ed7de", "#efb6bf", "#d9b985"], copy: "Soft abandoned-playground pastels with cream, mint, sky blue, pink modifiers, and sandy arrow accents." },
+      "KKB Cinque Terre": { alpha: "#f1eee0", mod: "#7aa690", accents: ["#ef724b", "#e7b463", "#285b83", "#df9b95"], preview: ["#f1eee0", "#ef724b", "#e7b463", "#7aa690", "#285b83", "#df9b95"], copy: "Italian coastal palette with cream alphas, coral and terracotta accents, sage modifiers, blue keys, and sunny yellow highlights." },
+      "KKB Boundless Jataka": { alpha: "#f4efe6", mod: "#c86f55", accents: ["#8fcbbf", "#262a75", "#a83f38", "#e2a64f"], preview: ["#f4efe6", "#c86f55", "#8fcbbf", "#262a75", "#a83f38", "#e2a64f"], copy: "Warm cream alphas, salmon and clay modifiers, mint enters, blue arrows, and red-orange sublegend energy." },
+      "KKB Shee": { alpha: "#34314d", mod: "#4b4967", accents: ["#ec4b9b", "#766ab0", "#27384f", "#c78325"], preview: ["#262437", "#34314d", "#4b4967", "#ec4b9b", "#766ab0", "#c78325"], copy: "Dark purple TKL kit with dusky violet caps, lavender accents, magenta sublegends, and small amber graphic hits." },
+      "GMK Necro": { alpha: "#eef8df", mod: "#5f6b70", accents: ["#8bd9dc", "#2e3941", "#cdecd0"], preview: ["#5f6b70", "#eef8df", "#8bd9dc", "#2e3941", "#cdecd0"], copy: "Cool grey modifiers, pale glow alphas, aqua accents, and dark skull novelty contrast." },
+      "GMK Pulse": { alpha: "#111111", mod: "#20c4c7", accents: ["#22c8cb", "#080808", "#f7f9f0"], preview: ["#20c4c7", "#111111", "#22c8cb", "#080808", "#f7f9f0"], copy: "High-contrast cyan and black kit with cyan modifiers, black alphas, and bright aqua legends." },
       "GMK Phoenix": { alpha: "#101010", mod: "#101010", accents: ["#c9152f", "#e84a28", "#f07c18", "#c7b032"], preview: ["#101010", "#c9152f", "#e84a28", "#f07c18", "#c7b032"], copy: "Near-black keycaps with phoenix-like red, ember orange, and antique gold legend zoning." }
     };
+
+    const keycapColorOrder = [
+      "Cafe & Cocoa",
+      "Candy Brights",
+      "Classic Beige",
+      "Dark Accent",
+      "Industrial Gray",
+      "Monochrome",
+      "Muted Pastel",
+      "Navy Cream",
+      "Retro Terminal",
+      "DCX Dragon Darts",
+      "GMK Abstract",
+      "GMK Analog Dreams",
+      "GMK British Racing Green",
+      "GMK Copper",
+      "GMK Dualshot",
+      "GMK Fox",
+      "GMK Gorp",
+      "GMK Gurokawa",
+      "GMK Handarbeit",
+      "GMK Laser",
+      "GMK Mecha 01",
+      "GMK Mictlan",
+      "GMK Modern Dolch",
+      "GMK Motif",
+      "GMK Necro",
+      "GMK Nervewrecker",
+      "GMK Olivia",
+      "GMK Panels",
+      "GMK Phoenix",
+      "GMK Pulse",
+      "GMK Serika",
+      "GMK Terror Below",
+      "GMK Windbreaker",
+      "GMK Yuri",
+      "KAP Santa Llum Naixement",
+      "KAP Santa Llum Resurreccio",
+      "KC Orange",
+      "KKB Boundless Jataka",
+      "KKB Cinque Terre",
+      "KKB Great Barrier Reef",
+      "KKB Sacred Timeline",
+      "KKB Shee",
+      "MW Fyrefly",
+      "MW Unmanned Playground",
+      "PBTfans Absolute"
+    ];
 
     const profiles = {
       "SA / KAT": ["Tall", "Sculpted", "Spherical", "Aggregated tall sculpted spherical family: SA is the taller retro version, KAT is a smoother medium-tall cousin."],
@@ -3453,7 +3614,7 @@
       "Aluminum": {
         "Black": "#252322", "Silver": "#c8c6bf", "Gray": "#777872", "E White": "#f4f0e8",
         "Navy": "#243a54", "Burgundy": "#7e3f3e", "Forest Green": "#405a46", "Lavender": "#9a84b6",
-        "Champagne": "#d5bd8c", "Pink": "#e4a5aa", "Baby Blue": "#9fc7da", "Seastone": "#95aeb8", "Red": "#e10600"
+        "Champagne": "#d5bd8c", "Pink": "#e4a5aa", "Baby Blue": "#9fc7da", "Seastone": "#879ba3", "Red": "#e10600"
       },
       "ABS Plastic": {
         "Black": "#282624", "White": "#f7f4eb", "Warm Gray": "#b7b0a2", "Cream": "#ead8b7",
@@ -3479,6 +3640,7 @@
       "Cafe & Cocoa": ["brown", "cream", "coffee", "beige"],
       "Industrial Gray": ["gray", "industrial", "orange", "red", "yellow"],
       "Candy Brights": ["bright", "pink", "yellow", "blue", "green", "rainbow"],
+      "DCX Dragon Darts": ["cyan", "teal", "blue", "red", "bright", "dark"],
       "GMK Olivia": ["pastel", "soft", "pink", "cream", "brown", "dark"],
       "GMK Modern Dolch": ["gray", "mono", "teal", "red", "dark", "industrial"],
       "GMK Panels": ["blue", "aqua", "red", "yellow", "bright", "geometric"],
@@ -3489,13 +3651,28 @@
       "GMK British Racing Green": ["green", "cream", "gold", "classic", "dark"],
       "GMK Copper": ["brown", "teal", "cream", "orange", "dark"],
       "GMK Dualshot": ["gray", "mono", "red", "yellow", "cyan", "blue", "bright"],
-      "Yuri Base": ["blue", "navy", "red", "dark", "cool"],
+      "GMK Fox": ["cream", "teal", "green", "orange", "rust", "forest"],
+      "GMK Gorp": ["cream", "sage", "green", "blue", "soft", "outdoor"],
+      "GMK Gurokawa": ["pastel", "pink", "mint", "green", "lavender", "sublegend"],
+      "GMK Yuri": ["blue", "navy", "red", "dark", "cool"],
       "GMK Laser": ["dark", "purple", "teal", "pink", "bright"],
+      "GMK Mecha 01": ["dark", "purple", "green", "neon", "black", "bright"],
+      "GMK Mictlan": ["dark", "black", "cyan", "pink", "yellow", "orange", "purple", "bright"],
       "GMK Nervewrecker": ["dark", "green", "purple", "yellow", "bright"],
       "GMK Abstract": ["beige", "brown", "red", "orange", "warm", "geometric"],
       "GMK Motif": ["beige", "green", "red", "yellow", "blue", "pink", "bright"],
       "KC Orange": ["white", "gray", "orange", "yellow", "bright", "industrial"],
       "KKB Great Barrier Reef": ["coral", "salmon", "pink", "reef blue", "teal", "bright"],
+      "GMK Terror Below": ["dark", "teal", "green", "mint", "black", "sublegend"],
+      "GMK Handarbeit": ["red", "yellow", "blue", "green", "purple", "bright", "primary"],
+      "KKB Sacred Timeline": ["dark", "olive", "gray", "orange", "sublegend", "terminal"],
+      "MW Fyrefly": ["gray", "sage", "mint", "orange", "industrial"],
+      "MW Unmanned Playground": ["pastel", "pink", "mint", "blue", "cream", "soft"],
+      "KKB Cinque Terre": ["cream", "coral", "orange", "green", "blue", "yellow", "pastel"],
+      "KKB Boundless Jataka": ["cream", "orange", "salmon", "mint", "blue", "sublegend"],
+      "KKB Shee": ["dark", "purple", "pink", "sublegend", "tkl"],
+      "GMK Necro": ["gray", "cyan", "mint", "cream", "novelty"],
+      "GMK Pulse": ["cyan", "black", "teal", "bright", "mono"],
       "GMK Phoenix": ["dark", "red", "orange", "yellow", "black"]
     };
 
@@ -3510,6 +3687,7 @@
       "Cafe & Cocoa": "coffee, chocolate, cafe, cream, caramel, and warm neutral keycap themes",
       "Industrial Gray": "gray bases with orange, yellow, red, alert rows, or safety-color accent keys",
       "Candy Brights": "saturated modifiers, playful novelties, rainbow accents, and neutral alphas",
+      "DCX Dragon Darts": "aqua alphas, deep navy modifiers, coral-red accents, and bright teal legends",
       "GMK Olivia": "blush, soft pink, dark brown modifiers, and elegant low-contrast legends",
       "GMK Modern Dolch": "cool gray, dark gray, cyan, and red-pink accent colorways",
       "GMK Panels": "blue, aqua, red, yellow, and geometric panel color blocking",
@@ -3520,13 +3698,28 @@
       "GMK British Racing Green": "ivory alphas, deep green modifiers, and muted gold details",
       "GMK Copper": "copper, brown, teal, and pale metal highlight colorways",
       "GMK Dualshot": "dark gray and medium gray base with PlayStation-style red, yellow, cyan, and blue accents",
-      "Yuri Base": "pale blue alphas, dark navy modifiers, red accents, and red legends",
-      "GMK Laser": "dark purple, neon cyan, magenta, and cyberpunk colorways",
+      "GMK Fox": "bone-white alphas, deep teal modifiers, rust-orange fox accents, and dark teal legends",
+      "GMK Gorp": "cream alphas, sage modifiers, pale blue accents, and soft outdoor trail palettes",
+      "GMK Gurokawa": "pale lavender alphas, pink legends and sublegends, mint modifiers, and soft green accent keys",
+      "GMK Yuri": "pale blue alphas, dark navy modifiers, red accents, and red legends",
+      "GMK Laser": "dark navy-purple modifiers, purple alphas, cyan alpha legends, and magenta Cyberdeck legends",
+      "GMK Mecha 01": "black and purple Eva-style caps with neon green legends and bright green accents",
+      "GMK Mictlan": "black caps with bright cyan, magenta, yellow, orange, and purple legends plus orange accent keys",
       "GMK Nervewrecker": "grey alphas with charcoal, acid green, yellow-green, and deep purple colorways",
       "GMK Abstract": "beige-tan foundations with brown modifiers, red accents, and abstract warm geometry",
       "GMK Motif": "beige-tan base colorways with bright red, green, yellow, blue, and pink accent kits",
       "KC Orange": "white-outlined, gray-supported, bright orange and amber colorways",
       "KKB Great Barrier Reef": "coral-pink base keys, salmon modifiers, deep reef-blue accents, and teal reef-inspired artwork",
+      "GMK Terror Below": "dark aquatic teal, black modifiers, mint accents, and pale horror-inspired legends",
+      "GMK Handarbeit": "primary-color Handarbeit blocking with red alphas, purple mods, yellow bars, blue function keys, and green nav clusters",
+      "KKB Sacred Timeline": "olive-black modifiers, grey alphas, orange accents, and warm orange/amber sublegend colors",
+      "MW Fyrefly": "sage grey, misty white, black support keys, and orange enter/escape accents",
+      "MW Unmanned Playground": "cream, mint, pale blue, pink, and sandy pastel playground palettes",
+      "KKB Cinque Terre": "cream, coral, terracotta, sage, sea blue, and sunny yellow coastal colorways",
+      "KKB Boundless Jataka": "cream alphas, salmon/orange modifiers, mint accents, blue arrows, and red-orange sublegends",
+      "KKB Shee": "dark purple bases, lavender accents, magenta Japanese-style sublegends, and amber graphic hits",
+      "GMK Necro": "cool gray modifiers, pale cream alphas, aqua accents, and skull novelty contrast",
+      "GMK Pulse": "bright cyan modifiers, black alphas, aqua legends, and high-contrast teal-on-black sets",
       "GMK Phoenix": "black-heavy, orange-red flame, and bright gold highlight colorways"
     };
 
@@ -3770,10 +3963,6 @@
       const width = rawWidth + viewPad.left + viewPad.right;
       const height = rawHeight + viewPad.top + viewPad.bottom;
       return { name, className, keys, rawWidth, rawHeight, width, height, viewPad, widthPx, ratio: `${width} / ${height}`, ...extra };
-    }
-
-    function rightEdge(keys) {
-      return Math.max(...keys.map(item => item.x + item.w));
     }
 
     const ansiNumbers = ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", ["Back", 2, "mod"]];
@@ -4043,33 +4232,6 @@
       "Alice/Arisu": model("Alice/Arisu", "layout-alice", aliceKeys(), 940, { height: 6.55, ratio: "2.34 / 1", viewPad: { top: -.55, right: .22, bottom: .18, left: .22 } })
     };
 
-    function layoutModelIssues(layoutModel) {
-      const issues = [];
-      layoutModel.keys.forEach((a, index) => {
-        if (a.r) return;
-        layoutModel.keys.slice(index + 1).forEach((b, offset) => {
-          if (b.r) return;
-          const overlaps =
-            a.x < b.x + b.w &&
-            a.x + a.w > b.x &&
-            a.y < b.y + b.h &&
-            a.y + a.h > b.y;
-          if (overlaps) {
-            issues.push(`${layoutModel.name}: ${a.label || "blank"} overlaps ${b.label || "blank"} at ${index}/${index + offset + 1}`);
-          }
-        });
-      });
-      return issues;
-    }
-
-    function validateLayoutModels() {
-      const issues = Object.values(layoutModels).flatMap(layoutModelIssues);
-      if (issues.length) console.warn("Keyboard layout model issues", issues);
-      return issues;
-    }
-
-    validateLayoutModels();
-
     const wklEligibleLayouts = new Set(["Fullsize", "96%", "TKL/80%", "1800", "FRL", "65%", "60%", "Alice/Arisu"]);
 
     function syncWklToggle() {
@@ -4110,8 +4272,10 @@
       const sound = keyboardVisualMap.sound[state.sound] || keyboardVisualMap.sound.Creamy;
       const accent = state.palette.accents?.[1] || state.palette.accents?.[0] || state.palette.mod;
       const materialClass = ` material-${cssClassToken(state.material)}`;
+      const profileClass = ` profile-${cssClassToken(state.profile)}`;
+      const caseClass = ` case-${cssClassToken(state.caseColorName)}`;
       return {
-        className: `${layout.className}${materialClass}`,
+        className: `${layout.className}${materialClass}${profileClass}${caseClass}`,
         width: layout.widthPx,
         ratio: layout.ratio,
         alpha: state.palette.alpha,
@@ -4220,7 +4384,7 @@
     fillSelect(els.sound, Object.keys(sounds));
     fillSelect(els.spring, Object.keys(springs));
     fillSelect(els.budgetRange, budgetRangeOptions);
-    fillSelect(els.keycapColor, Object.keys(colorways));
+    fillSelect(els.keycapColor, keycapColorOrder.filter(name => colorways[name]));
     fillSelect(els.profile, Object.keys(profiles));
     fillSelect(els.material, Object.keys(materialColors));
 
@@ -4671,6 +4835,9 @@
     const rightAlphaLabels = ["Y", "U", "I", "O", "P", "H", "J", "K", "L", "B", "N", "M", ",", ".", "/"];
     const navLabels = ["Del", "Delete", "Ins", "Insert", "Home", "End", "PgUp", "PgDn", "Page Up", "Page Down", "Prt", "Print", "Scr", "Scroll", "Pause"];
     const arrowLabels = ["Up", "Down", "Left", "Right"];
+    const functionKeyLabels = new Set(Array.from({ length: 24 }, (_, index) => `F${index + 1}`));
+    const bottomModifierLabels = new Set(["Alt", "Fn", "Menu", "Super", "Win", "Meta", "Code", "Ctrl", "Control"]);
+    const sublegendCapLabels = [...alphaKeyLabels].filter(label => label.length === 1 || ["`", "~", "-", "=", "[", "]", "\\", ";", "'", ",", ".", "/"].includes(label));
 
     function labelColorMap(labels, color) {
       return Object.fromEntries(Array.from(labels).map(label => [label, color]));
@@ -4686,6 +4853,10 @@
 
     function outlineColorMap(labels, color) {
       return Object.fromEntries(Array.from(labels).map(label => [label, color]));
+    }
+
+    function sublegendTextMap(labels, text = "_") {
+      return Object.fromEntries(Array.from(labels).map(label => [label, text]));
     }
 
     /*
@@ -4785,19 +4956,71 @@
         }
       },
       laser: {
-        modifierRole: "accent1",
+        modifierRole: "modifier",
         spaceRole: "alpha",
+        accentLabels: [],
         perKeyColor: {
-          ...labelColorMap(alertRowLabels, "#5b2bd1"),
-          ...labelColorMap(["Tab", "Caps", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Back", "Backspace", "Enter"], "#5b2bd1"),
-          ...labelColorMap(navLabels, "#5b2bd1"),
-          ...labelColorMap(arrowLabels, "#ff2f7d"),
-          Esc: "#ff2f7d",
-          "": "#10082d"
+          ...labelColorMap(alphaKeyLabels, "#2b176f"),
+          ...labelColorMap(["F1", "F2", "F3", "F4", "F9", "F10", "F11", "F12"], "#321d84"),
+          ...labelColorMap(["F5", "F6", "F7", "F8", "Prt", "Print", "Scr", "Scroll", "Pause"], "#211a43"),
+          ...labelColorMap(["Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Back", "Backspace", "Enter"], "#211a43"),
+          ...labelColorMap(navLabels, "#211a43"),
+          ...labelColorMap(arrowLabels, "#211a43"),
+          ...labelColorMap(["Num", "Num Lock", "/", "*", "-", "+", "."], "#211a43"),
+          Esc: "#d41450",
+          "": "#2b176f"
         },
-        legendColors: { alpha: "#31f4ff", modifier: "#ff2f7d", accent1: "#31f4ff", accent: "#31f4ff" },
+        colorResolver(item, index, state, model) {
+          const isRightSidePad = model?.width ? item.x > model.width * .72 : false;
+          if (isRightSidePad) {
+            if (["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(item.label)) return "#2b176f";
+            if (["Num", "Num Lock", "/", "*", "-", "+", "Enter", "."].includes(item.label)) return "#211a43";
+          }
+          return "";
+        },
+        legendColors: { alpha: "#00a8bd", modifier: "#d41450", accent: "#d41450", space: "#2b176f", default: "#00a8bd" },
         perKeyLegendColor: {
-          ...legendColorMap(["Esc", "Enter", "Up", "Down", "Left", "Right"], "#31f4ff")
+          ...legendColorMap(["Esc"], "#211a43"),
+          ...legendColorMap(["Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Back", "Backspace", "Enter", "Up", "Down", "Left", "Right", ...navLabels], "#d41450"),
+          ...legendColorMap(["F5", "F6", "F7", "F8", "Prt", "Print", "Scr", "Scroll", "Pause", "Num", "Num Lock", "/", "*", "-", "+", "."], "#d41450")
+        }
+      },
+      mictlan: {
+        modifierRole: "alpha",
+        spaceRole: "alpha",
+        accentLabels: [],
+        perKeyColor: {
+          ...labelColorMap(["Enter"], "#ff8a18"),
+          ...labelColorMap(["Up"], "#00c6d6"),
+          ...labelColorMap(["Left"], "#f12f8d"),
+          ...labelColorMap(["Down"], "#ff8a18"),
+          ...labelColorMap(["Right"], "#f2c219"),
+          ...labelColorMap(navLabels, "#262626"),
+          "": "#151515"
+        },
+        legendColors: { alpha: "#00c6d6", modifier: "#00c6d6", accent: "#151515", space: "#151515", default: "#00c6d6" },
+        perKeyLegendColor: {
+          ...legendColorMap(["Q", "S", "V", "U", "L", "8", "[", "F2", "F6", "F10"], "#9a5cf2"),
+          ...legendColorMap(["W", "C", "H", "N", "O", "5", "0", "\\", "Home", "Up"], "#00c6d6"),
+          ...legendColorMap(["E", "F", "K", "Z", "7", "-", "=", "Down", "Enter"], "#ff8a18"),
+          ...legendColorMap(["R", "G", "J", "X", "P", "2", "9", "Del", "Delete", "Left"], "#f12f8d"),
+          ...legendColorMap(["T", "A", "D", "B", "Y", "3", "4", "6", "Right"], "#f2c219"),
+          ...legendColorMap(["Esc", "Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu"], "#00c6d6"),
+          ...legendColorMap(["Back", "Backspace"], "#f2c219"),
+          ...legendColorMap(["Ins", "Insert", "End", "PgUp", "PgDn"], "#f12f8d"),
+          ...legendColorMap(["F1", "F5", "F9", "Prt", "Print"], "#ff8a18"),
+          ...legendColorMap(["F3", "F7", "F11", "Scr", "Scroll"], "#00c6d6"),
+          ...legendColorMap(["F4", "F8", "F12", "Pause"], "#9a5cf2")
+        },
+        colorResolver(item, index, state, model) {
+          const isRightSidePad = model?.width ? item.x > model.width * .72 : false;
+          if (isRightSidePad) {
+            if (["Enter", "Down"].includes(item.label)) return "#ff8a18";
+            if (["Up"].includes(item.label)) return "#00c6d6";
+            if (["Left"].includes(item.label)) return "#f12f8d";
+            if (["Right"].includes(item.label)) return "#f2c219";
+          }
+          return "";
         }
       },
       dualshot: {
@@ -5057,7 +5280,6 @@
             if (["7", "8", "9", "5", "6", "3"].includes(label)) return "#f0c422";
             if (["4", "1", "2", "0", "."].includes(label)) return "#1f6f95";
           }
-          const bottomModifierLabels = new Set(["Alt", "Fn", "Menu", "Super", "Win", "Meta", "Code", "Ctrl", "Control"]);
           const space = model?.keys?.find(key => key.type?.includes("space"));
           if (space && (bottomModifierLabels.has(label) || label === "Shift") && item.y >= space.y - 1.35 && item.x > space.x + space.w - .05) {
             return "#f0c422";
@@ -5065,6 +5287,302 @@
           return "";
         },
         legendColors: { alpha: "#fff9e8", modifier: "#fff9e8", accent1: "#fff9e8", accent2: "#123f46", accent3: "#123f46", accent: "#fff9e8", default: "#fff9e8" }
+      },
+      dragonDarts: {
+        modifierRole: "modifier",
+        spaceRole: "alpha",
+        perKeyColor: {
+          Esc: "#ff5658",
+          Enter: "#ff5658",
+          ...labelColorMap(["F1", "F2", "F3", "F4", "F9", "F10", "F11", "F12"], "#58e2de"),
+          ...labelColorMap(["F5", "F6", "F7", "F8", "Prt", "Print", "Scr", "Scroll", "Pause"], "#173247"),
+          ...labelColorMap(["Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Back", "Backspace"], "#173247"),
+          ...labelColorMap(navLabels, "#173247"),
+          ...labelColorMap(arrowLabels, "#ff5658"),
+          ...labelColorMap(["Num", "Num Lock", "/", "*", "-", "+", "."], "#173247"),
+          "": "#58e2de"
+        },
+        colorResolver(item, index, state, model) {
+          const isRightSidePad = model?.width ? item.x > model.width * .72 : false;
+          if (isRightSidePad) {
+            if (["Enter"].includes(item.label)) return "#ff5658";
+            if (["Num", "Num Lock", "/", "*", "-", "+"].includes(item.label)) return "#173247";
+            if (["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."].includes(item.label)) return "#58e2de";
+          }
+          return "";
+        },
+        legendColors: { alpha: "#102638", modifier: "#78f2ef", accent: "#102638", space: "#102638", default: "#102638" },
+        perKeyLegendColor: {
+          ...legendColorMap(["Esc", "Enter", "Up", "Down", "Left", "Right"], "#102638"),
+          ...legendColorMap(["Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Back", "Backspace", ...navLabels], "#78f2ef")
+        }
+      },
+      gorp: {
+        modifierRole: "modifier",
+        spaceRole: "alpha",
+        perKeyColor: {
+          Esc: "#9dbbd1",
+          Enter: "#9dbbd1",
+          ...labelColorMap(["Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Back", "Backspace"], "#b9d4c4"),
+          ...labelColorMap(["F5", "F6", "F7", "F8", "Prt", "Print", "Scr", "Scroll", "Pause"], "#b9d4c4"),
+          ...labelColorMap(navLabels, "#b9d4c4"),
+          ...labelColorMap(arrowLabels, "#b9d4c4"),
+          ...labelColorMap(["Num", "Num Lock", "/", "*", "-", "+", "."], "#b9d4c4"),
+          "": "#e9e2d5"
+        },
+        colorResolver(item, index, state, model) {
+          const isRightSidePad = model?.width ? item.x > model.width * .72 : false;
+          if (isRightSidePad && ["Enter"].includes(item.label)) return "#b9d4c4";
+          return "";
+        },
+        legendColors: { alpha: "#222522", modifier: "#26302c", accent: "#222522", space: "#e9e2d5", default: "#222522" }
+      },
+      fox: {
+        modifierRole: "modifier",
+        spaceRole: "alpha",
+        perKeyColor: {
+          ...labelColorMap(alphaKeyLabels, "#d7e4df"),
+          ...labelColorMap(["Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Back", "Backspace"], "#0d554f"),
+          ...labelColorMap(["Esc", "Enter"], "#c7722c"),
+          ...labelColorMap(["F5", "F6", "F7", "F8", "Prt", "Print", "Scr", "Scroll", "Pause"], "#0d554f"),
+          ...labelColorMap(navLabels, "#0d554f"),
+          ...labelColorMap(arrowLabels, "#0d554f"),
+          ...labelColorMap(["Num", "Num Lock", "/", "*", "-", "+", "."], "#0d554f"),
+          "": "#d7e4df"
+        },
+        colorResolver(item, index, state, model) {
+          const isRightSidePad = model?.width ? item.x > model.width * .72 : false;
+          if (isRightSidePad) {
+            if (["Enter", "Up", "Down", "Left", "Right"].includes(item.label)) return "#c7722c";
+            if (["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(item.label)) return "#d7e4df";
+            return "#0d554f";
+          }
+          return "";
+        },
+        legendColors: { alpha: "#0f4a45", modifier: "#d7e4df", accent: "#f1f4ee", space: "#0f4a45", default: "#0f4a45" },
+        perKeyLegendColor: legendColorMap(["Esc", "Enter", "Up", "Down", "Left", "Right"], "#f1f4ee")
+      },
+      gurokawa: {
+        modifierRole: "modifier",
+        spaceRole: "alpha",
+        perKeyColor: {
+          ...labelColorMap(alphaKeyLabels, "#dcddec"),
+          ...labelColorMap(["Esc", "`", "~"], "#f6c0df"),
+          ...labelColorMap(["Tab", "Back", "Backspace"], "#dc9ff0"),
+          ...labelColorMap(["Caps", "Caps Lock", "Enter"], "#c9f1df"),
+          ...labelColorMap(["Shift"], "#c9f5bd"),
+          ...labelColorMap(["Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu"], "#dcddec"),
+          ...labelColorMap(navLabels, "#dcddec"),
+          ...labelColorMap(arrowLabels, "#dcddec"),
+          "": "#dcddec"
+        },
+        colorResolver(item, index, state, model) {
+          const isRightSidePad = model?.width ? item.x > model.width * .72 : false;
+          if (isRightSidePad && ["Enter"].includes(item.label)) return "#c9f1df";
+          if (isRightSidePad && ["Up", "Down", "Left", "Right"].includes(item.label)) return "#dcddec";
+          return "";
+        },
+        legendColors: { alpha: "#d6429a", modifier: "#d6429a", accent: "#d6429a", space: "#dcddec", default: "#d6429a" },
+        perKeySublegendText: sublegendTextMap(sublegendCapLabels, "ぁ"),
+        sublegendColors: { default: "#d6429a" }
+      },
+      mecha01: {
+        modifierRole: "modifier",
+        spaceRole: "alpha",
+        perKeyColor: {
+          ...labelColorMap(alphaKeyLabels, "#6e32c7"),
+          ...labelColorMap(["Esc", "Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Back", "Backspace"], "#111314"),
+          ...labelColorMap(["F1", "F2", "F3", "F4", "F9", "F10", "F11", "F12"], "#6e32c7"),
+          ...labelColorMap(["F5", "F6", "F7", "F8", "Prt", "Print", "Scr", "Scroll", "Pause"], "#111314"),
+          ...labelColorMap(navLabels, "#111314"),
+          ...labelColorMap(arrowLabels, "#35e52e"),
+          Enter: "#111314",
+          "": "#6e32c7"
+        },
+        colorResolver(item, index, state, model) {
+          const isRightSidePad = model?.width ? item.x > model.width * .72 : false;
+          if (isRightSidePad) {
+            if (["Enter", "Up", "Down", "Left", "Right"].includes(item.label)) return "#35e52e";
+            if (["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."].includes(item.label)) return "#6e32c7";
+            return "#111314";
+          }
+          return "";
+        },
+        legendColors: { alpha: "#35e52e", modifier: "#35e52e", accent: "#111314", space: "#6e32c7", default: "#35e52e" },
+        perKeySublegendText: sublegendTextMap(sublegendCapLabels, "\u25e2"),
+        sublegendColors: { default: "#35e52e" }
+      },
+      terrorBelow: {
+        modifierRole: "modifier",
+        spaceRole: "alpha",
+        perKeyColor: {
+          ...labelColorMap(["Esc", "Enter"], "#91d8c6"),
+          ...labelColorMap(["Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Back", "Backspace"], "#102420"),
+          ...labelColorMap(["F1", "F2", "F3", "F4", "F9", "F10", "F11", "F12"], "#004f49"),
+          ...labelColorMap(["F5", "F6", "F7", "F8", "Prt", "Print", "Scr", "Scroll", "Pause"], "#102420"),
+          ...labelColorMap(navLabels, "#102420"),
+          ...labelColorMap(arrowLabels, "#102420"),
+          "": "#007c73"
+        },
+        legendColors: { alpha: "#91d8c6", modifier: "#91d8c6", accent: "#102420", space: "#007c73", default: "#91d8c6" },
+        perKeySublegendText: sublegendTextMap(sublegendCapLabels, "_"),
+        sublegendColors: { default: "#74cfc0" }
+      },
+      handarbeit: {
+        modifierRole: "accent2",
+        spaceRole: "accent1",
+        perKeyColor: {
+          Esc: "#b9302a",
+          ...labelColorMap(["F1", "F2", "F3", "F4", "[", "]", "\\", ";", "'", ",", ".", "/", "Num", "Num Lock", "/", "*", "-"], "#1f5d96"),
+          ...labelColorMap(["F5", "F6", "F7", "F8", "+", "Enter"], "#d07e72"),
+          ...labelColorMap(["F9", "F10", "F11", "F12", "Back", "Backspace", "Enter", "0", ""], "#eda81d"),
+          ...labelColorMap(["Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Fn"], "#655091"),
+          ...labelColorMap(["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "Home", "End", "Down"], "#5e9636"),
+          ...labelColorMap(["Ins", "Insert", "Delete", "Del", "Up"], "#eda81d"),
+          ...labelColorMap(["PgUp", "PgDn"], "#b9302a"),
+          ...labelColorMap(["Left", "Right", "F13"], "#eb6b18")
+        },
+        colorResolver(item, index, state, model) {
+          const isRightSidePad = model?.width ? item.x > model.width * .72 : false;
+          if (isRightSidePad && ["7", "8", "9", "4", "6", "1", "2", "3"].includes(item.label)) return "#655091";
+          if (isRightSidePad && ["5", "0"].includes(item.label)) return "#b9302a";
+          return "";
+        },
+        legendColors: { alpha: "#f6ead6", modifier: "#f6ead6", accent1: "#f6ead6", accent2: "#f6ead6", accent3: "#f6ead6", default: "#f6ead6" }
+      },
+      sacredTimeline: {
+        modifierRole: "modifier",
+        spaceRole: "accent1",
+        perKeyColor: {
+          Esc: "#e87727",
+          ...labelColorMap(["Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Back", "Backspace"], "#273023"),
+          ...labelColorMap(navLabels, "#273023"),
+          ...labelColorMap(["F1", "F2", "F3", "F4", "F9", "F10", "F11", "F12"], "#b9bbb0"),
+          ...labelColorMap(["F5", "F6", "F7", "F8", "Prt", "Print", "Scr", "Scroll", "Pause"], "#273023"),
+          ...labelColorMap(["Enter", "Left", "Down", "Right"], "#e87727"),
+          ...labelColorMap(["Up", "F13"], "#4d5546"),
+          "": "#b9bbb0"
+        },
+        colorResolver(item, index, state, model) {
+          const space = model?.keys?.find(key => key.type?.includes("space"));
+          if (space && item.y >= space.y - .08 && item.x > space.x + space.w - .05 && ["Alt", "Fn", "Menu", "Super", "Win", "Meta", "Code", "Ctrl", "Control"].includes(item.label)) return "#273023";
+          return "";
+        },
+        legendColors: { alpha: "#4d5546", modifier: "#d7d3b4", accent1: "#4d5546", accent: "#273023", space: "#4d5546", default: "#4d5546" },
+        perKeyLegendColor: {
+          ...legendColorMap(["Esc", "Enter", "Left", "Down", "Right"], "#273023"),
+          ...legendColorMap(["Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Back", "Backspace", ...navLabels], "#d7d3b4")
+        },
+        perKeySublegendText: {
+          ...sublegendTextMap(sublegendCapLabels, "\u25a0"),
+          ...sublegendTextMap(["Q", "W", "E", "R", "T", "A", "S", "D", "F", "G", "Z", "X", "C", "V", "B"], "\u25a0"),
+          ...sublegendTextMap(["Y", "U", "I", "O", "P", "H", "J", "K", "L", "N", "M"], "\u25a0")
+        },
+        perKeySublegendColor: {
+          ...legendColorMap(["1", "2", "3", "4", "5", "Q", "W", "E", "R", "T", "A", "S", "D", "F", "G", "Z", "X", "C", "V"], "#ff8a2a"),
+          ...legendColorMap(["6", "7", "8", "9", "0", "Y", "U", "I", "O", "P", "H", "J", "K", "L", "B", "N", "M"], "#f0bc3f"),
+          ...legendColorMap(["-", "=", "[", "]", "\\", ";", "'", ",", ".", "/"], "#ff8a2a")
+        },
+        sublegendColors: { default: "#ff8a2a" }
+      },
+      fyrefly: {
+        modifierRole: "modifier",
+        spaceRole: "alpha",
+        perKeyColor: {
+          Esc: "#303538",
+          Enter: "#e76d11",
+          ...labelColorMap(["F1", "F2", "F3", "F4", "Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu"], "#95aaa0"),
+          ...labelColorMap(["F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", "Prt", "Print", "Scr", "Scroll", "Pause", "Ins", "Insert", "Home", "PgUp", "Del", "Delete", "End", "PgDn"], "#c6d0c9"),
+          ...labelColorMap(["Back", "Backspace", "Up", "Down", "Left", "Right"], "#95aaa0"),
+          "": "#c6d0c9"
+        },
+        legendColors: { alpha: "#5d6a65", modifier: "#e7efeb", accent: "#f5efe4", space: "#5d6a65", default: "#5d6a65" }
+      },
+      playground: {
+        modifierRole: "accent3",
+        spaceRole: "accent3",
+        perKeyColor: {
+          ...labelColorMap(["A", "S", "D", "F", "G", "H", "J", "K", "L", "Tab", "Caps", "Caps Lock"], "#8bded1"),
+          ...labelColorMap(["Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", "Shift", "Up", "Left", "Down", "Right"], "#9ed7de"),
+          ...labelColorMap(["Enter", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Back", "Backspace", ""], "#efb6bf"),
+          ...labelColorMap(navLabels, "#9ed7de")
+        },
+        colorResolver(item, index, state, model) {
+          const isRightSidePad = model?.width ? item.x > model.width * .72 : false;
+          if (isRightSidePad && ["Up", "Left", "Down", "Right"].includes(item.label)) return "#d9b985";
+          return "";
+        },
+        legendColors: { alpha: "#f7f4ed", modifier: "#f7f4ed", accent1: "#f7f4ed", accent2: "#f7f4ed", accent3: "#f7f4ed", default: "#f7f4ed" }
+      },
+      cinqueTerre: {
+        modifierRole: "accent2",
+        spaceRole: "alpha",
+        perKeyColor: {
+          Esc: "#ef724b",
+          Back: "#ef724b",
+          Backspace: "#ef724b",
+          Enter: "#df9b95",
+          ...labelColorMap(["Tab", "Caps", "Caps Lock", "Shift", "Alt", "Fn"], "#df9b95"),
+          ...labelColorMap(["Ctrl", "Control", "Win", "Super", "Meta", "Code"], "#285b83"),
+          ...labelColorMap(["Ins", "Insert", "End"], "#e7b463"),
+          ...labelColorMap(["Home", "PgDn"], "#7aa690"),
+          ...labelColorMap(["Up", "Down", "Left", "Right"], "#f1eee0"),
+          "": "#f1eee0"
+        },
+        legendColors: { alpha: "#7aa690", modifier: "#f1eee0", accent1: "#f1eee0", accent2: "#f1eee0", accent3: "#f1eee0", accent: "#7aa690", space: "#7aa690", default: "#7aa690" }
+      },
+      brainAhaWarm: {
+        modifierRole: "accent1",
+        spaceRole: "alpha",
+        perKeyColor: {
+          Esc: "#f08b64",
+          Enter: "#8fcbbf",
+          ...labelColorMap(["Tab", "Up", "Left", "Down", "Right"], "#262a75"),
+          ...labelColorMap(["Caps", "Caps Lock", "Shift"], "#e6b4b7"),
+          ...labelColorMap(["Ctrl", "Control", "Code", "Fn"], "#a83f38"),
+          ...labelColorMap(["Alt", "Win", "Super", "Meta", "Menu", "Back", "Backspace", ...navLabels], "#c86f55"),
+          "": "#f4efe6"
+        },
+        legendColors: { alpha: "#9a3a30", modifier: "#f4efe6", accent1: "#f4efe6", accent2: "#f4efe6", accent3: "#9a3a30", default: "#9a3a30" },
+        perKeySublegendText: sublegendTextMap(sublegendCapLabels, "_"),
+        sublegendColors: { default: "#c95a3f" }
+      },
+      everythingYouWant: {
+        modifierRole: "modifier",
+        spaceRole: "alpha",
+        perKeyColor: {
+          ...labelColorMap(["Esc", "F1", "F2", "F3", "F4", "F9", "F10", "F11", "F12", "Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu"], "#4b4967"),
+          ...labelColorMap(["Enter", "Back", "Backspace", "Ins", "Insert", "Home", "PgUp", "Del", "Delete", "End", "PgDn"], "#34314d"),
+          ...labelColorMap(["Up", "Left", "Down", "Right"], "#766ab0"),
+          "": "#272438"
+        },
+        legendColors: { alpha: "#c8b9f4", modifier: "#ec4b9b", accent: "#ec4b9b", space: "#272438", default: "#c8b9f4" },
+        perKeySublegendText: sublegendTextMap(sublegendCapLabels, "_"),
+        sublegendColors: { default: "#ec4b9b" }
+      },
+      aquaSkull: {
+        modifierRole: "modifier",
+        spaceRole: "accent",
+        perKeyColor: {
+          Esc: "#8bd9dc",
+          Enter: "#8bd9dc",
+          ...labelColorMap(["Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Back", "Backspace"], "#5f6b70"),
+          ...labelColorMap(["F5", "F6", "F7", "F8", "Prt", "Print", "Scr", "Scroll", "Pause", ...navLabels], "#5f6b70"),
+          ...labelColorMap(["Up", "Left", "Down", "Right"], "#8bd9dc"),
+          "": "#eef8df"
+        },
+        legendColors: { alpha: "#5f6b70", modifier: "#8bd9dc", accent: "#2e3941", space: "#2e3941", default: "#5f6b70" }
+      },
+      cyanNoir: {
+        modifierRole: "modifier",
+        spaceRole: "alpha",
+        perKeyColor: {
+          ...labelColorMap(["Esc", "Tab", "Caps", "Caps Lock", "Shift", "Ctrl", "Control", "Alt", "Fn", "Win", "Super", "Meta", "Code", "Menu", "Back", "Backspace", "Enter"], "#20c4c7"),
+          ...labelColorMap(["F1", "F2", "F3", "F4", "F9", "F10", "F11", "F12", "Num", "Num Lock", "/", "*", "-", "+", ...navLabels], "#20c4c7"),
+          ...labelColorMap(["F5", "F6", "F7", "F8", "Up", "Left", "Down", "Right"], "#111111"),
+          "": "#111111"
+        },
+        legendColors: { alpha: "#22c8cb", modifier: "#0a0a0a", accent: "#22c8cb", space: "#22c8cb", default: "#22c8cb" }
       },
       barrierReef: {
         modifierRole: "modifier",
@@ -5092,7 +5610,11 @@
       "Classic Beige": { preset: "standard" },
       "Monochrome": { preset: "standard" },
       "Muted Pastel": { preset: "olivia" },
+      "DCX Dragon Darts": { preset: "dragonDarts" },
       "GMK Abstract": { preset: "abstract" },
+      "GMK Fox": { preset: "fox" },
+      "GMK Gorp": { preset: "gorp" },
+      "GMK Gurokawa": { preset: "gurokawa" },
       "GMK Motif": { preset: "motif" },
       "GMK Olivia": { preset: "olivia" },
       "GMK Serika": { preset: "serika" },
@@ -5103,10 +5625,22 @@
       "GMK Windbreaker": { preset: "windbreaker" },
       "GMK Analog Dreams": { preset: "analogDreams" },
       "GMK Dualshot": { preset: "dualshot" },
-      "Yuri Base": { preset: "yuriBase" },
+      "GMK Yuri": { preset: "yuriBase" },
       "GMK Laser": { preset: "laser" },
+      "GMK Mecha 01": { preset: "mecha01" },
+      "GMK Mictlan": { preset: "mictlan" },
       "GMK Nervewrecker": { preset: "nervewrecker" },
       "KC Orange": { preset: "kcOrange" },
+      "GMK Terror Below": { preset: "terrorBelow" },
+      "GMK Handarbeit": { preset: "handarbeit" },
+      "KKB Sacred Timeline": { preset: "sacredTimeline" },
+      "MW Fyrefly": { preset: "fyrefly" },
+      "MW Unmanned Playground": { preset: "playground" },
+      "KKB Cinque Terre": { preset: "cinqueTerre" },
+      "KKB Boundless Jataka": { preset: "brainAhaWarm" },
+      "KKB Shee": { preset: "everythingYouWant" },
+      "GMK Necro": { preset: "aquaSkull" },
+      "GMK Pulse": { preset: "cyanNoir" },
       "GMK British Racing Green": {
         preset: "standard",
         modifierRole: "modifier",
@@ -5126,10 +5660,16 @@
       }
     };
 
+    const colorMapCache = {};
+
     function colorMapForState(state) {
-      const map = colorwayColorMaps[state.keycapColor] || { preset: "standard" };
-      const preset = colorMapPresets[map.preset] || colorMapPresets.standard;
-      return { ...preset, ...map };
+      const name = state.keycapColor;
+      if (!colorMapCache[name]) {
+        const map = colorwayColorMaps[name] || { preset: "standard" };
+        const preset = colorMapPresets[map.preset] || colorMapPresets.standard;
+        colorMapCache[name] = { ...preset, ...map };
+      }
+      return colorMapCache[name];
     }
 
     function keyIdentifier(item, index) {
@@ -5185,6 +5725,24 @@
       return merged.perKeyOutlineColor?.[id] || merged.perKeyOutlineColor?.[item.label] || "";
     }
 
+    function keySublegendText(item, index, state) {
+      const merged = colorMapForState(state);
+      const id = keyIdentifier(item, index);
+      return merged.sublegendResolver?.(item, index, state, layoutModels[state.layout.name] || layoutModels["75%"])
+        || merged.perKeySublegendText?.[id]
+        || merged.perKeySublegendText?.[item.label]
+        || "";
+    }
+
+    function keySublegendColor(item, index, state) {
+      const merged = colorMapForState(state);
+      const id = keyIdentifier(item, index);
+      return merged.perKeySublegendColor?.[id]
+        || merged.perKeySublegendColor?.[item.label]
+        || merged.sublegendColors?.default
+        || "";
+    }
+
     const wklKeyLabels = new Set(["Win", "Super", "Meta", "Code"]);
 
     function isSecondKeyRightOfSpace(item, keys) {
@@ -5233,16 +5791,56 @@
       }[character]));
     }
 
-    function legendFontSize(item) {
+    function keyLegendGroup(item) {
+      const label = String(item.label || "").trim();
+      if (!label || item.type?.includes("blocker") || item.type?.includes("space")) return "alpha";
+      if (
+        functionKeyLabels.has(label) ||
+        modifierKeyLabels.has(label) ||
+        accentKeyLabels.has(label) ||
+        navLabels.includes(label) ||
+        arrowLabels.includes(label)
+      ) {
+        return "modifier";
+      }
+      return "alpha";
+    }
+
+    const legendBaselineUnitPx = 32.83;
+    const legendBaselineFaceFactor = 1 - ((keyboardVisualMap.profile.Cherry.topInsetX || 8) / 100) * 2;
+
+    function profileFaceFactor(state) {
+      const profile = keyboardVisualMap.profile[state.profile] || keyboardVisualMap.profile.Cherry;
+      return Math.max(.45, 1 - ((profile.topInsetX || 8) / 100) * 2);
+    }
+
+    function legendFontSize(item, legendGroup = "alpha") {
       const label = String(item.label || "").trim();
       if (!label) return 10;
       const compactLength = label.replace(/\s+/g, "").length;
+      if (legendGroup === "modifier") {
+        if (item.w <= 1.05) {
+          if (compactLength >= 5) return 5.5;
+          if (compactLength >= 4) return 5.8;
+          if (compactLength >= 3) return 7;
+        }
+        const base = item.w <= 1.05 ? 7.6 : 8.8;
+        const widthFit = (Math.max(.45, item.w) * 4.9) / Math.max(1, compactLength);
+        const size = base * Math.min(1, widthFit);
+        return Math.max(5.5, Math.min(base, size));
+      }
       const faceWidthUnits = Math.max(.45, item.w * (1 - ((item.topInsetX || 8) / 100) * 2));
       const faceHeightUnits = Math.max(.35, item.h * (1 - ((item.topInsetY || 4) + (item.topInsetBottom || 27)) / 100));
       const widthFit = (faceWidthUnits * 5.2) / Math.max(1, compactLength);
       const heightFit = faceHeightUnits < .62 ? faceHeightUnits / .62 : 1;
-      const size = 11 * Math.min(1, widthFit, heightFit);
-      return Math.max(5.8, Math.min(11, size));
+      const size = 15 * Math.min(1, widthFit, heightFit);
+      return Math.max(6.2, Math.min(15, size));
+    }
+
+    function legendFontSizeCSS(item, legendGroup = "alpha", state) {
+      const baseSize = legendFontSize(item, legendGroup);
+      const baseFaceWidth = legendBaselineUnitPx * Math.max(.45, item.w || 1) * legendBaselineFaceFactor;
+      return `${(baseSize * profileFaceFactor(state) / baseFaceWidth * 100).toFixed(3)}cqw`;
     }
 
     function visualKeyHTML(item, model, index, state) {
@@ -5252,6 +5850,8 @@
       const color = role === "blocker" ? state.caseColor : (keyColorOverride(renderItem, index, state, model) || roleColor(role, state));
       const legendColor = keyLegendColor(renderItem, index, state, role);
       const outlineColor = keyOutlineColor(renderItem, index, state);
+      const sublegend = role === "blocker" ? "" : keySublegendText(renderItem, index, state);
+      const sublegendColor = sublegend ? keySublegendColor(renderItem, index, state) : "";
       const viewPad = model.viewPad || { top: 0, left: 0 };
       const left = ((renderItem.x + viewPad.left) / model.width * 100).toFixed(3);
       const top = ((renderItem.y + viewPad.top) / model.height * 100).toFixed(3);
@@ -5259,9 +5859,12 @@
       const height = (renderItem.h / model.height * 100).toFixed(3);
       const legendStyle = role === "blocker" ? ";--legend-color:transparent" : (legendColor ? `;--legend-color:${legendColor}` : "");
       const outlineStyle = role === "blocker" ? ";--key-outline:transparent" : (outlineColor ? `;--key-outline:${outlineColor}` : "");
+      const sublegendStyle = sublegendColor ? `;--sublegend-color:${sublegendColor}` : "";
+      const sublegendHTML = sublegend ? `<span class="key-sublegend">${escapeHTML(sublegend)}</span>` : "";
       const tallNumpadClass = renderItem.h > 1.5 && ["+", "Enter"].includes(renderItem.label) ? " tall-numpad-key" : "";
-      const fontSize = legendFontSize(renderItem).toFixed(2);
-      return `<span class="visual-key ${type}${tallNumpadClass} role-${role}" data-key-role="${role}" style="--x:${left}%;--y:${top}%;--w:${width}%;--h:${height}%;--r:${renderItem.r || 0}deg;--key-color:${color};--legend-font-size:${fontSize}px${legendStyle}${outlineStyle}"><span class="key-legend">${escapeHTML(renderItem.label || "")}</span></span>`;
+      const legendGroup = keyLegendGroup(renderItem);
+      const fontSize = legendFontSizeCSS(renderItem, legendGroup, state);
+      return `<span class="visual-key ${type}${tallNumpadClass} role-${role} legend-${legendGroup}" data-key-role="${role}" data-legend-group="${legendGroup}" style="--x:${left}%;--y:${top}%;--w:${width}%;--h:${height}%;--r:${renderItem.r || 0}deg;--key-color:${color};--legend-font-size:${fontSize}${legendStyle}${outlineStyle}${sublegendStyle}"><span class="key-legend">${escapeHTML(renderItem.label || "")}</span>${sublegendHTML}</span>`;
     }
 
     function keyboardVisualHTML(state) {
