@@ -3021,6 +3021,458 @@
       }
     }
   </style>
+
+  <style id="keycap-renderer-v2">
+/*
+  Keyboard Configurator — Realistic CSS Keycap Renderer v2
+  Drop this stylesheet after the existing configurator CSS.
+  It preserves the current layout model, per-key role/color mapping, legend
+  logic, WKL blockers, material classes, and profile classes.
+*/
+
+/* ---------- Preview stage and chassis ---------- */
+.keyboard {
+  background:
+    radial-gradient(ellipse at 50% 8%, rgba(255,255,255,.48), transparent 48%),
+    linear-gradient(180deg, #e8e6e1 0%, #d7d4ce 100%);
+  box-shadow:
+    0 22px 42px rgba(38, 32, 24, .13),
+    inset 0 1px 0 rgba(255,255,255,.72),
+    inset 0 0 0 1px rgba(47, 40, 31, .14);
+}
+
+.keyboard-visual {
+  --case-edge: color-mix(in srgb, var(--case-color, #d8d2c7) 58%, black 42%);
+  --case-shadow: color-mix(in srgb, var(--case-color, #d8d2c7) 25%, black 75%);
+  --plate-color: color-mix(in srgb, var(--case-color, #d8d2c7) 10%, #17191b 90%);
+  border-color: color-mix(in srgb, var(--case-edge) 78%, transparent);
+  background:
+    radial-gradient(ellipse at 24% 2%, rgba(255,255,255,.16), transparent 46%),
+    linear-gradient(90deg, rgba(255,255,255,.07), transparent 14% 84%, rgba(0,0,0,.11)),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--case-color, #d8d2c7) 92%, white 8%) 0%,
+      var(--case-color, #d8d2c7) 44%,
+      color-mix(in srgb, var(--case-color, #d8d2c7) 83%, black 17%) 100%);
+  box-shadow:
+    0 22px 34px rgba(24, 20, 15, .18),
+    0 5px 10px rgba(24, 20, 15, .12),
+    inset 0 1px 0 rgba(255,255,255,.28),
+    inset 1px 0 0 rgba(255,255,255,.06),
+    inset -1px 0 0 rgba(0,0,0,.10),
+    inset 0 -7px 12px rgba(0,0,0,.14),
+    inset 0 0 0 1px rgba(255,255,255,.045);
+}
+
+.keyboard-visual:not(.layout-alice)::before {
+  inset: 3px;
+  border-radius: max(3px, calc(var(--case-radius, 14px) - 3px));
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.055);
+  box-shadow:
+    inset 0 0 0 1px rgba(0,0,0,.08),
+    inset 0 -2px 0 rgba(0,0,0,.08);
+}
+
+.keyboard-plate {
+  inset: clamp(9px, 2.25%, 18px);
+  border: 1px solid rgba(0,0,0,.30);
+  background:
+    radial-gradient(circle at 22% 10%, rgba(255,255,255,.035), transparent 40%),
+    linear-gradient(180deg, rgba(255,255,255,.025), rgba(0,0,0,.18)),
+    var(--plate-color);
+  box-shadow:
+    inset 0 2px 7px rgba(0,0,0,.42),
+    inset 0 -1px 0 rgba(255,255,255,.035),
+    0 1px 0 rgba(255,255,255,.08),
+    0 3px 8px rgba(0,0,0,.12);
+}
+
+/* Material-specific chassis treatment; all remain color-variable driven. */
+.keyboard-visual.material-aluminum {
+  background:
+    repeating-linear-gradient(91deg, rgba(255,255,255,.026) 0 .45px, transparent .45px 2.8px),
+    repeating-linear-gradient(1deg, rgba(0,0,0,.016) 0 .4px, transparent .4px 4.2px),
+    radial-gradient(ellipse at 24% 2%, rgba(255,255,255,.17), transparent 44%),
+    linear-gradient(90deg, rgba(255,255,255,.055), transparent 16% 84%, rgba(0,0,0,.10)),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--case-color, #d8d2c7) 91%, white 9%),
+      var(--case-color, #d8d2c7) 48%,
+      color-mix(in srgb, var(--case-color, #d8d2c7) 82%, black 18%));
+  background-blend-mode: soft-light, soft-light, normal, normal, normal;
+}
+
+.keyboard-visual.material-abs-plastic {
+  background:
+    radial-gradient(circle at 28% 32%, rgba(255,255,255,.045) 0 .42px, transparent .78px) 0 0 / 3px 3px,
+    radial-gradient(circle at 72% 68%, rgba(0,0,0,.025) 0 .35px, transparent .72px) 1px 1px / 4px 4px,
+    radial-gradient(ellipse at 24% 4%, rgba(255,255,255,.13), transparent 46%),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--case-color, #d8d2c7) 94%, white 6%),
+      color-mix(in srgb, var(--case-color, #d8d2c7) 97%, #78736c 3%) 52%,
+      color-mix(in srgb, var(--case-color, #d8d2c7) 88%, black 12%));
+  box-shadow:
+    0 20px 32px rgba(24,20,15,.16),
+    0 5px 10px rgba(24,20,15,.10),
+    inset 0 1px 0 rgba(255,255,255,.20),
+    inset 0 -6px 10px rgba(0,0,0,.10),
+    inset 0 0 0 1px rgba(255,255,255,.04);
+}
+
+.keyboard-visual.material-acrylic-polycarbonate {
+  background:
+    linear-gradient(125deg, rgba(255,255,255,.22), transparent 26% 74%, rgba(0,0,0,.07)),
+    radial-gradient(ellipse at 22% 4%, rgba(255,255,255,.26), transparent 46%),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--case-color, #dce9e6) 70%, white 30%),
+      color-mix(in srgb, var(--case-color, #dce9e6) 88%, white 12%) 48%,
+      color-mix(in srgb, var(--case-color, #dce9e6) 78%, black 22%));
+  border-color: color-mix(in srgb, var(--case-color, #dce9e6) 58%, rgba(28,33,36,.58));
+  box-shadow:
+    0 22px 34px rgba(26,32,35,.16),
+    0 5px 10px rgba(26,32,35,.10),
+    inset 0 1px 0 rgba(255,255,255,.36),
+    inset 10px 0 20px rgba(255,255,255,.08),
+    inset -10px 0 20px rgba(0,0,0,.05),
+    inset 0 -9px 16px rgba(0,0,0,.10),
+    inset 0 0 0 1px rgba(255,255,255,.08);
+}
+
+.keyboard-visual.material-wood {
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.07), transparent 18% 82%, rgba(0,0,0,.13)),
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(0,0,0,.17)),
+    var(--wood-grain-image, repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, rgba(0,0,0,.025) 1px 3px)),
+    var(--case-color, #b88a4f);
+  background-size: auto, auto, 100% 155%, auto;
+  background-position: center;
+  background-blend-mode: normal, normal, multiply, normal;
+}
+
+/* Alice uses ::before as the shaped case shell, so it gets a parallel material pass. */
+.keyboard-visual.layout-alice::before {
+  background:
+    radial-gradient(ellipse at 24% 8%, rgba(255,255,255,.15), transparent 44%),
+    linear-gradient(90deg, rgba(255,255,255,.06), transparent 16% 84%, rgba(0,0,0,.10)),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--case-color, #d8d2c7) 92%, white 8%),
+      var(--case-color, #d8d2c7) 48%,
+      color-mix(in srgb, var(--case-color, #d8d2c7) 83%, black 17%));
+  border-color: color-mix(in srgb, var(--case-color, #d8d2c7) 56%, black 44%);
+  box-shadow:
+    0 20px 32px rgba(24,20,15,.17),
+    0 5px 10px rgba(24,20,15,.10),
+    inset 0 1px 0 rgba(255,255,255,.25),
+    inset 0 -7px 12px rgba(0,0,0,.13),
+    inset 0 0 0 1px rgba(255,255,255,.045);
+}
+
+.keyboard-visual.layout-alice .keyboard-plate {
+  background:
+    radial-gradient(circle at 22% 10%, rgba(255,255,255,.03), transparent 40%),
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.16)),
+    var(--plate-color);
+  border: 1px solid rgba(0,0,0,.28);
+  box-shadow:
+    inset 0 2px 7px rgba(0,0,0,.38),
+    inset 0 -1px 0 rgba(255,255,255,.03),
+    0 1px 0 rgba(255,255,255,.07);
+}
+
+/* ---------- Layered modular keycap assembly ---------- */
+.visual-key {
+  --cap-color: color-mix(in srgb, var(--key-color, var(--alpha-color)) 95%, #817b72 5%);
+  --cap-face-light: color-mix(in srgb, var(--cap-color) 90%, white 10%);
+  --cap-face-mid: color-mix(in srgb, var(--cap-color) 97%, white 3%);
+  --cap-side-light: color-mix(in srgb, var(--cap-color) 88%, white 12%);
+  --cap-side-mid: color-mix(in srgb, var(--cap-color) 90%, black 10%);
+  --cap-side-dark: color-mix(in srgb, var(--cap-color) 80%, black 20%);
+  --cap-edge: color-mix(in srgb, var(--cap-color) 74%, black 26%);
+  --cap-edge-soft: color-mix(in srgb, var(--cap-color) 82%, black 18%);
+  --cap-cast-shadow: rgba(12, 10, 8, .24);
+
+  /* Container-query units keep the physical bevel width nearly constant on
+     1u, modifier, spacebar, and numpad keys. */
+  --cap-face-x: clamp(2.2px, 8.5cqw, 5px);
+  --cap-face-top: clamp(1.8px, 5.5cqw, 3.6px);
+  --cap-face-bottom: clamp(5px, 18cqw, 8px);
+  --cap-base-radius: 3px;
+  --cap-face-radius: 3px;
+  --cap-shadow-depth: 2px;
+  --cap-front-opacity: .31;
+  --cap-cup-opacity: .07;
+  --cap-body-taper: clamp(1px, 2.5cqw, 2px);
+
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--legend-color, #28231d);
+  text-shadow: none;
+  overflow: visible;
+  isolation: isolate;
+  filter: none;
+}
+
+.keycap-body,
+.keycap-face {
+  position: absolute;
+  pointer-events: none;
+}
+
+.keycap-body {
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid var(--key-outline, var(--cap-edge-soft));
+  border-radius: var(--cap-base-radius);
+  background:
+    linear-gradient(to bottom right,
+      transparent calc(50% - .4px),
+      color-mix(in srgb, var(--cap-edge) 62%, transparent) calc(50% - .4px) calc(50% + .4px),
+      transparent calc(50% + .4px))
+      left bottom / var(--cap-face-x) var(--cap-face-bottom) no-repeat,
+    linear-gradient(to bottom left,
+      transparent calc(50% - .4px),
+      color-mix(in srgb, var(--cap-edge) 68%, transparent) calc(50% - .4px) calc(50% + .4px),
+      transparent calc(50% + .4px))
+      right bottom / var(--cap-face-x) var(--cap-face-bottom) no-repeat,
+    linear-gradient(90deg,
+      var(--cap-side-light) 0 var(--cap-face-x),
+      transparent var(--cap-face-x) calc(100% - var(--cap-face-x)),
+      var(--cap-side-dark) calc(100% - var(--cap-face-x)) 100%),
+    linear-gradient(180deg,
+      var(--cap-face-light) 0%,
+      var(--cap-color) 33%,
+      var(--cap-side-mid) 66%,
+      var(--cap-side-dark) 100%);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--cap-color) 75%, black 25%),
+    0 var(--cap-shadow-depth) 0 color-mix(in srgb, var(--cap-color) 61%, black 39%),
+    0 calc(var(--cap-shadow-depth) + 2px) 5px var(--cap-cast-shadow),
+    inset 1px 1px 0 rgba(255,255,255,.11),
+    inset -1px 0 0 rgba(0,0,0,.08),
+    inset 0 -1px 0 rgba(0,0,0,.13);
+}
+
+.keycap-body::before,
+.keycap-body::after,
+.keycap-face::before,
+.keycap-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Fine, low-contrast plastic grain. */
+.keycap-body::before {
+  background:
+    radial-gradient(circle at 24% 26%, rgba(255,255,255,.055) 0 .3px, transparent .64px) 0 0 / 3px 3px,
+    radial-gradient(circle at 72% 70%, rgba(0,0,0,.025) 0 .28px, transparent .62px) 1px 1px / 4px 4px,
+    linear-gradient(128deg, rgba(255,255,255,.07), transparent 24% 76%, rgba(0,0,0,.06));
+  opacity: .48;
+}
+
+/* Front wall: visible enough to communicate height, but never a black band. */
+.keycap-body::after {
+  inset: auto 0 0;
+  height: var(--cap-face-bottom);
+  border-radius: 0 0 var(--cap-base-radius) var(--cap-base-radius);
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.04), transparent 17% 82%, rgba(0,0,0,.12)),
+    radial-gradient(ellipse at 50% 100%, rgba(0,0,0,.15), transparent 72%),
+    linear-gradient(180deg, transparent, rgba(0,0,0,.17));
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,.12);
+  opacity: var(--cap-front-opacity);
+}
+
+.keycap-face {
+  z-index: 1;
+  inset: var(--cap-face-top) var(--cap-face-x) var(--cap-face-bottom);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--cap-color) 88%, black 12%);
+  border-radius: var(--cap-face-radius);
+  background:
+    linear-gradient(180deg,
+      var(--cap-face-light) 0%,
+      var(--cap-face-mid) 52%,
+      var(--cap-color) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.20),
+    inset 1px 0 0 rgba(255,255,255,.055),
+    inset -1px 0 0 rgba(0,0,0,.045),
+    inset 0 -1px 0 rgba(0,0,0,.095),
+    0 1px 1px rgba(0,0,0,.09);
+}
+
+.keycap-face::before {
+  background:
+    radial-gradient(circle at 21% 23%, rgba(255,255,255,.05) 0 .28px, transparent .60px) 0 0 / 3px 3px,
+    radial-gradient(circle at 76% 70%, rgba(0,0,0,.022) 0 .25px, transparent .56px) 1px 1px / 4px 4px,
+    linear-gradient(116deg, rgba(255,255,255,.10), transparent 28% 76%, rgba(0,0,0,.05));
+  opacity: .50;
+}
+
+/* Spherical profiles increase this vignette to suggest a shallow cup. */
+.keycap-face::after {
+  background:
+    radial-gradient(ellipse at 50% 42%,
+      rgba(255,255,255,.035) 0 26%,
+      transparent 48%,
+      rgba(0,0,0,.12) 100%);
+  opacity: var(--cap-cup-opacity);
+}
+
+/* ---------- Profile silhouettes ---------- */
+.keyboard-visual.profile-cherry .visual-key {
+  --cap-face-x: clamp(2.2px, 8.5cqw, 5px);
+  --cap-face-top: clamp(1.8px, 5.5cqw, 3.6px);
+  --cap-face-bottom: clamp(5px, 18cqw, 8px);
+  --cap-base-radius: 3px;
+  --cap-face-radius: 3px;
+  --cap-shadow-depth: 2px;
+  --cap-front-opacity: .31;
+  --cap-cup-opacity: .06;
+}
+
+.keyboard-visual.profile-oem .visual-key {
+  --cap-face-x: clamp(2.2px, 8.5cqw, 5px);
+  --cap-face-top: clamp(1.7px, 5cqw, 3.4px);
+  --cap-face-bottom: clamp(6px, 21cqw, 9px);
+  --cap-base-radius: 3px;
+  --cap-face-radius: 3px;
+  --cap-shadow-depth: 3px;
+  --cap-front-opacity: .35;
+  --cap-cup-opacity: .07;
+}
+
+.keyboard-visual.profile-mtnu .visual-key {
+  --cap-face-x: clamp(2.5px, 9cqw, 5.5px);
+  --cap-face-top: clamp(1.9px, 5.5cqw, 3.8px);
+  --cap-face-bottom: clamp(5px, 18cqw, 8px);
+  --cap-base-radius: 3px;
+  --cap-face-radius: clamp(5px, 23cqw, 10px);
+  --cap-shadow-depth: 2px;
+  --cap-front-opacity: .29;
+  --cap-cup-opacity: .38;
+}
+
+.keyboard-visual.profile-kam-xda-moa .visual-key {
+  --cap-face-x: clamp(2.3px, 8cqw, 5px);
+  --cap-face-top: clamp(1.8px, 5.5cqw, 3.8px);
+  --cap-face-bottom: clamp(4px, 15cqw, 7px);
+  --cap-base-radius: clamp(6px, 22cqw, 10px);
+  --cap-face-radius: clamp(7px, 28cqw, 12px);
+  --cap-shadow-depth: 2px;
+  --cap-front-opacity: .27;
+  --cap-cup-opacity: .24;
+}
+
+.keyboard-visual.profile-sa-kat .visual-key {
+  --cap-face-x: clamp(2.7px, 10cqw, 6px);
+  --cap-face-top: clamp(1.7px, 5cqw, 3.5px);
+  --cap-face-bottom: clamp(7px, 24cqw, 11px);
+  --cap-base-radius: 3px;
+  --cap-face-radius: clamp(4px, 17cqw, 7px);
+  --cap-shadow-depth: 4px;
+  --cap-front-opacity: .38;
+  --cap-cup-opacity: .34;
+}
+
+/* Layout-aware geometry for non-1u caps. */
+.visual-key.key-wide {
+  --cap-face-x: clamp(2.5px, 5cqw, 5.5px);
+}
+
+.visual-key.key-extra-wide,
+.visual-key.space {
+  --cap-face-x: clamp(3px, 2.8cqw, 6px);
+}
+
+.visual-key.space {
+  --cap-face-top: clamp(2px, 2.8cqw, 4px);
+  --cap-face-bottom: clamp(5px, 4.2cqw, 8px);
+  --cap-face-radius: max(3px, var(--cap-base-radius));
+  --cap-cup-opacity: .03;
+}
+
+.visual-key.tall-numpad-key {
+  --cap-face-x: clamp(2.5px, 9cqw, 5px);
+  --cap-face-top: clamp(2px, 6cqw, 4px);
+  --cap-face-bottom: clamp(2px, 7cqw, 4px);
+}
+
+.visual-key.tall-numpad-key .keycap-body::after {
+  height: var(--cap-face-bottom);
+}
+
+/* Keep special outline colorways and case-derived accents data driven. */
+.visual-key.case-accent {
+  --cap-color: color-mix(in srgb, var(--key-color, var(--case-color)) 95%, #817b72 5%);
+}
+
+.visual-key.blocker .keycap-body,
+.visual-key.blocker .keycap-face,
+.visual-key.blocker::before,
+.visual-key.blocker::after {
+  display: none;
+}
+
+/* Disable the legacy pseudo-element keycap layers when the new child layers
+   are present. */
+.visual-key::before,
+.visual-key::after {
+  display: none;
+}
+
+/* ---------- Legends ---------- */
+.key-legend {
+  z-index: 3;
+  inset:
+    calc(var(--cap-face-top) + 2px)
+    calc(var(--cap-face-x) + 3px)
+    calc(var(--cap-face-bottom) + 2px);
+  color: var(--legend-color, #28231d);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -.01em;
+  text-shadow: 0 .35px 0 color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.visual-key.legend-modifier .key-legend {
+  inset:
+    calc(var(--cap-face-top) + 2px)
+    calc(var(--cap-face-x) + 3px)
+    calc(var(--cap-face-bottom) + 2px);
+  --legend-align-items: center;
+}
+
+.keyboard-visual.profile-mtnu .visual-key.legend-alpha .key-legend,
+.keyboard-visual.profile-kam-xda-moa .visual-key.legend-alpha .key-legend {
+  transform: none;
+}
+
+.key-sublegend {
+  z-index: 4;
+  right: calc(var(--cap-face-x) + 5px);
+  bottom: calc(var(--cap-face-bottom) + 5px);
+  text-shadow: none;
+}
+
+@media (max-width: 760px) {
+  .visual-key {
+    --cap-shadow-depth: 1px;
+  }
+
+  .key-legend {
+    inset:
+      calc(var(--cap-face-top) + 1px)
+      calc(var(--cap-face-x) + 2px)
+      calc(var(--cap-face-bottom) + 1px);
+  }
+}
+
+  </style>
 </head>
 <body>
   <main class="page">
@@ -3286,18 +3738,11 @@
     let emailJsInitialized = false;
     let emailJsLoadPromise = null;
 
-    function siteRootPath() {
-      const path = window.location.pathname;
-      if (path.endsWith("/")) return path;
-      if (path.endsWith(".html")) return path.slice(0, path.lastIndexOf("/") + 1);
-      return `${path}/`;
-    }
-
     function installInternalNavigation() {
       document.querySelectorAll('a[href^="Pages/"]').forEach(link => {
         link.addEventListener("click", event => {
           event.preventDefault();
-          window.location.href = `${window.location.origin}${siteRootPath()}${link.getAttribute("href")}`;
+          window.location.href = new URL(link.getAttribute("href"), window.location.href).href;
         });
       });
     }
@@ -3333,7 +3778,7 @@
       { name: "TKL/80%", copy: "No numpad, familiar arrows and nav cluster.", keys: 87, kind: "tkl", previewClass: "layout-tkl", src: "Reference%20Library/layout-tkl-80.png" },
       { name: "75%", copy: "Function row plus arrows in a tighter footprint.", keys: 84, kind: "75", previewClass: "layout-75", src: "Reference%20Library/layout-75-exploded.png" },
       { name: "1800", copy: "Compact full-size style with numpad but no function row.", keys: 81, kind: "96", previewClass: "layout-75", src: "Reference%20Library/layout-1800.png" },
-      { name: "FRL", copy: "Function-row-less TKL-style layout with nav and arrows.", keys: 72, kind: "tkl", previewClass: "layout-tkl", src: "Reference%20Library/layout-tkl-80.png" },
+      { name: "FRL", copy: "Function-row-less TKL-style layout with nav and arrows.", keys: 72, kind: "tkl", previewClass: "layout-tkl", src: "Reference%20Library/layout-frl.svg" },
       { name: "65%", copy: "Compact typing with arrows and a few nav keys.", keys: 68, kind: "65", previewClass: "layout-65", src: "Reference%20Library/65%25.png" },
       { name: "60%", copy: "Small classic custom format; layers do the heavy lifting.", keys: 61, kind: "60", previewClass: "layout-60", src: "Reference%20Library/60%25.png" },
       { name: "HHKB", copy: "60% family with empty bottom-row corners and two keys on either side of the spacebar.", keys: 60, kind: "hhkb", previewClass: "layout-hhkb", src: "Reference%20Library/HKKB.png" },
@@ -4660,7 +5105,7 @@
       if (state.profile === "MTNU") {
         notes.push("MTNU profile keycaps are high-end only right now because GMK is the only manufacturer.");
       }
-      if (["MOA", "OEM", "MTNU"].includes(state.profile)) {
+      if (["KAM / XDA / MOA", "OEM", "MTNU"].includes(state.profile)) {
         notes.push(`${state.profile} profile may limit colorway sourcing; not every keycap colorway is available in the desired profile.`);
       }
       if (state.switchType === "Hall Effect") {
@@ -5795,6 +6240,7 @@
       const label = String(item.label || "").trim();
       if (!label || item.type?.includes("blocker") || item.type?.includes("space")) return "alpha";
       if (
+        item.type?.includes("mod") ||
         functionKeyLabels.has(label) ||
         modifierKeyLabels.has(label) ||
         accentKeyLabels.has(label) ||
@@ -5862,9 +6308,14 @@
       const sublegendStyle = sublegendColor ? `;--sublegend-color:${sublegendColor}` : "";
       const sublegendHTML = sublegend ? `<span class="key-sublegend">${escapeHTML(sublegend)}</span>` : "";
       const tallNumpadClass = renderItem.h > 1.5 && ["+", "Enter"].includes(renderItem.label) ? " tall-numpad-key" : "";
+      const widthClass = renderItem.type?.includes("space") || renderItem.w >= 4
+        ? " key-extra-wide"
+        : renderItem.w > 1.15
+          ? " key-wide"
+          : " key-1u";
       const legendGroup = keyLegendGroup(renderItem);
       const fontSize = legendFontSizeCSS(renderItem, legendGroup, state);
-      return `<span class="visual-key ${type}${tallNumpadClass} role-${role} legend-${legendGroup}" data-key-role="${role}" data-legend-group="${legendGroup}" style="--x:${left}%;--y:${top}%;--w:${width}%;--h:${height}%;--r:${renderItem.r || 0}deg;--key-color:${color};--legend-font-size:${fontSize}${legendStyle}${outlineStyle}${sublegendStyle}"><span class="key-legend">${escapeHTML(renderItem.label || "")}</span>${sublegendHTML}</span>`;
+      return `<span class="visual-key ${type}${tallNumpadClass}${widthClass} role-${role} legend-${legendGroup}" data-key-role="${role}" data-legend-group="${legendGroup}" data-key-width="${renderItem.w}" style="--x:${left}%;--y:${top}%;--w:${width}%;--h:${height}%;--r:${renderItem.r || 0}deg;--key-color:${color};--legend-font-size:${fontSize}${legendStyle}${outlineStyle}${sublegendStyle}"><span class="keycap-body" aria-hidden="true"></span><span class="keycap-face" aria-hidden="true"></span><span class="key-legend">${escapeHTML(renderItem.label || "")}</span>${sublegendHTML}</span>`;
     }
 
     function keyboardVisualHTML(state) {
