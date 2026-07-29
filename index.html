@@ -3044,7 +3044,39 @@
 .keyboard-visual {
   --case-edge: color-mix(in srgb, var(--case-color, #d8d2c7) 58%, black 42%);
   --case-shadow: color-mix(in srgb, var(--case-color, #d8d2c7) 25%, black 75%);
-  --plate-color: color-mix(in srgb, var(--case-color, #d8d2c7) 10%, #17191b 90%);
+
+  /*
+    The plate is derived from the selected case rather than from the keycap
+    palette. Pulling the case color toward a middle neutral makes light cases
+    darker while gently lifting very dark cases, preserving separation from
+    both the chassis and dark keycaps.
+  */
+  --plate-neutral: #666a6d;
+  --plate-base: color-mix(in srgb, var(--case-color, #d8d2c7) 70%, var(--plate-neutral) 30%);
+  --plate-color: color-mix(in srgb, var(--plate-base) 92%, black 8%);
+  --plate-highlight: color-mix(in srgb, var(--plate-color) 82%, white 18%);
+  --plate-lowlight: color-mix(in srgb, var(--plate-color) 82%, black 18%);
+  --plate-edge: color-mix(in srgb, var(--plate-color) 68%, black 32%);
+  --plate-inset-shadow: color-mix(in srgb, var(--plate-color) 46%, black 54%);
+  --plate-background:
+    radial-gradient(circle at 22% 10%, color-mix(in srgb, var(--plate-highlight) 38%, transparent), transparent 42%),
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--plate-highlight) 18%, transparent),
+      transparent 18% 82%,
+      color-mix(in srgb, var(--plate-lowlight) 20%, transparent)),
+    linear-gradient(180deg,
+      var(--plate-highlight) 0%,
+      var(--plate-color) 42%,
+      var(--plate-lowlight) 100%);
+  --plate-background-size: auto;
+  --plate-background-position: center;
+  --plate-background-blend: normal;
+  --plate-box-shadow:
+    inset 0 2px 7px color-mix(in srgb, var(--plate-inset-shadow) 72%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--plate-highlight) 30%, transparent),
+    0 1px 0 color-mix(in srgb, var(--plate-highlight) 26%, transparent),
+    0 3px 8px rgba(0,0,0,.12);
+
   border-color: color-mix(in srgb, var(--case-edge) 78%, transparent);
   background:
     radial-gradient(ellipse at 24% 2%, rgba(255,255,255,.16), transparent 46%),
@@ -3075,20 +3107,30 @@
 
 .keyboard-plate {
   inset: clamp(9px, 2.25%, 18px);
-  border: 1px solid rgba(0,0,0,.30);
-  background:
-    radial-gradient(circle at 22% 10%, rgba(255,255,255,.035), transparent 40%),
-    linear-gradient(180deg, rgba(255,255,255,.025), rgba(0,0,0,.18)),
-    var(--plate-color);
-  box-shadow:
-    inset 0 2px 7px rgba(0,0,0,.42),
-    inset 0 -1px 0 rgba(255,255,255,.035),
-    0 1px 0 rgba(255,255,255,.08),
-    0 3px 8px rgba(0,0,0,.12);
+  border: 1px solid var(--plate-edge);
+  background: var(--plate-background);
+  background-size: var(--plate-background-size);
+  background-position: var(--plate-background-position);
+  background-blend-mode: var(--plate-background-blend);
+  box-shadow: var(--plate-box-shadow);
 }
 
 /* Material-specific chassis treatment; all remain color-variable driven. */
 .keyboard-visual.material-aluminum {
+  --plate-neutral: #62676b;
+  --plate-base: color-mix(in srgb, var(--case-color, #d8d2c7) 70%, var(--plate-neutral) 30%);
+  --plate-color: color-mix(in srgb, var(--plate-base) 92%, black 8%);
+  --plate-background:
+    repeating-linear-gradient(91deg,
+      color-mix(in srgb, var(--plate-highlight) 20%, transparent) 0 .45px,
+      transparent .45px 3px),
+    repeating-linear-gradient(1deg,
+      color-mix(in srgb, var(--plate-lowlight) 12%, transparent) 0 .4px,
+      transparent .4px 4.5px),
+    radial-gradient(ellipse at 24% 5%, color-mix(in srgb, var(--plate-highlight) 34%, transparent), transparent 45%),
+    linear-gradient(180deg, var(--plate-highlight), var(--plate-color) 48%, var(--plate-lowlight));
+  --plate-background-blend: soft-light, soft-light, normal, normal;
+
   background:
     repeating-linear-gradient(91deg, rgba(255,255,255,.026) 0 .45px, transparent .45px 2.8px),
     repeating-linear-gradient(1deg, rgba(0,0,0,.016) 0 .4px, transparent .4px 4.2px),
@@ -3102,6 +3144,20 @@
 }
 
 .keyboard-visual.material-abs-plastic {
+  --plate-neutral: #77736c;
+  --plate-base: color-mix(in srgb, var(--case-color, #d8d2c7) 74%, var(--plate-neutral) 26%);
+  --plate-color: color-mix(in srgb, var(--plate-base) 93%, black 7%);
+  --plate-background:
+    radial-gradient(circle at 28% 32%, color-mix(in srgb, var(--plate-highlight) 28%, transparent) 0 .38px, transparent .78px) 0 0 / 3px 3px,
+    radial-gradient(circle at 72% 68%, color-mix(in srgb, var(--plate-lowlight) 20%, transparent) 0 .32px, transparent .72px) 1px 1px / 4px 4px,
+    radial-gradient(ellipse at 22% 8%, color-mix(in srgb, var(--plate-highlight) 30%, transparent), transparent 46%),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--plate-color) 88%, var(--plate-highlight) 12%),
+      var(--plate-color) 48%,
+      var(--plate-lowlight));
+  --plate-background-size: 3px 3px, 4px 4px, auto, auto;
+  --plate-background-position: 0 0, 1px 1px, center, center;
+
   background:
     radial-gradient(circle at 28% 32%, rgba(255,255,255,.045) 0 .42px, transparent .78px) 0 0 / 3px 3px,
     radial-gradient(circle at 72% 68%, rgba(0,0,0,.025) 0 .35px, transparent .72px) 1px 1px / 4px 4px,
@@ -3119,6 +3175,26 @@
 }
 
 .keyboard-visual.material-acrylic-polycarbonate {
+  --plate-neutral: #7b888e;
+  --plate-base: color-mix(in srgb, var(--case-color, #dce9e6) 70%, var(--plate-neutral) 30%);
+  --plate-color: color-mix(in srgb, var(--plate-base) 96%, black 4%);
+  --plate-background:
+    linear-gradient(125deg, rgba(255,255,255,.14), transparent 28% 72%, rgba(0,0,0,.05)),
+    radial-gradient(ellipse at 22% 8%, color-mix(in srgb, var(--plate-highlight) 42%, transparent), transparent 48%),
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--plate-highlight) 20%, transparent),
+      transparent 30% 70%,
+      color-mix(in srgb, var(--plate-lowlight) 12%, transparent)),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--plate-color) 78%, white 22%),
+      var(--plate-color) 48%,
+      color-mix(in srgb, var(--plate-color) 90%, black 10%));
+  --plate-box-shadow:
+    inset 0 2px 6px color-mix(in srgb, var(--plate-inset-shadow) 50%, transparent),
+    inset 0 -1px 0 rgba(255,255,255,.10),
+    0 1px 0 rgba(255,255,255,.12),
+    0 3px 8px rgba(20,26,30,.09);
+
   background:
     linear-gradient(125deg, rgba(255,255,255,.22), transparent 26% 74%, rgba(0,0,0,.07)),
     radial-gradient(ellipse at 22% 4%, rgba(255,255,255,.26), transparent 46%),
@@ -3138,6 +3214,21 @@
 }
 
 .keyboard-visual.material-wood {
+  --plate-neutral: #4a3022;
+  --plate-base: color-mix(in srgb, var(--case-color, #b88a4f) 76%, var(--plate-neutral) 24%);
+  --plate-color: color-mix(in srgb, var(--plate-base) 92%, black 8%);
+  --plate-background:
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--plate-highlight) 18%, transparent),
+      transparent 18% 82%,
+      color-mix(in srgb, var(--plate-lowlight) 20%, transparent)),
+    linear-gradient(180deg, color-mix(in srgb, var(--plate-highlight) 72%, transparent), rgba(0,0,0,.12)),
+    var(--wood-grain-image, repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, rgba(0,0,0,.035) 1px 3px)),
+    linear-gradient(180deg, var(--plate-highlight), var(--plate-color) 44%, var(--plate-lowlight));
+  --plate-background-size: auto, auto, 100% 160%, auto;
+  --plate-background-position: center;
+  --plate-background-blend: normal, normal, multiply, normal;
+
   background:
     linear-gradient(90deg, rgba(255,255,255,.07), transparent 18% 82%, rgba(0,0,0,.13)),
     linear-gradient(180deg, rgba(255,255,255,.12), rgba(0,0,0,.17)),
@@ -3167,15 +3258,12 @@
 }
 
 .keyboard-visual.layout-alice .keyboard-plate {
-  background:
-    radial-gradient(circle at 22% 10%, rgba(255,255,255,.03), transparent 40%),
-    linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.16)),
-    var(--plate-color);
-  border: 1px solid rgba(0,0,0,.28);
-  box-shadow:
-    inset 0 2px 7px rgba(0,0,0,.38),
-    inset 0 -1px 0 rgba(255,255,255,.03),
-    0 1px 0 rgba(255,255,255,.07);
+  background: var(--plate-background);
+  background-size: var(--plate-background-size);
+  background-position: var(--plate-background-position);
+  background-blend-mode: var(--plate-background-blend);
+  border: 1px solid var(--plate-edge);
+  box-shadow: var(--plate-box-shadow);
 }
 
 /* ---------- Layered modular keycap assembly ---------- */
