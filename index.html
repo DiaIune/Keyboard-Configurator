@@ -3561,6 +3561,130 @@
 }
 
   </style>
+
+  <style id="preview-spacing-media-fix">
+    /* These three models were taller than their fixed preview viewport.
+       Give their existing generated geometry a real shadow/bottom landing area. */
+    .keyboard[data-layout="tkl-80"] { aspect-ratio: 16 / 6.05; }
+    .keyboard[data-layout="75"] { aspect-ratio: 16 / 6.75; }
+    .keyboard[data-layout="alice-arisu"] { aspect-ratio: 16 / 7; }
+
+    /* Current-choice media uses one caption-free 16:9 system. */
+    .selector-summary-media figure {
+      aspect-ratio: 16 / 9;
+      min-height: 0;
+      padding: 0;
+      overflow: hidden;
+      isolation: isolate;
+      display: grid;
+      grid-template-rows: 1fr;
+      place-items: center;
+      gap: 0;
+    }
+
+    .selector-summary-media figure:nth-child(1) {
+      background:
+        linear-gradient(180deg,
+          color-mix(in srgb, var(--app-readable-card) 94%, white 6%),
+          color-mix(in srgb, var(--app-readable-card-2) 90%, var(--app-blue) 10%));
+    }
+
+    .selector-summary-media figure:nth-child(2),
+    .profile-preview-frame {
+      background:
+        linear-gradient(180deg,
+          color-mix(in srgb, var(--image-frame, #1f1e1c) 92%, white 8%),
+          color-mix(in srgb, var(--image-frame, #1f1e1c) 90%, black 10%));
+    }
+
+    .selector-summary-media figure:nth-child(3),
+    .switch-preview-card .switch-visual {
+      background:
+        linear-gradient(180deg,
+          color-mix(in srgb, var(--app-readable-card) 96%, white 4%),
+          color-mix(in srgb, var(--app-readable-card-2) 94%, black 6%));
+    }
+
+    .selector-summary-media img {
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      min-height: 0;
+      object-position: center;
+      display: block;
+      border-radius: inherit;
+      opacity: 1;
+    }
+
+    .selector-summary-media figure:nth-child(1) img {
+      object-fit: contain;
+      padding: 4px;
+      filter: saturate(.9) contrast(1.02);
+    }
+
+    .selector-summary-media figure:nth-child(2) img {
+      object-fit: cover;
+      filter: saturate(.88) contrast(1.02) brightness(.98);
+    }
+
+    .selector-summary-media figure:nth-child(3) img {
+      object-fit: cover;
+      filter: saturate(.92) contrast(.98) brightness(.995);
+    }
+
+    /* Profile and switch source images are both 1672 × 941. Matching the
+       frame geometry removes the old inset letterbox and keeps both cards even. */
+    .profile-preview,
+    .switch-preview-card {
+      grid-template-columns: minmax(0, .42fr) minmax(176px, .58fr);
+    }
+
+    .profile-preview-frame,
+    .switch-preview-card .switch-visual {
+      width: 100%;
+      height: auto;
+      min-height: 0;
+      aspect-ratio: 1672 / 941;
+      padding: 0;
+    }
+
+    .profile-preview .profile-preview-frame img {
+      position: static;
+      inset: auto;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: none;
+      max-height: none;
+      object-fit: cover;
+      object-position: center;
+      border-radius: inherit;
+      opacity: 1;
+      filter: saturate(.88) contrast(1.02) brightness(.98);
+    }
+
+    .switch-preview-card .switch-image {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      max-height: none;
+      object-fit: cover;
+      object-position: center;
+      border-radius: inherit;
+      opacity: 1;
+      filter: saturate(.92) contrast(.98) brightness(.995);
+    }
+
+    @media (max-width: 760px) {
+      .profile-preview,
+      .switch-preview-card {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "title"
+          "frame"
+          "copy";
+      }
+    }
+  </style>
 </head>
 <body>
   <main class="page">
@@ -5155,9 +5279,9 @@
       const switchImageKey = state.sound === "Clicky" ? "Clicky" : state.switchType;
       const profileThumb = profileMedia[state.profile];
       const mediaChoices = [
-        ["Layout", state.layout.src, `${state.layout.name} layout preview`],
-        ["Profile", profileThumb?.src, `${state.profile} profile preview`],
-        ["Switch", switchMedia[switchImageKey], `${state.switchType} switch preview`]
+        [state.layout.src, `${state.layout.name} layout preview`],
+        [profileThumb?.src, `${state.profile} profile preview`],
+        [switchMedia[switchImageKey], `${state.switchType} switch preview`]
       ];
       const choices = [
         ["Layout", `${state.layout.name} (${state.layout.keys}-Key)`],
@@ -5172,10 +5296,9 @@
       setHTML("selectorSummary", ui.selectorSummary, `
         <h2 class="selector-summary-title">Current Choices</h2>
         <div class="selector-summary-media" aria-hidden="true">
-          ${mediaChoices.map(([label, src, alt]) => `
+          ${mediaChoices.map(([src, alt]) => `
             <figure>
               ${src ? `<img src="${src}" alt="${alt}" loading="lazy" decoding="async">` : ""}
-              <figcaption>${label}</figcaption>
             </figure>
           `).join("")}
         </div>
@@ -6423,6 +6546,7 @@
       const { layout, palette } = state;
       const caseHex = state.caseColor;
       els.keyboard.className = `keyboard ${layout.previewClass}`;
+      els.keyboard.dataset.layout = cssClassToken(layout.name);
       setHTML("keyboard", els.keyboard, keyboardVisualHTML(state));
       setHTML("keycapSwatches", ui.keycapSwatches, swatchHTML(palette.preview));
       setHTML("caseSwatches", ui.caseSwatches, swatchHTML([caseHex], true));
